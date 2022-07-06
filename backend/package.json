@@ -1,0 +1,9 @@
+{
+  "name": "quickk",
+  "version": "1.0.0",
+  "description": "Open-source microblogging platform",
+  "main": "blog.js",
+  "repository": "https://github.com/bossoncode/quickk",
+  "author": "Akinkunmi",
+  "license": "MIT"
+}
