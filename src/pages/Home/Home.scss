@@ -1,0 +1,88 @@
+@import "../../colors";
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.home {
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $accent;
+    margin: auto;
+    padding: 20px;
+    .logo {
+      img {
+        width: 150px;
+      }
+    }
+    .ctas {
+      a {
+        font-size: 18px;
+        margin: 0 10px;
+        text-decoration: none;
+        color: $white;
+        font-weight: 600;
+        &.signup-btn {
+          background-color: $white;
+          color: $accent;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          transition: all 0.3s ease-in-out;
+          &:hover {
+            background-color: $accent-dark;
+            color: $white;
+            transition: all 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+  .hero {
+    background-color: $accent;
+    color: $white;
+    min-height: 90vh;
+    .hero-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      h1 {
+        font-size: 80px;
+        font-weight: 500;
+        color: $white;
+        margin-bottom: 20px;
+        text-align: center;
+        max-width: 800px;
+        margin: auto;
+      }
+      p {
+        font-size: 20px;
+        font-weight: 400;
+        color: rgb(231, 231, 231);
+        text-align: center;
+        margin: 30px 0;
+      }
+      a {
+        font-size: 18px;
+        margin: 0 10px;
+        text-decoration: none;
+        color: $accent;
+        font-weight: 600;
+        background-color: $white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          background-color: $accent-dark;
+          color: $white;
+          transition: all 0.3s ease-in-out;
+        }
+      }
+    }
+  }
+}
