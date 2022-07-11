@@ -64,15 +64,35 @@ const User = sequelize.define("User", {
   requestTokenExpiry: {
     type: DataTypes.DATE,
   },
-
-  // followers: {
-  //   type: DataTypes.ARRAY(DataTypes.STRING),
-  //   allowNull: true,
-  // },
-  // following: {
-  //   type: DataTypes.ARRAY(DataTypes.STRING),
-  //   allowNull: true,
-  // },
+  accountBalance: {
+    type: DataTypes.DECIMAL,
+    defaultValue: 0,
+  },
+  walletInfo: {
+    type: DataTypes.JSON,
+    allowNull: true,
+    defaultValue: [],
+  },
+  isNewNotification: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  notifications: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
+  followers: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
+  following: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
+  pageViews: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
 });
 
 sequelize
@@ -84,8 +104,7 @@ sequelize
     console.error("Unable to connect to PlanetScale:" + err);
   });
 
-//sync the new data model with the database
-User.sync({ force: true }).then(() => {
+User.sync({ force: false }).then(() => {
   console.log("User table created successfully");
 });
 
