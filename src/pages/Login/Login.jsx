@@ -28,13 +28,13 @@ function Login() {
                       </Box>
 
                      
-                     <Inputs placeholder={'Username'} label='Email' type={'email'}/>
-                     <Inputs placeholder={'Username'} label='Password' type={'password'}/>
+                     <Inputs placeholder={'email'} label='Email' type={'email'}/>
+                     <Inputs placeholder={'password'} label='Password' type={'password'}/>
 
-                     <Text textAlign={'center'} my='1em'> Forgotten Password  ? <b> Reset password</b> </Text>
+                     <Text textAlign={'center'} my='1em'> Forgotten Password  ? <Link to='/forgot-password'> <b> Reset password</b></Link> </Text>
 
                     <Center>
-                      <Buttons  value={'Login'} bg={'blue.500'} color={'#fff'}/>
+                      <Buttons  value={'Login'} bg={'blue.500'} color={'#fff'} width={'100%'}/>
                     </Center>
                      
                      

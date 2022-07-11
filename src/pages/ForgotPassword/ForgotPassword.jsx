@@ -12,7 +12,7 @@ function ForgotPassword() {
   return (
     <>
 
-      <AuthLayout>
+      <AuthLayout >
 
 
 
@@ -30,10 +30,10 @@ function ForgotPassword() {
                      <Inputs placeholder={'Email'} label='Email ' type={'email'}/>
 
 
-                      <Text textAlign={'center'} my='1em'> Remembered password  ? <b>signin</b> </Text>
+                      <Text textAlign={'center'} my='1em'> Remembered password  ? <Link to={'/login'}><b>signin</b></Link> </Text>
 
-                    <Center>
-                      <Buttons  value={'Reset Password'} bg={'blue.500'} color={'#fff'}/>
+                      <Center>
+                      <Buttons  value={'Reset Password'} bg={'blue.500'} color={'#fff'} width={'100%'}/>
                     </Center>
                      
                   </form>   
