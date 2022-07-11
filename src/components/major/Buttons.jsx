@@ -6,9 +6,10 @@ import { Button } from "@chakra-ui/react";
         <>
 
             <Button width={width} onChange={onChange} border={border}
-                bg={bg}  variant={variant}
+                bg={'var(--primary-color)'}  variant={variant}
                  borderRadius={borderRadius} color={color}
                  colorScheme={'blue'}
+                 py='1.5em'
             >
                 {value}
             </Button>
