@@ -1,49 +1,54 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
-import "./Signup.scss";
+import {Box ,Center,Flex, Text} from '@chakra-ui/react';
+import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
+import Inputs from '../../components/major/Inputs';
+import AuthLayout from "../../Layouts/AuthLayout";
+import Buttons from "../../components/major/Buttons";
+
 function Signup() {
   return (
-    <div className="login">
-      <div className="logo">
-        <Link to="/">
-          {" "}
-          <img
-            src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-            alt="google logo"
-          />
-        </Link>
-      </div>
-      <form className="form">
-        <h1>Create an account</h1>
-        <div className="input-group">
-          <small>Email</small>
-          <input type="email" />
-        </div>
-        <div className="input-group">
-          <small>Username</small>
-          <input type="text" />
-        </div>
-        <div className="input-group">
-          <small>Display name</small>
-          <input type="text" />
-        </div>
-        <div className="input-group">
-          <small>Password</small>
-          <input type="password" />
-        </div>
-        <div className="input-group">
-          <small>Shh...it's a secret</small>
-          <input type="password" />
-        </div>
-        <div className="input-group">
-          <button>Create Account</button>
-        </div>
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
-      </form>
-    </div>
+    <>
+
+      <AuthLayout>
+
+
+
+      <Flex justifyContent={'center'} alignItems='center' py='2em' h='80%'>
+              <Box my='1em' bg={'#fff'} width={['90%','60%']}  py='2em' px={'1em'} > 
+                  
+
+                  <form>
+                    
+                      <Box my='1em'>
+                         <Text fontSize={'xl'} fontWeight={'bold'} fontFamily={'var(--primary-font)'}>  Create A Quickk Account 👋 </Text>
+                      </Box>
+
+                     <Inputs placeholder={'Username'} label='Username' type={'text'}/>
+                     <Inputs placeholder={'Username'} label='Email' type={'email'}/>
+                     <Inputs placeholder={'Username'} label='Password' type={'password'}/>
+
+
+                      <Text textAlign={'center'} my='1em'> Already had an account ? <b>signin</b> </Text>
+
+                    <Center>
+                      <Buttons  value={'Create Account'} bg={'blue.500'} color={'#fff'}/>
+                    </Center>
+                     
+                  </form>   
+
+              </Box>
+            </Flex>
+
+
+      </AuthLayout>
+
+
+
+
+    </>
   );
 }
 
