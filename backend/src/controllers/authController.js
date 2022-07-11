@@ -247,4 +247,36 @@ module.exports = {
       message: "Password reset successfully",
     });
   },
+  /**END RESET PASSWORD***********************************************/
+
+  /**LOGIN *******************************************************/
+  login: async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({
+      where: {
+        email,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid email or password",
+      });
+    }
+    const validPassword = await bycrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).json({
+        message: "Invalid email or password",
+      });
+    }
+    if (!user.emailVerified) {
+      return res.status(400).json({
+        message: "Email is not verified",
+      });
+    }
+    const token = jwt.sign({ uuid: user.uuid }, process.env.JWT_SECRET);
+    return res.status(200).json({
+      message: "Login successful",
+      token,
+    });
+  },
 };
