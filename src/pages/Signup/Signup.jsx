@@ -26,15 +26,17 @@ function Signup() {
                          <Text fontSize={'xl'} fontWeight={'bold'} fontFamily={'var(--primary-font)'}>  Create A Quickk Account 👋 </Text>
                       </Box>
 
-                     <Inputs placeholder={'Username'} label='Username' type={'text'}/>
-                     <Inputs placeholder={'Username'} label='Email' type={'email'}/>
-                     <Inputs placeholder={'Username'} label='Password' type={'password'}/>
+                     <Inputs placeholder={'display name'} label='Username' type={'text'}/>
+                     <Inputs placeholder={'user name'} label='Username' type={'text'}/>
+                     <Inputs placeholder={'email'} label='Email' type={'email'}/>
+                     <Inputs placeholder={'password'} label='Password' type={'password'}/>
+                      <Inputs placeholder={'confirm password'} label='Confirm Password' type={'password'}/>
 
 
-                      <Text textAlign={'center'} my='1em'> Already had an account ? <b>signin</b> </Text>
+                      <Text textAlign={'center'} my='1em'> Already had an account ? <Link to='/login'><b>signin</b></Link> </Text>
 
-                    <Center>
-                      <Buttons  value={'Create Account'} bg={'blue.500'} color={'#fff'}/>
+                      <Center>
+                      <Buttons  value={'Sign up'} bg={'blue.500'} color={'#fff'} width={'100%'}/>
                     </Center>
                      
                   </form>   

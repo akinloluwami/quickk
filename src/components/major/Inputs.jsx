@@ -6,7 +6,7 @@ const Inputs = ({placeholder , type , label , onChange}) => {
 
             <FormControl my='1em'>
                 <FormLabel>
-                    {label}
+                    
                     
                 </FormLabel>
 

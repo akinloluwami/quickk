@@ -8,6 +8,7 @@ import { Button } from "@chakra-ui/react";
             <Button width={width} onChange={onChange} border={border}
                 bg={bg}  variant={variant}
                  borderRadius={borderRadius} color={color}
+                 colorScheme={'blue'}
             >
                 {value}
             </Button>
