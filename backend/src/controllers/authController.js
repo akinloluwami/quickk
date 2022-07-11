@@ -184,7 +184,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "Email not found",
+        message: "Could not find an account associated with this email",
       });
     }
     const requestToken = jwt.sign({ email }, process.env.JWT_SECRET);
@@ -200,6 +200,51 @@ module.exports = {
     );
     return res.status(200).json({
       message: "Reset password link sent successfully",
+    });
+  },
+  /**END SEND RESET PASSWORD MAIL***********************************/
+
+  /**RESET PASSWORD***********************************************/
+  resetPassword: async (req, res) => {
+    const { password, confirmPassword, requestToken } = req.body;
+    const user = await User.findOne({
+      where: {
+        requestToken,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid request token",
+      });
+    }
+    const now = new Date();
+    if (now > user.requestTokenExpiry) {
+      return res.status(400).json({
+        message: "Request token has expired",
+      });
+    }
+    if (password === "" || confirmPassword === "") {
+      return res.status(400).json({
+        message: "Please fill all the fields",
+      });
+    }
+    if (password !== confirmPassword) {
+      return res.status(400).json({
+        message: "Passwords do not match",
+      });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({
+        message: " Password must be at least 6 characters long",
+      });
+    }
+    const hashedPassword = await bycrypt.hash(password, 10);
+    user.password = hashedPassword;
+    user.requestToken = null;
+    user.requestTokenExpiry = null;
+    await user.save();
+    return res.status(200).json({
+      message: "Password reset successfully",
     });
   },
 };
