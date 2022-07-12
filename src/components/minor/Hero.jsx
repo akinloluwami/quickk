@@ -66,7 +66,8 @@ const Hero = () => {
 
               <Text my={"2em"} textAlign={"center"}>
                 {" "}
-                Build a blog in 2 seconds{" "}
+                Create a blog in less than 2 minutes. Start writing and
+                accepting donations.{" "}
               </Text>
             </Box>
             <Link to="/login">
