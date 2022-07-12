@@ -13,7 +13,7 @@ const authRouter = require("./src/routes/authRoute");
 
 app.use("/auth", authRouter);
 
-const port = process.env.PORT || 17849;
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
