@@ -11,6 +11,7 @@ const Sidebar = () => {
                 
                     {/* Loop through items of bar contents  */}
                    <UnorderedList listStyleType={'none'} display={'flex'} flexDir={'column'} gap={'3em'}>
+                    
                     {
                             BarItems.map ( ( items , index ) => {
                                 const {name , link , icon} = items;
