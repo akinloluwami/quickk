@@ -1,34 +1,57 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
-import "./ResetPassword.scss";
+import {Box ,Center,Flex, Text} from '@chakra-ui/react';
+import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
+import Inputs from '../../components/major/Inputs';
+import AuthLayout from "../../Layouts/AuthLayout";
+import Buttons from "../../components/major/Buttons";
+import { MdOutlineMail , MdOutlinePassword } from 'react-icons/md'
+
+
 function ResetPassword() {
   return (
-    <div className="reset-password">
-      <div className="logo">
-        <Link to="/">
-          {" "}
-          <img
-            src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-            alt="google logo"
-          />
-        </Link>
-      </div>
-      <form className="form">
-        <h1>Reset Your Password</h1>
-        <div className="input-group">
-          <small>New password</small>
-          <input type="text" />
-        </div>
-        <div className="input-group">
-          <small>Confirm password</small>
-          <input type="password" />
-        </div>
-        <div className="input-group">
-          <button>Submit</button>
-        </div>
-      </form>
-    </div>
+    <>
+
+      <AuthLayout>
+
+
+
+      <Flex justifyContent={'center'} alignItems='center' py='2em' h='80%'>
+              <Box my='1em' bg={'#fff'} width={['90%','60%']}  py='2em' px={'1em'} > 
+                  
+
+                  <form>
+                    
+                      <Box my='1em'>
+                         <Text fontSize={'xl'} fontWeight={'bold'} fontFamily={'var(--primary-font)'}> Reset Password </Text>
+                         <Text my='1em'> Hey, looks like you forgot your password  </Text>
+                      </Box>
+
+                     
+                     <Inputs placeholder={'email'} label='Email' type={'email'} icon = { <MdOutlineMail/>} />
+                     <Inputs placeholder={'reset password'} label='Email' type={'email'} icon = { <MdOutlineMail/>} />
+           
+
+                     
+                    <Center>
+                      <Buttons  value={'Reset Password'} bg={'blue.500'} color={'#fff'} width={'100%'}/>
+                    </Center>
+                     
+                     
+                  </form>   
+
+              </Box>
+            </Flex>
+
+
+      </AuthLayout>
+
+
+
+
+    </>
   );
 }
 
