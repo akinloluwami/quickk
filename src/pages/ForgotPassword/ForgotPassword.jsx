@@ -7,6 +7,8 @@ import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import Inputs from '../../components/major/Inputs';
 import AuthLayout from "../../Layouts/AuthLayout";
 import Buttons from "../../components/major/Buttons";
+import { MdOutlineMail } from 'react-icons/md'
+
 
 function ForgotPassword() {
   return (
@@ -26,8 +28,9 @@ function ForgotPassword() {
                          <Text fontSize={'xl'} fontWeight={'bold'} fontFamily={'var(--primary-font)'}> Forgotten password ? 🔒 </Text>
                       </Box>
 
+                     
                  
-                     <Inputs placeholder={'Email'} label='Email ' type={'email'}/>
+                     <Inputs placeholder={'Email'} label='Email ' type={'email'} icon={ <Text fontSize={'1.1em'}> <MdOutlineMail/> </Text>}/>
 
 
                       <Text textAlign={'center'} my='1em'> Remembered password  ? <Link to={'/login'}><b>signin</b></Link> </Text>

@@ -3,6 +3,7 @@ import Logo from "../components/minor/Logo";
 import Pattern from './pattern.svg';
 import { Text } from "@chakra-ui/react";
 import ContainerLayout from './ContainerLayout.jsx/ContainerLayout';
+import { Link } from "react-router-dom";
 const AuthLayout = ({ children }) => {
 
 
@@ -13,7 +14,9 @@ const AuthLayout = ({ children }) => {
                 <Box bg={'var(--primary-color)'} overflowX='hidden' width={['50%']} height = {'100vh'} display={['none' , 'block']}>
 
                     <Box p='2em'>
-                        <Logo/>
+                        <Link to='/'>
+                            <Logo/>
+                        </Link>
                     </Box> 
 
                     <ContainerLayout>
@@ -25,7 +28,7 @@ const AuthLayout = ({ children }) => {
                                 <Text pr='2em' my={'1em'} color={'#fff'}>Setup your microblog in less than 2 minutes, 
                                     start wrting and accepting donations in no time.
                                  </Text>
-                                 
+
                             </Box>
 
                         </Box>
@@ -37,7 +40,7 @@ const AuthLayout = ({ children }) => {
 
                 </Box>
 
-                <Box bg={'var(--bg)'} width={['100%','50%']} h='100vh'>
+                <Box bg={''} width={['100%','50%']} h='100vh'>
                     
                     {children}
                     
