@@ -240,8 +240,8 @@ module.exports = {
     }
     const hashedPassword = await bycrypt.hash(password, 10);
     user.password = hashedPassword;
-    user.requestToken = null;
-    user.requestTokenExpiry = null;
+    user.requestToken = "";
+    user.requestTokenExpiry = "";
     await user.save();
     return res.status(200).json({
       message: "Password reset successfully",
