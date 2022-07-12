@@ -1,2 +1,6 @@
 .env
 yarn.lock
+config
+migrations
+seeders
+models
