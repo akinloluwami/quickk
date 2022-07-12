@@ -14,7 +14,6 @@ const Buttons = ({
     <>
       <Button
         width={width}
-        onChange={onChange}
         border={border}
         bg={"var(--primary-color)"}
         variant={variant}
