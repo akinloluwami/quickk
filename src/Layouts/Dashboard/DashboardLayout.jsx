@@ -1,25 +1,46 @@
+import { Box, Text , Flex} from "@chakra-ui/react";
+import DashboardTop from './DashboardTop';
+import Sidebar from "./Sidebar";
+
 const DashboardLayout = ({ children }) => {
 
 
     return (
         <>
         
-            <div>
+          <Box bg={'#FAFAFA'} h={'100vh'}>
 
-                {/* Dashboard layouts goes here  */}
-                <div>
+            <DashboardTop/>
+        
 
-                </div>
+            <Flex>
 
-                {/* Dashboard child goes here  */}
-                <div>
+                {/* sidebar  */}
+                <Box>
+
+                    <Sidebar/>
+
+                </Box>
+
+                {/* Main display sections  */}
+                <Box p='1em'>
+
+
                     {children}
-                </div>
 
-            </div>
+
+                </Box>
+
+            </Flex>
+
+
+          </Box>
         
         </>
     )
 
 
 }
+
+
+export default DashboardLayout;
