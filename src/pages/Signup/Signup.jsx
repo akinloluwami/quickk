@@ -20,7 +20,7 @@ function Signup() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const backendURL = import.meta.env.VITE_APP_BACKEND_URL;
+
   const [loader , setLoader] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -28,8 +28,12 @@ function Signup() {
     setLoader(true);
     setLoading(true);
     const data = { displayName, username, email, password, confirmPassword };
-    const response = await postData(`${backendURL}/auth/signup`, data)
+    // const response = await postData(, data)
+    const response = await postData(`/auth/signup`, data)
     
+    //now you can use the response as you wish 
+    //you can do any verification with it as u wish 
+    //i have added a loader to the button to show the user that the request is being processed
   };
 
   return (
@@ -100,7 +104,7 @@ function Signup() {
                     console.log("clicked");
                   }}
 
-                  isLoading={loader}
+                  
                 />
               </Center>
               <Text textAlign={"center"} my="1em">
