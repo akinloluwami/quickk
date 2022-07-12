@@ -15,15 +15,21 @@ const DashboardTop = () => {
 
                             <MenuButton>
                                 <Flex alignItems={'center'} gap={'1em'}>
-                                    <Avatar size={'md'}/>
+                                    <Avatar size={'sm'}/>
                                     <Text fontWeight={'bold'}>Obiabo</Text>
                                 </Flex>
                             </MenuButton>
 
                             <MenuList>
+                               
+                                <MenuItem>
+                                    Profile
+                                </MenuItem>
+
                                 <MenuItem>
                                     logout
                                 </MenuItem>
+                                
                             </MenuList>
                         </Menu>
                    </Box>
