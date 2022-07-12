@@ -7,6 +7,8 @@ import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import Inputs from '../../components/major/Inputs';
 import AuthLayout from "../../Layouts/AuthLayout";
 import Buttons from "../../components/major/Buttons";
+import { MdOutlineMail , MdOutlinePassword } from 'react-icons/md'
+
 
 function Login() {
   return (
@@ -28,8 +30,8 @@ function Login() {
                       </Box>
 
                      
-                     <Inputs placeholder={'email'} label='Email' type={'email'}/>
-                     <Inputs placeholder={'password'} label='Password' type={'password'}/>
+                     <Inputs placeholder={'email'} label='Email' type={'email'} icon = { <MdOutlineMail/>} />
+                     <Inputs placeholder={'password'} label='Password' type={'password'} icon = { <MdOutlinePassword/> }/>
 
                      <Text textAlign={'center'} my='1em'> Forgotten Password  ? <Link to='/forgot-password'> <b> Reset password</b></Link> </Text>
 

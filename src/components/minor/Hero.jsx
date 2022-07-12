@@ -1,5 +1,5 @@
 import ContainerLayout from '../../Layouts/ContainerLayout.jsx/ContainerLayout';
-import {Avatar, Box, Flex, Text, Menu , MenuItem , MenuList, MenuButton} from '@chakra-ui/react';
+import {Avatar, Box, Flex, Text, Menu , MenuItem , MenuList, MenuButton, UnorderedList, ListItem} from '@chakra-ui/react';
 import Buttons from '../major/Buttons';
 import Logo from './Logo';
 import {FaBars} from 'react-icons/fa';
@@ -17,13 +17,19 @@ const Hero = () => {
                              <Logo/>
 
 
-                              <Menu>
-                                <MenuButton><Avatar size={['sm', 'md']} src={Memojie}/></MenuButton>
-                                <MenuList color={'#000'}>
-                                    <MenuItem>Sign up </MenuItem>
-                                    <MenuItem>Sign in </MenuItem>
-                                </MenuList>
-                              </Menu>
+                              <Box>
+                                 <Box display={['none' , 'block']} >
+                                    <UnorderedList listStyleType='none' display={'inline-flex'} gap={'2em'}> 
+                                        <ListItem>Home</ListItem>
+                                        <ListItem> About </ListItem>
+                                        <ListItem> Sign in </ListItem>
+                                    </UnorderedList>
+                                 </Box>
+
+                                 <Box display={['block' , 'none']}>
+                                    <FaBars/>
+                                 </Box>
+                              </Box>
                             
                          </Flex>
                          <Flex h='80vh' my='' flexDir={'column'} justifyContent={'center'} alignContent={'center'} alignItems={'center'} >
