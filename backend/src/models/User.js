@@ -49,7 +49,7 @@ const User = sequelize.define("User", {
   },
   birthDay: {
     type: DataTypes.DATE,
-    defaultValue: "",
+    defaultValue: null,
   },
   password: {
     type: DataTypes.STRING,
