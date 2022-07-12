@@ -9,7 +9,7 @@ import AuthLayout from "../../Layouts/AuthLayout";
 import Buttons from "../../components/major/Buttons";
 import { MdOutlineMail, MdOutlinePassword } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
-import { postRequest } from "../../utils/Request";
+import { postData } from '../../utils/Request';
 
 function Signup() {
   const [displayName, setDisplayName] = useState("");
@@ -21,20 +21,15 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const backendURL = import.meta.env.VITE_APP_BACKEND_URL;
+  const [loader , setLoader] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
     setLoading(true);
     const data = { displayName, username, email, password, confirmPassword };
-    const response = await postRequest(`${backendURL}/auth/signup`, data);
-    if (response.status === 200) {
-      setLoading(false);
-      navigate("/verify-email");
-    } else {
-      setLoading(false);
-      // setError(response.data.message);
-      console.log(response.data);
-    }
+    const response = await postData(`${backendURL}/auth/signup`, data)
+    
   };
 
   return (
@@ -104,6 +99,8 @@ function Signup() {
                     handleSubmit(e);
                     console.log("clicked");
                   }}
+
+                  isLoading={loader}
                 />
               </Center>
               <Text textAlign={"center"} my="1em">
