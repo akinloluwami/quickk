@@ -1,93 +1,86 @@
-import axois from 'axios';
+import axios from "axios";
+import {useToast} from '@chakra-ui/react';    
+import {ToastContainer , toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+ 
+//add the default url
+let defaultUrl = ''
 
 
-//function to make post request 
-export const postRequest = async ( url, payloads ) => {
+//initilize toast
+
+
+export const postData = async (url, payload, methods ) => {
+    
 
     try {
 
-        //make Api request here 
-        const config =  {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': ``
-            }
-        } 
+        const response = await axios.post(`${url}`, payload, {methods});
         
-        const response = await axois.post( url, payloads , config );
+       
+            //check if response is success
+            toast.success(response.data.message, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'colored'
     
+                });
+                
+
+               
+
+
+            return { response: response.data, error: false};
 
     } catch (error) {
 
-        console.log( error.message)
+        const errMsg = error.response.data.message;
+        toast.error(errMsg, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored'
 
+            });
     }
 
-    //return response and error 
-    return response;
-  
 }
 
-
-
-//function to make get resquest 
-
-export const getRequest = async ( url ) => {
-
-    try {
-
-        //make Api request here 
-        const config =  {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': ``
-            }
-        } 
-        
-        const response = await axois.get( url, config );
+//function to get from the Api
+//get with axios
+export const fetchData = async (url , payloads ) => {
     
-
-    } catch (error) {
-
-        console.log( error.message)
-
-    }
-
-    //return response and error 
-    return response;
-  
-
-}
-
-
-//this is for put request 
-export const putRequest = async ( url, payloads ) => {
-
-    try {
-
-        //make Api request here 
-        const config =  {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': ``
-            }
-        } 
-        
-        const response = await axois.put( url, payloads , config );
+        try {
     
-
-    } catch (error) {
-
-        console.log( error.message)
-
+            const response = await axios.get(`${defaultUrl}${url}`, {payloads});    
+            return response.data;
+    
+        } catch (error) {
+            console.log(error);
+        }
+    
     }
-
-    //return response and error 
-    return response;
-  
-
-}
-
-
-
-
+    //function to put to the Api
+    //put with axios
+export const putData = async (url, data) => {
+        
+            try {
+        
+                const response = await axios.put(`${defaultUrl}${url}`, data);
+                return response.data;
+        
+            } catch (error) {
+                console.log(error);
+            }
+        
+        }

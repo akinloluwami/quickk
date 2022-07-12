@@ -5,9 +5,22 @@ import Login from "./pages/Login/Login";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Signup from "./pages/Signup/Signup";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { useEffect } from 'react';
+
+
+
 function App() {
+
+  
+
   return (
     <>
+
+     <ToastContainer />
+
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
