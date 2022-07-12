@@ -62,7 +62,7 @@ export const fetchData = async (url , payloads ) => {
     
         try {
     
-            const response = await axios.get(`${defaultUrl}${url}`, {payloads});    
+            const response = await axios.get(`${url}`, {payloads});    
             return response.data;
     
         } catch (error) {
@@ -76,7 +76,7 @@ export const putData = async (url, data) => {
         
             try {
         
-                const response = await axios.put(`${defaultUrl}${url}`, data);
+                const response = await axios.put(`${url}`, data);
                 return response.data;
         
             } catch (error) {
