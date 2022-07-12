@@ -4,6 +4,7 @@ import Buttons from '../major/Buttons';
 import Logo from './Logo';
 import {FaBars} from 'react-icons/fa';
 import Memojie from '../Avater.svg';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
 
@@ -31,7 +32,9 @@ const Hero = () => {
                               
                                 <Text my={'2em'} textAlign={'center'}> Build a blog in 2 seconds  </Text>
                             </Box>
-                            <Buttons value={'Get Started'} bg={'blue.500'} />
+                            <Link to='/login'>
+                                <Buttons value={'Get Started'} bg={'blue.500'} />
+                            </Link>
                          </Flex>
                     </ContainerLayout>
                     
