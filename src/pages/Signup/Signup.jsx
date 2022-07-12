@@ -9,7 +9,7 @@ import AuthLayout from "../../Layouts/AuthLayout";
 import Buttons from "../../components/major/Buttons";
 import { MdOutlineMail, MdOutlinePassword } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
-import { postData } from '../../utils/Request';
+import { postData } from "../../utils/Request";
 
 function Signup() {
   const [displayName, setDisplayName] = useState("");
@@ -21,19 +21,23 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [loader , setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
     setLoading(true);
     const data = { displayName, username, email, password, confirmPassword };
-    // const response = await postData(, data)
-    const response = await postData(`/auth/signup`, data)
-    
-    //now you can use the response as you wish 
-    //you can do any verification with it as u wish 
-    //i have added a loader to the button to show the user that the request is being processed
+    const response = await postData(`/auth/signup`, data);
+    if (response.data.sta === 201) {
+      setLoading(false);
+      setLoader(false);
+      navigate("/login");
+    } else {
+      setLoading(false);
+      setLoader(false);
+      console.log(error);
+    }
   };
 
   return (
@@ -103,8 +107,6 @@ function Signup() {
                     handleSubmit(e);
                     console.log("clicked");
                   }}
-
-                  
                 />
               </Center>
               <Text textAlign={"center"} my="1em">
