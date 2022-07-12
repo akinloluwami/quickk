@@ -7,6 +7,8 @@ import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import Inputs from '../../components/major/Inputs';
 import AuthLayout from "../../Layouts/AuthLayout";
 import Buttons from "../../components/major/Buttons";
+import { MdOutlineMail , MdOutlinePassword } from 'react-icons/md'
+import { AiOutlineUser } from 'react-icons/ai'
 
 function Signup() {
   return (
@@ -26,11 +28,11 @@ function Signup() {
                          <Text fontSize={'xl'} fontWeight={'bold'} fontFamily={'var(--primary-font)'}>  Create A Quickk Account 👋 </Text>
                       </Box>
 
-                     <Inputs placeholder={'display name'} label='Username' type={'text'}/>
-                     <Inputs placeholder={'user name'} label='Username' type={'text'}/>
-                     <Inputs placeholder={'email'} label='Email' type={'email'}/>
-                     <Inputs placeholder={'password'} label='Password' type={'password'}/>
-                      <Inputs placeholder={'confirm password'} label='Confirm Password' type={'password'}/>
+                     <Inputs placeholder={'display name'} label='Username' type={'text'} icon = {<AiOutlineUser/>} />
+                     <Inputs placeholder={'user name'} label='Username' type={'text'} icon = {<AiOutlineUser/>}/>
+                     <Inputs placeholder={'email'} label='Email' type={'email'} icon ={<MdOutlineMail/>}/>
+                     <Inputs placeholder={'password'} label='Password' type={'password'} icon={ <MdOutlinePassword/> }/>
+                      <Inputs placeholder={'confirm password'} label='Confirm Password' type={'password'} icon={ <MdOutlinePassword/> }/>
 
 
                       <Text textAlign={'center'} my='1em'> Already had an account ? <Link to='/login'><b>signin</b></Link> </Text>

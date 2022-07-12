@@ -1,6 +1,6 @@
-import { FormControl, FormLabel, Input ,  } from "@chakra-ui/react"
+import { FormControl, FormLabel, Input , InputGroup, InputLeftElement  } from "@chakra-ui/react"
 
-const Inputs = ({placeholder , type , label , onChange}) => {
+const Inputs = ({placeholder , icon, type , label , onChange}) => {
     return (
         <>
 
@@ -10,10 +10,20 @@ const Inputs = ({placeholder , type , label , onChange}) => {
                     
                 </FormLabel>
 
-                <Input placeholder ={placeholder} type={type} onChange={onChange}
+                 <InputGroup>
+
+                  <InputLeftElement 
+                    children ={ icon }
+                    py='1.5em'
+                    color={'gray'}
+                  />
+                  <Input placeholder ={placeholder} type={type} onChange={onChange}
                      focusBorderColor = 'blue.500'
-                     py='1.4em'
-                     />
+                      variant={'filled'}
+                      py='1.4em'
+                      />
+
+                 </InputGroup>
             </FormControl>
         
         </>
