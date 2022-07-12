@@ -23,13 +23,13 @@ const DashboardTop = () => {
                             <MenuList>
                                
                                 <MenuItem>
-                                    Profile
+                                    Profile.
                                 </MenuItem>
 
                                 <MenuItem>
                                     logout
                                 </MenuItem>
-                                
+
                             </MenuList>
                         </Menu>
                    </Box>
