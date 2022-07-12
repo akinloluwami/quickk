@@ -70,7 +70,7 @@ const Hero = () => {
                 accepting donations.{" "}
               </Text>
             </Box>
-            <Link to="/start">
+            <Link to="/signup">
               <Buttons value={"Get Started"} bg={"blue.500"} />
             </Link>
           </Flex>
