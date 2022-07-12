@@ -32,6 +32,25 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  profilePicture: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue:
+      "https://res.cloudinary.com/dzqbzqgqw/image/upload/v1599098981/default-profile-picture_qjqjqj.png",
+  },
+  country: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: "",
+  },
+  gender: {
+    type: DataTypes.STRING,
+    defaultValue: "",
+  },
+  birthDay: {
+    type: DataTypes.DATE,
+    defaultValue: "",
+  },
   password: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -90,6 +109,10 @@ const User = sequelize.define("User", {
     defaultValue: [],
   },
   pageViews: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
+  transactions: {
     type: DataTypes.JSON,
     defaultValue: [],
   },
