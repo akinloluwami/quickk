@@ -9,6 +9,7 @@ import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useEffect } from 'react';
+import DashboardIndex from './pages/Dashboard/Dashboard';
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/dashboard" element={<DashboardIndex />} />
         </Routes>
       </Router>
     </>
