@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
  
 //add the default url
-let defaultUrl = ''
+let defaultUrl = import.meta.env.VITE_APP_BACKEND_URL;
 
 
 //initilize toast
@@ -16,7 +16,7 @@ export const postData = async (url, payload, methods ) => {
 
     try {
 
-        const response = await axios.post(`${url}`, payload, {methods});
+        const response = await axios.post(`${defaultUrl}${url}`, payload, {methods});
         
        
             //check if response is success
@@ -36,12 +36,14 @@ export const postData = async (url, payload, methods ) => {
                
 
 
-            return { response: response.data, error: false};
-
+            
+            
+                 return { response: response.data, error: false};
     } catch (error) {
-
-        const errMsg = error.response.data.message;
-        toast.error(errMsg, {
+       
+        const errMsg = error.message;
+        const handleErr = errMsg.response.data
+        toast.error(handleErr, {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: true,
