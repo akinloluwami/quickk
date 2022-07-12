@@ -1,15 +1,5 @@
-const { Sequelize, DataTypes } = require("sequelize");
-require("dotenv").config();
-
-const sequelize = new Sequelize(process.env.DB_URL, {
-  dialect: "mysql",
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-});
+const sequelize = require("../utils/db");
+const { DataTypes } = require("sequelize");
 
 const User = sequelize.define("User", {
   id: {
@@ -116,19 +106,34 @@ const User = sequelize.define("User", {
     type: DataTypes.JSON,
     defaultValue: [],
   },
-});
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connected to PlanetScale! 🚀");
-  })
-  .catch((err) => {
-    console.error("Unable to connect to PlanetScale:" + err);
-  });
-
-User.sync({ force: false }).then(() => {
-  console.log("User table created successfully");
+  bio: {
+    type: DataTypes.STRING,
+    defaultValue: "",
+  },
+  twitter: {
+    type: DataTypes.STRING,
+    defaultValue: "",
+  },
+  facebook: {
+    type: DataTypes.STRING,
+    defaultValue: "",
+  },
+  instagram: {
+    type: DataTypes.STRING,
+    defaultValue: "",
+  },
+  youtube: {
+    type: DataTypes.STRING,
+    defaultValue: "",
+  },
+  tiktok: {
+    type: DataTypes.STRING,
+    defaultValue: "",
+  },
+  website: {
+    type: DataTypes.STRING,
+    defaultValue: "",
+  },
 });
 
 module.exports = User;
