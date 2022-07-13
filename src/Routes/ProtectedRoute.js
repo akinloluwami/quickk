@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
 
     useEffect(() => {
         //remember to replace the empthy string in localStorage with the actual token name
-        const token = localStorage.getItem('');
+        const token = localStorage.getItem('token');
         if (token) {
             setIsAuthenticated(true);
         }
