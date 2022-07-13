@@ -41,6 +41,25 @@ function VerifyEmail() {
     }
   };
 
+  const resendOtp = async () => {
+    const response = await postData(
+      `/auth/resend-otp`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.status === 200) {
+      console.log(response);
+      toast.success("Resend OTP sucessful");
+    } else {
+      toast.error(response.response.data.message);
+    }
+  };
+
   return (
     <AuthLayout>
       <ToastContainer autoClose={2000} />
