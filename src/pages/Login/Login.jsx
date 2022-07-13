@@ -8,8 +8,34 @@ import Inputs from "../../components/major/Inputs";
 import AuthLayout from "../../Layouts/AuthLayout";
 import Buttons from "../../components/major/Buttons";
 import { MdOutlineMail, MdOutlinePassword } from "react-icons/md";
+import { postData } from "../../utils/Request";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ReactLoading from "react-loading";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const data = { email, password };
+    const response = await postData(`/auth/login`, data);
+    if (response.status === 200) {
+      localStorage.setItem("token", response.data.token);
+      toast.success("Login sucessful");
+      setLoading(false);
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
+    } else {
+      toast.error(response.response.data.message);
+      setLoading(false);
+    }
+  };
   return (
     <>
       <AuthLayout>
@@ -29,18 +55,42 @@ function Login() {
               </Box>
 
               <Inputs
-                placeholder={"Email"}
+                placeholder={"Username or Email"}
                 label="Email"
                 type={"email"}
                 icon={<MdOutlineMail />}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Inputs
                 placeholder={"Password"}
                 label="Password"
                 type={"password"}
                 icon={<MdOutlinePassword />}
+                onChange={(e) => setPassword(e.target.value)}
               />
-
+              <Center>
+                <Buttons
+                  onClick={(e) => {
+                    handleSubmit(e);
+                  }}
+                  disabled={loading}
+                  value={
+                    loading ? (
+                      <ReactLoading
+                        type={"bubbles"}
+                        color={"#fff"}
+                        height={70}
+                        width={70}
+                      />
+                    ) : (
+                      "Login"
+                    )
+                  }
+                  bg={"blue.500"}
+                  color={"#fff"}
+                  width={"100%"}
+                />
+              </Center>
               <Text textAlign={"center"} my="1em">
                 {" "}
                 New to Quickk?{" "}
@@ -54,15 +104,6 @@ function Login() {
                   <p>Forgot password?</p>
                 </Link>{" "}
               </Text>
-
-              <Center>
-                <Buttons
-                  value={"Login"}
-                  bg={"blue.500"}
-                  color={"#fff"}
-                  width={"100%"}
-                />
-              </Center>
             </form>
           </Box>
         </Flex>
