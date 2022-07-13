@@ -13,20 +13,22 @@ const DashboardLayout = ({ children }) => {
             <DashboardTop/>
         
 
-            <Flex>
+            <Flex position={'relative'}>
 
                 {/* sidebar  */}
-                <Box>
+                <Box bg={'#fff'}>
 
                     <Sidebar/>
 
                 </Box>
 
                 {/* Main display sections  */}
-                <Box p='1em'>
+                <Box p='2em'>
 
 
-                    {children}
+                    <Box>
+                     {children}
+                    </Box>
 
 
                 </Box>

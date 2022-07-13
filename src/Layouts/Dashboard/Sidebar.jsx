@@ -7,7 +7,7 @@ const Sidebar = () => {
     return (
         <>
 
-            <Box bg={'#fff'} px={'4em'} py='6em'    position={'fixed'} bottom={'0'} top={'0'}>
+            <Box  px={'4em'} py='6em'    >
                 
                     {/* Loop through items of bar contents  */}
                    <UnorderedList listStyleType={'none'} display={'flex'} flexDir={'column'} gap={'3em'}>
