@@ -10,6 +10,9 @@ import Buttons from "../../components/major/Buttons";
 import { MdOutlineMail, MdOutlinePassword } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 import { postData } from "../../utils/Request";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ReactLoading from "react-loading";
 
 function Signup() {
   const [displayName, setDisplayName] = useState("");
@@ -21,27 +24,27 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const [loader, setLoader] = useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoader(true);
     setLoading(true);
     const data = { displayName, username, email, password, confirmPassword };
     const response = await postData(`/auth/signup`, data);
-    if (response.data.sta === 201) {
+    if (response.status === 201) {
+      localStorage.setItem("token", response.data.token);
+      toast.success("Sign up sucessful");
       setLoading(false);
-      setLoader(false);
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/verify-email");
+      }, 1500);
     } else {
+      toast.error(response.response.data.message);
       setLoading(false);
-      setLoader(false);
-      console.log(error);
     }
   };
 
   return (
     <>
+      <ToastContainer autoClose={2000} />
       <AuthLayout>
         <Flex justifyContent={"center"} alignItems="center" py="2em" h="80%">
           <Box my="1em" bg={"#fff"} width={["90%", "60%"]} py="2em" px={"1em"}>
@@ -99,7 +102,19 @@ function Signup() {
               />
               <Center>
                 <Buttons
-                  value={"Sign up"}
+                  disabled={loading}
+                  value={
+                    loading ? (
+                      <ReactLoading
+                        type={"bubbles"}
+                        color={"#fff"}
+                        height={70}
+                        width={70}
+                      />
+                    ) : (
+                      "Sign up"
+                    )
+                  }
                   bg={"blue.500"}
                   color={"#fff"}
                   width={"100%"}
