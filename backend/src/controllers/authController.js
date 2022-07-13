@@ -188,7 +188,7 @@ module.exports = {
       });
     }
     const requestToken = jwt.sign({ email }, process.env.JWT_SECRET);
-    const resetLink = `${process.env.FRONTEND_URL}/reset-password/${requestToken}`;
+    const resetLink = `${process.env.FRONTEND_URL}/reset-password?tkn=${requestToken}`;
     user.requestToken = requestToken;
     user.requestTokenExpiry = new Date(Date.now() + 3600000);
     await user.save();
@@ -241,7 +241,7 @@ module.exports = {
     const hashedPassword = await bycrypt.hash(password, 10);
     user.password = hashedPassword;
     user.requestToken = "";
-    user.requestTokenExpiry = "";
+    user.requestTokenExpiry = null;
     await user.save();
     return res.status(200).json({
       message: "Password reset successfully",
