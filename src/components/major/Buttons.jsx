@@ -1,4 +1,4 @@
-import { Button  } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 const Buttons = ({
   width,
@@ -9,7 +9,8 @@ const Buttons = ({
   bg,
   color,
   onClick,
-  isLoading
+  isLoading,
+  disabled,
 }) => {
   return (
     <>
@@ -24,6 +25,7 @@ const Buttons = ({
         py="1.5em"
         onClick={onClick}
         isLoading={isLoading}
+        disabled={disabled}
       >
         {value}
       </Button>
