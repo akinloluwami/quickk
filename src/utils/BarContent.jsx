@@ -15,7 +15,7 @@ const BarItems = [
     link: "/dashboard/write",
     icon: <BiPencil />,
     mobileView: false,
-    hideDesktop: false,
+    
   },
   {
     name: "Overview",
@@ -51,6 +51,7 @@ const BarItems = [
     link: "/dashboard/write",
     icon: <BiPencil />,
     mobileView: true,
+    hideDesktop: true,
     bg: 'blue.500',
     styles : {
       
@@ -65,6 +66,7 @@ const BarItems = [
     link: "/dashboard/scheduled",
     icon: <IoIosTimer />,
     mobileView: true,
+    
     styles : {
      
       padding : '0.2em 0.6em',

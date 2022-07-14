@@ -13,6 +13,10 @@ import DashboardIndex from "./pages/Dashboard/Dashboard";
 import Draft from './pages/Dashboard/Draaft';
 import Donations from './pages/Dashboard/Donations';
 import Write from "./pages/Dashboard/Write";
+import Posts from './pages/Dashboard/Posts';
+import Scheduled from './pages/Dashboard/Scheduled';
+import Newslatter from './pages/Dashboard/Newslatter';
+import Analytics from './pages/Dashboard/Analytics';
 
 function App() {
   return (
@@ -32,6 +36,10 @@ function App() {
           <Route path="/dashboard/donations" element={<Donations />} />
           <Route path="/dashboard/explore" element={<Donations />} />
           <Route path="/dashboard/write" element={<Write />} />
+          <Route path="/dashboard/posts" element={<Posts />} />
+          <Route path="/dashboard/scheduled" element={<Scheduled />} />
+          <Route path="/dashboard/newsletter" element={<Newslatter />} />
+          <Route path="/dashboard/analytics" element={<Analytics />} />
         </Routes>
       </Router>
     </>
