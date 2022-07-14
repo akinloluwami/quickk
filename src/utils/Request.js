@@ -3,9 +3,13 @@ import axios from "axios";
 //add the default url
 let defaultUrl = import.meta.env.VITE_APP_BACKEND_URL;
 
-export const postData = async ( url, payload , configurations) => {
+const postData = async (url, payload, configurations) => {
   try {
-    const response = await axios.post(`${defaultUrl}${url}`, payload , configurations);
+    const response = await axios.post(
+      `${defaultUrl}${url}`,
+      payload,
+      configurations
+    );
     return response;
     //if the endpoint has data that is returned, return the data as response.data
   } catch (error) {
@@ -32,3 +36,5 @@ const fetchData = async (url, payload) => {
     return error;
   }
 };
+
+export { postData, fetchData };
