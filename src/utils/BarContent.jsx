@@ -7,29 +7,29 @@ import {AiOutlineCompass} from 'react-icons/ai';
 const BarItems = [
     {
         name: 'Home',
-        link: '/',
+        link: '/dashboard',
         icon: <MdOutlineDashboard/>
     },
 
     {
         name: 'Explore',
-        link: '/',
+        link: '',
         icon: <AiOutlineCompass/>
     },
 
     {
         name: 'Overview',
-        link: '/',
+        link: '',
         icon: <GrOverview/>
     },
     {
         name: 'Donations ',
-        link: '/',
+        link: '/dashboard/donations',
         icon: <BiDonateBlood/>
     },
     {
         name: 'Draft',
-        link: '/',
+        link: '/dashboard/draft',
         icon: <RiDraftLine/>
     }
 
