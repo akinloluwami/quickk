@@ -12,7 +12,7 @@ const BarItems = [
     },
 
     {
-        name: 'Explore',
+        name: 'Schedule',
         link: '/dashboard/explore',
         icon: <AiOutlineCompass/>
     },
