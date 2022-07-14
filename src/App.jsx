@@ -10,6 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useEffect } from "react";
 import DashboardIndex from "./pages/Dashboard/Dashboard";
+import Draft from './pages/Dashboard/Draaft';
+import Donations from './pages/Dashboard/Donations';
+import Write from "./pages/Dashboard/Write";
 
 function App() {
   return (
@@ -25,6 +28,10 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/dashboard" element={<DashboardIndex />} />
+          <Route path="/dashboard/draft" element={<Draft />} />
+          <Route path="/dashboard/donations" element={<Donations />} />
+          <Route path="/dashboard/explore" element={<Donations />} />
+          <Route path="/dashboard/write" element={<Write />} />
         </Routes>
       </Router>
     </>

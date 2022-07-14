@@ -1,35 +1,35 @@
 import {MdOutlineDashboard} from 'react-icons/md';
 import {RiDraftLine} from 'react-icons/ri';
 import {GrOverview} from 'react-icons/gr';
-import {BiDonateBlood} from 'react-icons/bi';
+import {BiDonateBlood , BiPencil} from 'react-icons/bi';
 import {AiOutlineCompass} from 'react-icons/ai';
 
 const BarItems = [
     {
-        name: 'Home',
-        link: '/',
+        name: 'Overview',
+        link: '/dashboard',
         icon: <MdOutlineDashboard/>
     },
 
     {
-        name: 'Explore',
-        link: '/',
+        name: 'Schedule',
+        link: '/dashboard/explore',
         icon: <AiOutlineCompass/>
     },
 
     {
-        name: 'Overview',
-        link: '/',
-        icon: <GrOverview/>
+        name: 'Write',
+        link: '/dashboard/write',
+        icon: <BiPencil/>
     },
     {
         name: 'Donations ',
-        link: '/',
+        link: '/dashboard/donations',
         icon: <BiDonateBlood/>
     },
     {
         name: 'Draft',
-        link: '/',
+        link: '/dashboard/draft',
         icon: <RiDraftLine/>
     }
 
