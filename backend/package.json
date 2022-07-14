@@ -6,6 +6,9 @@
   "repository": "https://github.com/bossoncode/quickk",
   "author": "Akinkunmi",
   "license": "MIT",
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "scripts": {
     "start": "nodemon quickk.js"
   },
