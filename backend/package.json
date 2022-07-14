@@ -10,7 +10,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "nodemon quickk.js"
+    "dev": "nodemon quickk.js",
+    "start": "node quickk.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
