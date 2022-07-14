@@ -10,6 +10,7 @@ import { RiAddLine } from 'react-icons/ri'
 
 const BarItems = [
   {
+    // hide on desktop and show on mobile
     name: "Write",
     link: "/dashboard/write",
     icon: <BiPencil />,
