@@ -32,7 +32,7 @@ function Login() {
         navigate("/dashboard");
       }, 1500);
     } else {
-      toast.error(response.response.data.message);
+      toast.error(response.response.data.message || "Something went wrong");
       setLoading(false);
     }
   };
@@ -73,7 +73,7 @@ function Login() {
                   onClick={(e) => {
                     handleSubmit(e);
                   }}
-                  disabled={loading}
+                  disabled={loading || !email || !password}
                   value={
                     loading ? (
                       <ReactLoading
