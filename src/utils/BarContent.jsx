@@ -7,14 +7,22 @@ import {
 import { BiDonateHeart, BiPencil } from "react-icons/bi";
 import { IoIosTimer } from "react-icons/io";
 import { RiAddLine } from 'react-icons/ri'
+import {FaPencilAlt} from 'react-icons/fa'
 
 const BarItems = [
   {
     // hide on desktop and show on mobile
     name: "Write",
     link: "/dashboard/write",
-    icon: <BiPencil />,
+    icon: <FaPencilAlt />,
     mobileView: false,
+    styles : {
+      
+      color : 'white',
+      padding : '0.7em',
+      borderRadius: '010em',
+      backgroundColor : 'var(--primary-color)',
+    }
     
   },
   {

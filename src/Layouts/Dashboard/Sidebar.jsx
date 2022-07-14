@@ -15,7 +15,7 @@ const Sidebar = () => {
           gap={"3em"}
         >
           {BarItems.map((items, index) => {
-            const { name, link, icon , hideDesktop } = items;
+            const { name, link, icon , hideDesktop , styles} = items;
             return (
               //check if hideDesktop is true
                 <>
@@ -27,7 +27,7 @@ const Sidebar = () => {
                     ) : 
                     (
                       <Link to={link} key={index}>
-                      <ListItem display={"flex"} gap={"1em"}>
+                      <ListItem display={"flex"} gap={"1em"} style={styles}>
                         <Text fontSize={"1.2em"}>{icon}</Text>
                         <Text>{name}</Text>
                       </ListItem>
