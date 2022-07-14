@@ -2,7 +2,8 @@
 import { UnorderedList , Box, ListItem , Text } from '@chakra-ui/react';
 import BarItems from '../../../utils/BarContent';
 import { Link } from 'react-router-dom';
-const MobileNav = () => {
+
+ export const MobileNav = () => {
 
     return (
         <>
@@ -12,14 +13,33 @@ const MobileNav = () => {
                 <UnorderedList display={'flex'} justifyContent={'space-between'}>
                     {
                         BarItems.map ( ( items , index ) => {
-                            const {name , link , icon} = items;
+                            const {name , link , icon , mobileView , styles , bg} = items;
                             return (
                                 <>
                                     <Link to={link} key={index}>
-                                        <ListItem alignItems={'center'} display={'flex'} gap={'1em'} flexDirection={'column'} >
-                                            <Text fontSize={'1.2em'}>{icon}</Text>
-                                            <Text fontSize={'0.8em'} >{name}</Text>
-                                        </ListItem>
+                                        {/* display item on mobile now */}
+                                        {
+                                            mobileView ? 
+                                            (
+                                                <>
+                                                <ListItem alignItems={'center'} display={'flex'} gap={'1em'} flexDirection={'column'} >
+                                                    <Text fontSize={'1.2em'} style={styles} bg={bg}>{icon}</Text>
+                                                    <Text fontSize={'0.8em'} >{name}</Text>
+                                                </ListItem>
+                                                </>
+                                            ) :
+                                            // hide items with mobile display hiden 
+                                            (
+                                                <>
+                                                 <ListItem alignItems={'center'} display={'none'} gap={'1em'} flexDirection={'column'} >
+                                                    <Text fontSize={'1.2em'}>{icon}</Text>
+                                                    <Text fontSize={'0.8em'} >{name}</Text>
+                                                 </ListItem>
+                                                </>
+                                            )
+                                        }
+
+                                        
                                     </Link>
                                 </>
                             )
@@ -33,4 +53,8 @@ const MobileNav = () => {
 
 }
 
-export default MobileNav;
+
+
+
+
+

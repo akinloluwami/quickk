@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
-import MobileNav from "./Dashboard Components/MobileNav";
+import { MobileNav } from "./Dashboard Components/MobileNav";
 import DashboardTop from "./DashboardTop";
 import Sidebar from "./Sidebar";
 import { fetchData } from "../../utils/Request";
