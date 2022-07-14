@@ -35,7 +35,7 @@ const DashboardLayout = ({ children }) => {
           </Box>
 
           {/* Main display sections  */}
-          <Box p="2em">
+          <Box p={["1.5em","2em"]}>
             <Box>{children}</Box>
           </Box>
         </Flex>
@@ -48,6 +48,7 @@ const DashboardLayout = ({ children }) => {
           right={"0"}
           left={"0"}
           bottom={"0"}
+          px={'0em'}
         >
           <MobileNav />
         </Box>
