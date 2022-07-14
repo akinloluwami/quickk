@@ -29,6 +29,7 @@ function App() {
           <Route path="/dashboard" element={<DashboardIndex />} />
           <Route path="/dashboard/draft" element={<Draft />} />
           <Route path="/dashboard/donations" element={<Donations />} />
+          <Route path="/dashboard/explore" element={<Donations />} />
         </Routes>
       </Router>
     </>
