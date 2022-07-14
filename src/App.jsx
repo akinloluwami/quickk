@@ -17,6 +17,7 @@ import Posts from './pages/Dashboard/Posts';
 import Scheduled from './pages/Dashboard/Scheduled';
 import Newslatter from './pages/Dashboard/Newslatter';
 import Analytics from './pages/Dashboard/Analytics';
+import Profile from './pages/Profile/profile';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/dashboard/scheduled" element={<Scheduled />} />
           <Route path="/dashboard/newsletter" element={<Newslatter />} />
           <Route path="/dashboard/analytics" element={<Analytics />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
     </>
