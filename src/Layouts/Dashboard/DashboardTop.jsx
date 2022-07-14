@@ -1,5 +1,7 @@
 import { Avatar, Text, Flex, Box, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-
+import {BiChevronDown} from 'react-icons/bi';
+import {FiLogOut} from 'react-icons/fi';
+import {BiUserCircle} from 'react-icons/bi';
 import Logo from './dashboard.svg'
 const DashboardTop = () => {
 
@@ -18,13 +20,15 @@ const DashboardTop = () => {
                                <Box display={['none' , 'block']}>
                                  <Flex alignItems={'center'} gap={'1em'}>
                                     <Avatar size={'sm'}/>
-                                     <Text fontWeight={'bold'}>Obiabo</Text>
+                                     <Text>Obiabo</Text>
+                                     <BiChevronDown/>
                                    </Flex>
                                </Box>
 
                                <Box display={['block' , 'none']}>
                                  <Flex alignItems={'center'} gap={'1em'}>
                                     <Avatar size={'sm'}/>
+                                    <BiChevronDown/>
                                    
                                    </Flex>
                                </Box>
@@ -33,18 +37,18 @@ const DashboardTop = () => {
                             <MenuList>
                                
                                 <MenuItem>
-                                    Profile.
+                                   <Text mr='2'><BiUserCircle/></Text> Profile.
                                 </MenuItem>
 
                                 <MenuItem>
-                                    logout
+                                  <Text mr='0.5em'><FiLogOut/></Text>  logout
                                 </MenuItem>
 
                             </MenuList>
                         </Menu>
                    </Box>
             </Box>
-        
+          
         </>
     )
 }
