@@ -14,6 +14,7 @@ const BarItems = [
     link: "/dashboard/write",
     icon: <BiPencil />,
     mobileView: false,
+    hideDesktop: false,
   },
   {
     name: "Overview",
