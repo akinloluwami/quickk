@@ -12,6 +12,7 @@ import Logo from "./dashboard.svg";
 import { FiLogOut } from "react-icons/fi";
 import { BiUserCircle } from "react-icons/bi";
 import { BiChevronDown } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const DashboardTop = ({ displayName, profilePic }) => {
   return (
@@ -31,8 +32,8 @@ const DashboardTop = ({ displayName, profilePic }) => {
         <Box>
           <Menu>
             <MenuButton>
-                <Flex alignItems={"center"} gap={"1em"}>
-              <Avatar name={displayName} />
+              <Flex alignItems={"center"} gap={"1em"}>
+                <Avatar name={displayName} />
                 <Text fontWeight={"bold"} display={["none", "block"]}>
                   {displayName}
                 </Text>
@@ -43,12 +44,17 @@ const DashboardTop = ({ displayName, profilePic }) => {
             </MenuButton>
 
             <MenuList>
+              
+              <Link to='/profile'>
+
               <MenuItem>
                 <Text mr="1em">
                   <BiUserCircle />
                 </Text>{" "}
                 Profile.
               </MenuItem>
+
+               </Link>
 
               <MenuItem>
                 <Text mr="1em">
