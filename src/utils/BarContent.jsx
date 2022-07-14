@@ -32,7 +32,7 @@ const BarItems = [
     mobileView: true,
     styles : {
      
-      padding : '0.2em 0.6em',
+      padding : '0.6em 0.6em',
       
     }
   },
@@ -49,7 +49,7 @@ const BarItems = [
     mobileView: true,
     styles : {
      
-      padding : '0.2em 0.6em',
+      padding : '0.6em 0.6em',
       
     }
   },
@@ -64,8 +64,8 @@ const BarItems = [
     styles : {
       
       color : 'white',
-      padding : '0.2em 0.6em',
-      borderRadius: '0.3em',
+      padding : '0.6em 0.6em',
+      borderRadius: '1em',
     }
   },
 
@@ -77,7 +77,7 @@ const BarItems = [
     
     styles : {
      
-      padding : '0.2em 0.6em',
+      padding : '0.6em 0.6em',
       
     }
   },
@@ -89,7 +89,7 @@ const BarItems = [
     mobileView: true,
     styles : {
      
-      padding : '0.2em 0.6em',
+      padding : '0.6em 0.6em',
       
     }
   },

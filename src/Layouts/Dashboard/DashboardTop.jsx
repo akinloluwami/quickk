@@ -31,8 +31,8 @@ const DashboardTop = ({ displayName, profilePic }) => {
         <Box>
           <Menu>
             <MenuButton>
-              <Flex alignItems={"center"} gap={"1em"}>
-                <Avatar src={profilePic} />
+                <Flex alignItems={"center"} gap={"1em"}>
+              <Avatar name={displayName} />
                 <Text fontWeight={"bold"} display={["none", "block"]}>
                   {displayName}
                 </Text>
