@@ -21,8 +21,12 @@ sequelize
   });
 
 const authRouter = require("./src/routes/authRoute");
+const postRouter = require("./src/routes/postRoute");
+const dashboardRouter = require("./src/routes/dashboardRoute");
 
 app.use("/auth", authRouter);
+app.use("/post", postRouter);
+app.use("/dashboard", dashboardRouter);
 
 const port = process.env.PORT || 8080;
 
