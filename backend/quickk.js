@@ -11,6 +11,10 @@ const sequelize = require("./src/utils/db");
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("Hi, this is Quickk");
+});
+
 sequelize
   .sync()
   .then(() => {
