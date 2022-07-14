@@ -12,7 +12,7 @@ const Post = sequelize.define("Post", {
     allowNull: false,
   },
   content: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   createdAt: {
@@ -24,7 +24,11 @@ const Post = sequelize.define("Post", {
     defaultValue: DataTypes.NOW,
   },
   userUuid: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  slug: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   views: {
