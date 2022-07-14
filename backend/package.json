@@ -10,8 +10,9 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "dev": "nodemon quickk.js",
-    "start": "node quickk.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node quickk.js",
+    "dev": "nodemon quickk.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
