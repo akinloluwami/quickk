@@ -16,7 +16,7 @@ const DashboardLayout = ({ children }) => {
             <Flex position={'relative'}>
 
                 {/* sidebar  */}
-                <Box bg={'#fff'}>
+                <Box bg={'#fff'} display={['none' , 'block']}>
 
                     <Sidebar/>
 

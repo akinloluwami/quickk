@@ -1,7 +1,7 @@
-import { Box, ListItem, UnorderedList } from "@chakra-ui/react";
+import { Box, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import BarItems from "../../utils/BarContent";
-import {TbLayoutDashboard} from 'react-icons/tb';
+import {MdOutlineDashboard} from 'react-icons/md';
 
 const Sidebar = () => {
     return (
@@ -18,10 +18,10 @@ const Sidebar = () => {
                                 return (
                                     <>
 
-                                       <Link to={link}>
-                                          <ListItem>
-                                            
-                                            {name}
+                                       <Link to={link} key={index}>
+                                          <ListItem display={'flex'} gap={'1em'}>
+                                            <Text fontSize={'1.2em'}>{icon}</Text>
+                                            <Text>{name}</Text>
                                           
                                             
                                             </ListItem>
