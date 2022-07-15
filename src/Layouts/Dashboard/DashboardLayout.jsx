@@ -35,7 +35,7 @@ const DashboardLayout = ({ children }) => {
           </Box>
 
           {/* Main display sections  */}
-          <Box p={["1.5em","2em"]}>
+          <Box p={["1.5em","2em"]} w={'100%'}>
             <Box>{children}</Box>
           </Box>
         </Flex>
