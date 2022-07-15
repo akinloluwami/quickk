@@ -1,12 +1,15 @@
 const ProfileItems = [
     {
-        name: 'profile',
+        name: 'Blog',
         path: '/profile',
     }, 
     {
-        name: 'Blog',
+        name: 'Donations',
         path: '/profile',
-    }
+    },
+
+   
+
 ]
 
 export default ProfileItems;
