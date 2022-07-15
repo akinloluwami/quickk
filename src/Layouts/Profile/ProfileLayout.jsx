@@ -1,26 +1,47 @@
+import { Box, ListItem, UnorderedList } from "@chakra-ui/react";
+import ProfileBlock from "../../pages/Profile/ProfileBlock";
+import ProfileItems from "./ProfileItems";
+import { Link } from 'react-router-dom';
+
 const  ProfileLayout = ({children}) => {
 
 
     return (
         <>
         
-            <div>
+          <Box bg={'#fff'} p={'2em'} w={'100%'}>
 
-                {/* profile container  */}
-                <div>
-
-                </div>
-
-                <div className="profile-child">
+             <ProfileBlock/>
 
 
-                    {children}
+             <Box my={['1em' , '3em']}>
 
-                </div>
+                <UnorderedList listStyleType={'none'} mx={'0'} display={'flex'} gap={'3em'}>
+                    {
+                        ProfileItems.map((item, index) => {
 
+                            return (
+                               <>
+                                 <Link to={item.path}>
+                                    <ListItem> {item.name}</ListItem>
+                                 </Link>
+                               </>
+                            )
 
-            </div>
-        
+                        })
+                    }
+                </UnorderedList>
+
+                
+                <Box my={'1em'}>
+
+                     {children}
+                    
+                </Box>
+
+             </Box>
+
+          </Box>
         </>
     )
 
