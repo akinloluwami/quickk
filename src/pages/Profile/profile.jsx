@@ -7,7 +7,7 @@ const Profile = () => {
 
            <DashboardLayout>
            <Box>
-
+ 
             Profile comming soon...
 
             </Box>
