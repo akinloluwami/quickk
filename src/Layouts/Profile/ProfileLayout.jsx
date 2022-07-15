@@ -14,7 +14,7 @@ const  ProfileLayout = ({children}) => {
              <ProfileBlock/>
 
 
-             <Box my='1em'>
+             <Box my={['1em' , '3em']}>
 
                 <UnorderedList listStyleType={'none'} mx={'0'} display={'flex'} gap={'3em'}>
                     {
