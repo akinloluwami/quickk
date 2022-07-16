@@ -10,14 +10,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useEffect } from "react";
 import DashboardIndex from "./pages/Dashboard/Dashboard";
-import Draft from './pages/Dashboard/Draaft';
-import Donations from './pages/Dashboard/Donations';
+import Draft from "./pages/Dashboard/Draaft";
+import Donations from "./pages/Dashboard/Donations";
 import Write from "./pages/Dashboard/Write";
-import Posts from './pages/Dashboard/Posts';
-import Scheduled from './pages/Dashboard/Scheduled';
-import Newslatter from './pages/Dashboard/Newslatter';
-import Analytics from './pages/Dashboard/Analytics';
-import Profile from './pages/Profile/profile';
+import Posts from "./pages/Dashboard/Posts";
+import Scheduled from "./pages/Dashboard/Scheduled";
+import Newslatter from "./pages/Dashboard/Newslatter";
+import Analytics from "./pages/Dashboard/Analytics";
+import Profile from "./pages/Profile/profile";
 
 function App() {
   return (
