@@ -49,6 +49,14 @@ module.exports = {
     });
     userToFollowObj.update({
       followers: [...userToFollowObj.followers, user.uuid],
+      notifications: [
+        ...userToFollowObj.notifications,
+        {
+          message: `${user.username} started following you`,
+          time: new Date(),
+        },
+      ],
+      isNewNotification: true,
     });
     await user.save();
     await userToFollowObj.save();
