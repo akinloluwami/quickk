@@ -121,23 +121,22 @@ module.exports = {
     });
   },
   /******************************************************/
-  getPostsFromUser: async (req, res) => {
-    const { userUuid } = req.body;
-    const posts = await Post.findAll({
+  getSinglePostFromUser: async (req, res) => {
+    const { username, slug } = req.body;
+    const user = await User.findOne({
       where: {
-        userUuid,
+        username,
       },
     });
-    res.status(200).json({
-      message: "Posts retrieved successfully",
-      posts,
-    });
-  },
-  getSinglePostFromUser: async (req, res) => {
-    const { userUuid, slug } = req.body;
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+
     const post = await Post.findOne({
       where: {
-        userUuid,
+        userUuid: user.uuid,
         slug,
       },
     });
