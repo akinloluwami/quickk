@@ -145,4 +145,170 @@ module.exports = {
       post,
     });
   },
+  /******************************************************/
+  likePost: async (req, res) => {
+    const { slug, id } = req.body;
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const post = await Post.findOne({
+      where: {
+        slug,
+        id,
+      },
+    });
+    if (!post) {
+      return res.status(400).json({
+        message: "Post not found",
+      });
+    }
+    const likerData = {
+      userUuid: user.uuid,
+      date: new Date(),
+    };
+    post.update({
+      likes: [...post.likes, likerData],
+    });
+    await post.save();
+    const postAuthor = await User.findOne({
+      where: {
+        uuid: post.userUuid,
+      },
+    });
+    if (postAuthor.uuid !== user.uuid) {
+      const notificationData = {
+        userUuid: postAuthor.uuid,
+        date: new Date(),
+        message: `${user.username} liked your post`,
+        link: `/post/${post.slug}`,
+      };
+      await postAuthor.update({
+        notifications: [...user.notifications, notificationData],
+        isNewNotification: true,
+      });
+
+      await user.save();
+    }
+    res.status(200).json({
+      message: "Post liked successfully",
+      likerData,
+    });
+  },
+  /******************************************************/
+  unlikePost: async (req, res) => {
+    const { slug, id } = req.body;
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const post = await Post.findOne({
+      where: {
+        slug,
+        id,
+      },
+    });
+    if (!post) {
+      return res.status(400).json({
+        message: "Post not found",
+      });
+    }
+    const likerData = {
+      userUuid: user.uuid,
+      date: new Date(),
+    };
+    const likes = post.likes
+      .filter((like) => {
+        return like.userUuid !== user.uuid;
+      })
+      .map((like) => {
+        return like;
+      })
+      .sort((a, b) => {
+        return a.date - b.date;
+      })
+      .reverse();
+    post.update({
+      likes,
+    });
+    await post.save();
+    res.status(200).json({
+      message: "Post unliked successfully",
+      likerData,
+    });
+  },
+  /******************************************************/
+  commentOnPost: async (req, res) => {
+    const { slug, id, comment } = req.body;
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const post = await Post.findOne({
+      where: {
+        slug,
+        id,
+      },
+    });
+    if (!post) {
+      return res.status(400).json({
+        message: "Post not found",
+      });
+    }
+    const commentData = {
+      userUuid: user.uuid,
+      date: new Date(),
+      comment,
+    };
+    post.update({
+      comments: [...post.comments, commentData],
+    });
+    await post.save();
+    res.status(200).json({
+      message: "Comment added successfully",
+      commentData,
+    });
+  },
 };
