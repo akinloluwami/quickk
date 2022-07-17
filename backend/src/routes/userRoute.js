@@ -3,7 +3,7 @@ const router = require("express").Router();
 
 router.post("/follow", userController.followUser);
 router.post("/unfollow", userController.unfollowUser);
-router.post("/posts", userController.getUserPosts);
-router.post("/profile", userController.getUserProfile);
+router.get("/posts", userController.getUserPosts);
+router.get("/profile", userController.getUserProfile);
 
 module.exports = router;
