@@ -1,6 +1,6 @@
 const User = require("../schema/User");
 const jwt = require("jsonwebtoken");
-const Posts = require("../schema/Posts");
+const Posts = require("../schema/Post");
 
 module.exports = {
   followUser: async (req, res) => {
