@@ -8,5 +8,6 @@ router.get("/profile", userController.getUserProfile);
 router.get("/followers", userController.getUserFollowers);
 router.get("/following", userController.getUserFollowing);
 router.post("/add-wallet-info", userController.addWalletInfo);
+router.get("/get-wallet-info", userController.getWalletInfo);
 
 module.exports = router;
