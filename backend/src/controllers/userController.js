@@ -221,4 +221,39 @@ module.exports = {
       },
     });
   },
+  /************************************************/
+  getUserFollowers: async (req, res) => {
+    const { username } = req.query;
+    const user = await User.findOne({
+      where: {
+        username: username,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const followers = await User.findAll({
+      where: {
+        uuid: user.followers,
+      },
+    });
+    if (followers.length === 0) {
+      return res.status(400).json({
+        message: "This user has no followers",
+      });
+    }
+    return res.status(200).json({
+      message: "Followers retrieved successfully",
+      followers: followers.map((follower) => {
+        const { username, displayName, isVerified } = follower;
+        return {
+          username,
+          displayName,
+          isVerified,
+        };
+      }),
+    });
+  },
 };
