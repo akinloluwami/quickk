@@ -291,4 +291,31 @@ module.exports = {
       }),
     });
   },
+  /************************************************/
+  addWalletInfo: async (req, res) => {
+    const { wallet_address, wallet_name } = req.body;
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userUuid = decoded.uuid;
+    const user = await User.findOne({
+      where: {
+        uuid: userUuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    user.update({
+      walletInfo: {
+        wallet_address,
+        wallet_name,
+      },
+    });
+    await user.save();
+    return res.status(200).json({
+      message: "Wallet info added successfully",
+    });
+  },
 };
