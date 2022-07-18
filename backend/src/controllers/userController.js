@@ -318,4 +318,32 @@ module.exports = {
       message: "Wallet info added successfully",
     });
   },
+  /************************************************/
+  getWalletInfo: async (req, res) => {
+    const jwt = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(jwt, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const { walletInfo } = user;
+    if (!walletInfo) {
+      return res.status(400).json({
+        message: "You have not added any wallet info",
+      });
+    }
+    return res.status(200).json({
+      message: "Wallet info retrieved successfully",
+      walletInfo: {
+        wallet_name: walletInfo.wallet_name,
+        wallet_address: walletInfo.wallet_address.slice(-6),
+      },
+    });
+  },
 };
