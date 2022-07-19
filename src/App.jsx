@@ -13,11 +13,12 @@ import DashboardIndex from "./pages/Dashboard/Dashboard";
 import Draft from "./pages/Dashboard/Draaft";
 import Donations from "./pages/Dashboard/Donations";
 import Write from "./pages/Dashboard/Write";
-import Posts from "./pages/Dashboard/Posts";
-import Scheduled from "./pages/Dashboard/Scheduled";
-import Newslatter from "./pages/Dashboard/Newslatter";
-import Analytics from "./pages/Dashboard/Analytics";
-import Profile from "./pages/Profile/profile";
+import Posts from './pages/Dashboard/Posts';
+import Scheduled from './pages/Dashboard/Scheduled';
+import Newslatter from './pages/Dashboard/Newslatter';
+import Analytics from './pages/Dashboard/Analytics';
+import Profile from './pages/Profile/profile';
+import PostIndex from "./pages/Post/PostIndex";
 
 function App() {
   return (
@@ -42,6 +43,10 @@ function App() {
           <Route path="/dashboard/newsletter" element={<Newslatter />} />
           <Route path="/dashboard/analytics" element={<Analytics />} />
           <Route path="/profile" element={<Profile />} />
+
+          {/* Dynamic routes  */}
+          <Route path='/post/:id' element={<PostIndex/>} />
+
         </Routes>
       </Router>
     </>
