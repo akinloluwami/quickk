@@ -20,6 +20,7 @@ const AuthLayout = ({ children }) => {
                     </Box> 
 
                     <ContainerLayout>
+                        
                         <Box display={'flex'} h={'50vh'} alignContent={'center'} alignItems='center' >
 
                             <Box px='1em'>
@@ -41,6 +42,8 @@ const AuthLayout = ({ children }) => {
                 </Box>
 
                 <Box bg={''} width={['100%','50%']} h='100vh'>
+                    
+                    <Logo/>
                     
                     {children}
                     
