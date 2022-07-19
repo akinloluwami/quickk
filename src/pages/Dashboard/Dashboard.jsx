@@ -1,5 +1,6 @@
 import PostBox from "../../components/Post/PostBox";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
+import { Link } from "react-router-dom";
 
 const DashboardIndex = () => {
   return (
@@ -7,7 +8,9 @@ const DashboardIndex = () => {
       <DashboardLayout>
        
           {/* Items from Api will be looped here  */}
-          <PostBox />
+          <Link to='/post/id'>
+            <PostBox />
+          </Link>
       
       </DashboardLayout>
     </>

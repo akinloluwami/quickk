@@ -3,7 +3,7 @@ import { Avatar } from '@chakra-ui/react';
 import { AiOutlineComment , AiOutlineMore, AiFillHeart} from 'react-icons/ai'
 import {BiDonateBlood} from 'react-icons/bi'
 
-const PostBox = ({ blogTitle , blogBrief  }) => {
+const UserPost = ({ blogTitle , blogBrief  }) => {
 
     return (
         <>
@@ -27,7 +27,7 @@ const PostBox = ({ blogTitle , blogBrief  }) => {
                       </Box>
                    </Box>
 
-                   <Flex flexDir={['column' , 'row']} my={'1em'} alignItems={'center'}>
+                   <Flex flexDir={['column-reverse']} my={'2em'} alignItems={'center'}>
                     
                    <Box my={'1em'}>
                         <Text fontWeight={'bold'} fontSize={['1.2em','1.5em']}>This is the title for your post goes here </Text>
@@ -71,4 +71,4 @@ const PostBox = ({ blogTitle , blogBrief  }) => {
     )
 }
 
-export default PostBox;
+export default UserPost;
