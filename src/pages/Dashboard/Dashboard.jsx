@@ -1,3 +1,4 @@
+import PostBox from "../../components/Post/PostBox";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 
 const DashboardIndex = () => {
@@ -5,10 +6,8 @@ const DashboardIndex = () => {
     <>
       <DashboardLayout>
        
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-        quidem, ipsa quam quod doloribus facere ipsam veritatis veniam nisi
-        iste. Impedit ad iusto dolor veritatis iste soluta placeat temporibus
-        
+          {/* Items from Api will be looped here  */}
+          <PostBox />
       
       </DashboardLayout>
     </>
