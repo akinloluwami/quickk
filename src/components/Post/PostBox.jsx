@@ -8,7 +8,7 @@ const PostBox = ({ blogTitle , blogBrief  }) => {
     return (
         <>
         
-            <Box bg={'#fff'} p={['1em' , '2em']} width={['100%','80%']}>
+            <Box bg={'#fff'} p={['1em' , '2em']} width={['100%','80%']} my={'1em'}>
                 
                 <Box >
                    

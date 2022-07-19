@@ -10,6 +10,7 @@ const DashboardIndex = () => {
           {/* Items from Api will be looped here  */}
           <Link to='/post/id'>
             <PostBox />
+            <PostBox />
           </Link>
       
       </DashboardLayout>

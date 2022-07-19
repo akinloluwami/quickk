@@ -1,5 +1,6 @@
 const User = require("../schema/User");
 const jwt = require("jsonwebtoken");
+const Posts = require("../schema/Post");
 
 module.exports = {
   followUser: async (req, res) => {
@@ -49,6 +50,14 @@ module.exports = {
     });
     userToFollowObj.update({
       followers: [...userToFollowObj.followers, user.uuid],
+      notifications: [
+        ...userToFollowObj.notifications,
+        {
+          message: `${user.username} started following you`,
+          time: new Date(),
+        },
+      ],
+      isNewNotification: true,
     });
     await user.save();
     await userToFollowObj.save();
@@ -115,5 +124,101 @@ module.exports = {
       message: `You are no longer following ${userToUnfollow}`,
     });
   },
+  /************************************************/
+  getUserPosts: async (req, res) => {
+    const { username } = req.query;
+    const user = await User.findOne({
+      where: {
+        username: username,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const posts = await Posts.findAll({
+      where: {
+        userUuId: user.uuid,
+      },
+    });
+    if (posts.length === 0) {
+      return res.status(400).json({
+        message: "This user has no posts",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Posts retrieved successfully",
+      posts: posts.map((post) => {
+        const {
+          title,
+          content,
+          createdAt,
+          updatedAt,
+          views,
+          likes,
+          comments,
+          slug,
+        } = post;
+        return {
+          title,
+          content,
+          createdAt,
+          updatedAt,
+          views,
+          likes,
+          comments,
+          slug,
+        };
+      }),
+    });
+  },
+  /************************************************/
+  getUserProfile: async (req, res) => {
+    const { user_name } = req.query;
+    const user = await User.findOne({
+      where: {
+        username: user_name,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const {
+      username,
+      followers,
+      following,
+      displayName,
+      isVerified,
+      emailVerified,
+      bio,
+      twitter,
+      facebook,
+      instagram,
+      youtube,
+      tiktok,
+      website,
+    } = user;
+    return res.status(200).json({
+      message: "User profile retrieved successfully",
+      user: {
+        username,
+        followers,
+        following,
+        displayName,
+        isVerified,
+        emailVerified,
+        bio,
+        twitter,
+        facebook,
+        instagram,
+        youtube,
+        tiktok,
+        website,
+      },
+    });
+  },
 };
-//   /*****************************************************/
