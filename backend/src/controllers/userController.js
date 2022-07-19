@@ -221,4 +221,129 @@ module.exports = {
       },
     });
   },
+  /************************************************/
+  getUserFollowers: async (req, res) => {
+    const { username } = req.query;
+    const user = await User.findOne({
+      where: {
+        username: username,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const followers = await User.findAll({
+      where: {
+        uuid: user.followers,
+      },
+    });
+    if (followers.length === 0) {
+      return res.status(400).json({
+        message: "This user has no followers",
+      });
+    }
+    return res.status(200).json({
+      message: "Followers retrieved successfully",
+      followers: followers.map((follower) => {
+        const { username, displayName, isVerified } = follower;
+        return {
+          username,
+          displayName,
+          isVerified,
+        };
+      }),
+    });
+  },
+  /************************************************/
+  getUserFollowing: async (req, res) => {
+    const { username } = req.query;
+    const user = await User.findOne({
+      where: {
+        username: username,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const following = await User.findAll({
+      where: {
+        uuid: user.following,
+      },
+    });
+    if (following.length === 0) {
+      return res.status(400).json({
+        message: "This user has no following",
+      });
+    }
+    return res.status(200).json({
+      message: "Following retrieved successfully",
+      following: following.map((follow) => {
+        const { username, displayName, isVerified } = follow;
+        return {
+          username,
+          displayName,
+          isVerified,
+        };
+      }),
+    });
+  },
+  /************************************************/
+  addWalletInfo: async (req, res) => {
+    const { wallet_address, wallet_name } = req.body;
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userUuid = decoded.uuid;
+    const user = await User.findOne({
+      where: {
+        uuid: userUuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    user.update({
+      walletInfo: {
+        wallet_address,
+        wallet_name,
+      },
+    });
+    await user.save();
+    return res.status(200).json({
+      message: "Wallet info added successfully",
+    });
+  },
+  /************************************************/
+  getWalletInfo: async (req, res) => {
+    const jwt = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(jwt, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const { walletInfo } = user;
+    if (!walletInfo) {
+      return res.status(400).json({
+        message: "You have not added any wallet info",
+      });
+    }
+    return res.status(200).json({
+      message: "Wallet info retrieved successfully",
+      walletInfo: {
+        wallet_name: walletInfo.wallet_name,
+        wallet_address: walletInfo.wallet_address.slice(-6),
+      },
+    });
+  },
 };
