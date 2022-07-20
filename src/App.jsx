@@ -19,6 +19,8 @@ import Newslatter from './pages/Dashboard/Newslatter';
 import Analytics from './pages/Dashboard/Analytics';
 import Profile from './pages/Profile/profile';
 import PostIndex from "./pages/Post/PostIndex";
+import ProfileDonations from "./pages/Profile/profileDonations";
+
 
 function App() {
   return (
@@ -46,6 +48,8 @@ function App() {
 
           {/* Dynamic routes  */}
           <Route path='/post/:id' element={<PostIndex/>} />
+          <Route path='/profile-donations' element={<ProfileDonations/>} />
+         
 
         </Routes>
       </Router>
