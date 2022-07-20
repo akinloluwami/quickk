@@ -33,15 +33,17 @@ const  ProfileLayout = ({children}) => {
                 </UnorderedList>
 
                 
-                <Box my={'1em'}>
-
-                     {children}
-                    
-                </Box>
+             
 
              </Box>
 
           </Box>
+
+             <Box my={'1em'} >
+
+                     {children}
+                    
+             </Box>
         </>
     )
 

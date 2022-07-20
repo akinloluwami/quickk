@@ -5,7 +5,7 @@ const ProfileItems = [
     }, 
     {
         name: 'Donations',
-        path: '/profile',
+        path: '/profile-donations ',
     },
 
    
