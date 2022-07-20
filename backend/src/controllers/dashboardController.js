@@ -26,6 +26,10 @@ module.exports = {
     return res.status(200).json({
       message: "User profile retrieved successfully",
       displayName: user.displayName,
+      username: user.username,
+      followers: user.followers,
+      following: user.following,
+      isVerified: user.isVerified,
     });
   },
 };
