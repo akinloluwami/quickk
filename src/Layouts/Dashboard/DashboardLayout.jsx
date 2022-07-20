@@ -34,7 +34,7 @@ const DashboardLayout = ({ children }) => {
     <>
       <Box bg={"#FAFAFA"} h={"100vh"}>
         <DashboardTop displayName={displayName} profilePic={profilePic} />
-        <DashboardIndex following={following} followers={followers} />
+        {/* <DashboardIndex following={following} followers={followers} /> */}
 
         <Flex position={"relative"}>
           <Box bg={"#fff"} display={["none", "block"]}>
