@@ -3,17 +3,18 @@ import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import { Flex } from "@chakra-ui/react";
 import Card from "../../components/minor/Card";
 
-const DashboardIndex = ({ following, followers }) => {
+const DashboardIndex = () => {
+  // console.log(following, followers);
   // const DashboardIndex = () => {
   const data = [
     {
       title: "Followers",
-      number: followers.length,
+      number: "10,637",
       color: "rgba(240, 161, 244, 0.5)",
     },
     {
       title: "Following",
-      number: following.length,
+      number: "12,383",
       color: "rgba(56, 105, 255, 0.5)",
     },
     {
