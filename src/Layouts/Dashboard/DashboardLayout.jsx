@@ -4,9 +4,12 @@ import { MobileNav } from "./Dashboard Components/MobileNav";
 import DashboardTop from "./DashboardTop";
 import Sidebar from "./Sidebar";
 import { fetchData } from "../../utils/Request";
+import DashboardIndex from "../../pages/Dashboard/Dashboard";
 const DashboardLayout = ({ children }) => {
   const [displayName, setDisplayName] = useState("");
   const [profilePic, setProfilePic] = useState("");
+  const [following, setFollowing] = useState(0);
+  const [followers, setFollowers] = useState(0);
 
   useEffect(() => {
     const response = fetchData("/dashboard/user/profile", {
@@ -18,6 +21,9 @@ const DashboardLayout = ({ children }) => {
     });
     response.then((res) => {
       setDisplayName(res.data.displayName);
+      setFollowing(res.data.following);
+      setFollowers(res.data.followers);
+      console.log(res.data);
     });
     setProfilePic(
       `https://avatars.dicebear.com/api/initials/${displayName}.svg`
@@ -28,6 +34,7 @@ const DashboardLayout = ({ children }) => {
     <>
       <Box bg={"#FAFAFA"} h={"100vh"}>
         <DashboardTop displayName={displayName} profilePic={profilePic} />
+        <DashboardIndex following={following} followers={followers} />
 
         <Flex position={"relative"}>
           <Box bg={"#fff"} display={["none", "block"]}>
@@ -35,7 +42,7 @@ const DashboardLayout = ({ children }) => {
           </Box>
 
           {/* Main display sections  */}
-          <Box p={["1.5em","2em"]} w={'100%'}>
+          <Box p={["1.5em", "2em"]} w={"100%"}>
             <Box>{children}</Box>
           </Box>
         </Flex>
@@ -48,7 +55,7 @@ const DashboardLayout = ({ children }) => {
           right={"0"}
           left={"0"}
           bottom={"0"}
-          px={'0em'}
+          px={"0em"}
         >
           <MobileNav />
         </Box>
