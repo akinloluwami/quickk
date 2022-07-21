@@ -36,13 +36,13 @@ const DashboardTop = ({ displayName, profilePic }) => {
         </Box>
 
         <Flex>
-          <Flex alignItems={"center"}>
+          <Flex alignItems={"center"} mx={'1em'}>
             <FiBell color={"#000"} cursor={"pointer"} size={"1.5em"} />
           </Flex>
           <Menu>
             <MenuButton>
               <Flex alignItems={"center"} gap={"1em"}>
-                <Avatar name={displayName} />
+                <Avatar name={displayName} size={"md"} />
                 <Text fontWeight={"bold"} display={["none", "block"]}>
                   {displayName}
                 </Text>
