@@ -15,7 +15,13 @@ const Write = () => {
               Publish
             </Button>
           </Flex>
-          <Input placeholder={"Title"} />
+          <Input
+            placeholder={"Article Title..."}
+            fontSize={"2em"}
+            height={"1em"}
+            fontWeight={"500"}
+            py={"1em"}
+          />
         </Flex>
       </DashboardLayout>
     </>
