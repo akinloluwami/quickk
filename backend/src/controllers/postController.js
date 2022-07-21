@@ -11,11 +11,17 @@ module.exports = {
       api_key: process.env.API_KEY,
       api_secret: process.env.API_SECRET,
     });
-    const file = req.files.image;
+    const file = await req.files.image;
+
+    if (!file) {
+      return res.status(400).json({
+        message: "Please upload an image",
+      });
+    }
     cloudinary.uploader
       .upload(file.tempFilePath, {
         folder: "quickk",
-        public_id: file.name + "_" + Date.now(),
+        public_id: "quickk" + "_" + Date.now() + "_" + file.originalname,
         resource_type: "auto",
       })
       .then((result) => {
@@ -33,7 +39,7 @@ module.exports = {
   },
   /******************************************************/
   createPost: async (req, res) => {
-    const { title, content, image } = req.body;
+    const { title, content, coverImageUrl } = req.body;
     const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
@@ -67,9 +73,9 @@ module.exports = {
         message: "Title must be less than 100 characters",
       });
     }
-    if (content.length < 100) {
+    if (content.length < 50) {
       return res.status(400).json({
-        message: "Content must be at least 100 characters",
+        message: "Content must be at least 50 characters",
       });
     }
     const slugExists = await Post.findOne({
@@ -87,7 +93,7 @@ module.exports = {
       content,
       userUuid: user.uuid,
       slug,
-      image,
+      coverImageUrl,
     });
     return res.status(201).json({
       message: "Post created successfully",
