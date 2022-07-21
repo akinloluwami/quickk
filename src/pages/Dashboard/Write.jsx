@@ -26,6 +26,10 @@ const Write = () => {
     }
   };
 
+  const handleRemoveImage = () => {
+    setImage(null);
+  };
+
   return (
     <>
       <DashboardLayout>
@@ -76,7 +80,9 @@ const Write = () => {
               position={"relative"}
             >
               <Button
-                onClick={() => {}}
+                onClick={() => {
+                  handleRemoveImage();
+                }}
                 position={"absolute"}
                 top={"15px"}
                 left={"15px"}
