@@ -2,10 +2,35 @@ require("dotenv").config();
 const Post = require("../schema/Post");
 const User = require("../schema/User");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("cloudinary").v2;
 module.exports = {
+  /***************************************************************************/
+  uploadImage: async (req, res) => {
+    cloudinary.config({
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret: process.env.API_SECRET,
+    });
+    const data = {
+      image: req.body.image,
+    };
+    try {
+      const result = await cloudinary.uploader.upload(data.image);
+      res.status(200).json({
+        message: "Image uploaded successfully",
+        data: result,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        message: "Error uploading image",
+        data: err,
+      });
+    }
+  },
   /******************************************************/
   createPost: async (req, res) => {
-    const { title, content } = req.body;
+    const { title, content, image } = req.body;
     const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
@@ -59,6 +84,7 @@ module.exports = {
       content,
       userUuid: user.uuid,
       slug,
+      image,
     });
     return res.status(201).json({
       message: "Post created successfully",
