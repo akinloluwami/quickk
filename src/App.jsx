@@ -21,8 +21,8 @@ import Profile from './pages/Profile/profile';
 import PostIndex from "./pages/Post/PostIndex";
 import ProfileDonations from "./pages/Profile/profileDonations";
 import NotFound from "./pages/NotFound/NotFound";
-import ProtectedRoute from './Routes/ProtectedRoute';
-
+import Protected from "./Routes/ProtectedRoute";
+import ProtectedRoutes from "./Routes/ProtectedRoute";
 
 function App() {
   return (
@@ -30,35 +30,24 @@ function App() {
       <ToastContainer />
 
       <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/verify-email" element={<VerifyEmail />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/dashboard" element={<DashboardIndex />} />
-          <Route path="/dashboard/draft" element={<Draft />} />
-          <Route path="/dashboard/donations" element={<Donations />} />
-          <Route path="/dashboard/explore" element={<Donations />} />
-          <Route path="/dashboard/write" element={<Write />} />
-          <Route path="/dashboard/posts" element={<Posts />} />
-          <Route path="/dashboard/scheduled" element={<Scheduled />} />
-          <Route path="/dashboard/newsletter" element={<Newslatter />} />
-          <Route path="/dashboard/analytics" element={<Analytics />} />
-          <Route path="/profile" element={<Profile />} />
+        
+          {/* <Route path="/" element={<Home />} />
+         
+   */}
 
 
           {/* Dynamic routes  */}
-          <Route path='/post/:id' element={<PostIndex/>} />
-          <Route path='/profile-donations' element={<ProfileDonations/>} />
+          {/* <Route path='/post/:id' element={<PostIndex/>} />
+          <Route path='/profile-donations' element={<ProfileDonations/>} /> */}
 
 
           {/* Not found  */}
-          <Route path="*" element={<NotFound/>} />
-         
+          {/* <Route path="*" element={<NotFound/>} /> */}
 
-        </Routes>
+           
+          <ProtectedRoutes/>
+
+       
       </Router>
     </>
   );

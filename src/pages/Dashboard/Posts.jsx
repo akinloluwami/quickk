@@ -4,7 +4,7 @@ import { FaTimes } from "react-icons/fa";
 import { fetchData } from "../../utils/Request";
 
 const Posts = ({ username }) => {
-  console.log(username);
+ 
   return (
     <>
       <DashboardLayout>
