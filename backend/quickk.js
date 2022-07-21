@@ -8,8 +8,9 @@ const User = require("./src/schema/User");
 const Post = require("./src/schema/Post");
 const sequelize = require("./src/utils/db");
 
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.send("Quickk, server is running");
