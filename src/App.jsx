@@ -21,6 +21,7 @@ import Profile from './pages/Profile/profile';
 import PostIndex from "./pages/Post/PostIndex";
 import ProfileDonations from "./pages/Profile/profileDonations";
 import NotFound from "./pages/NotFound/NotFound";
+import ProtectedRoute from './Routes/ProtectedRoute';
 
 
 function App() {
