@@ -2,33 +2,58 @@ import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import { Box, Input, Button, Flex, Text, Textarea } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
+import { postData } from "../../utils/Request";
 const Write = () => {
   const inputRef = useRef();
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
-
+  const [coverImageUrl, setCoverImageUrl] = useState("");
+  const [domImage, setDomImage] = useState(null);
   const handleClick = () => {
     inputRef.current.click();
   };
+  const uploadCoverImage = async () => {
+    const formData = new FormData();
+    formData.append("image", image);
+    setUploading(true);
+    const res = await postData("/post/upload-image", formData);
+    setUploading(false);
+    setCoverImageUrl(res.data.image);
+    console.log(res);
+  };
 
-  const displayImage = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setUploading(true);
-
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        setImage(e.target.result);
-        console.log(e.target.result);
-        setUploading(false);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
+  const handleImageInput = (e) => {
+    setImage(e.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setDomImage(e.target.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const handleRemoveImage = () => {
     setImage(null);
+  };
+
+  const handlePublish = async () => {
+    if (image) {
+      await uploadCoverImage();
+    }
+    const data = {
+      title: postTitle,
+      content: postContent,
+      coverImageUrl: coverImageUrl,
+    };
+    const res = await postData("/post/create", data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    console.log(res.data.post);
+    console.log(data);
   };
 
   return (
@@ -39,7 +64,7 @@ const Write = () => {
             <Input
               ref={inputRef}
               type={"file"}
-              onChange={displayImage}
+              onChange={handleImageInput}
               display={"none"}
             />
             {!image ? (
@@ -47,7 +72,7 @@ const Write = () => {
                 variantcolor={"teal"}
                 onClick={() => {
                   handleClick();
-                  displayImage();
+                  handleImageInput();
                 }}
               >
                 {uploading ? "Uploading..." : "Upload Image"}
@@ -58,13 +83,14 @@ const Write = () => {
             <Button
               backgroundColor={"#0031af"}
               color={"#fff"}
+              onClick={handlePublish}
               _hover={{ backgroundColor: "#0031af" }}
               disabled={
                 !postTitle ||
                 uploading ||
                 postTitle.length < 10 ||
                 !postContent ||
-                postContent.length < 100
+                postContent.length < 50
               }
             >
               Publish
@@ -97,7 +123,7 @@ const Write = () => {
               >
                 <FaTimes fontSize={"1.5em"} color={"red"} />
               </Button>
-              <img src={image} alt="" />
+              <img src={domImage} alt="" />
             </Box>
           )}
           <Input
