@@ -21,7 +21,7 @@ module.exports = {
       .then((result) => {
         res.status(200).json({
           message: "Image uploaded successfully",
-          data: result,
+          image: result.secure_url,
         });
       })
       .catch((err) => {
