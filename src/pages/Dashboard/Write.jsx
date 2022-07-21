@@ -7,7 +7,13 @@ const Write = () => {
         <Flex justifyContent={"center"} flexDirection={"column"}>
           <Flex margin={"10px"} justifyContent={"space-between"}>
             <Button variantColor={"teal"}>Add Cover Image</Button>
-            <Button backgroundColor={"red"}>Publish</Button>
+            <Button
+              backgroundColor={"#0031af"}
+              color={"#fff"}
+              _hover={{ backgroundColor: "#0031af" }}
+            >
+              Publish
+            </Button>
           </Flex>
           <Input placeholder={"Title"} />
         </Flex>
