@@ -15,7 +15,7 @@ function DashboardCard({ title, number, color , icon }) {
             <Text fontWeight={'bold'}>{title}</Text>
             <Text>{number}</Text>
             
-
+          
         </Box>
 
       </>
