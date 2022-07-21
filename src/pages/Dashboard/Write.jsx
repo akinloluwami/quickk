@@ -58,9 +58,7 @@ const Write = () => {
               backgroundColor={"#0031af"}
               color={"#fff"}
               _hover={{ backgroundColor: "#0031af" }}
-              disabled={
-                !postTitle || !image || uploading || postTitle.length < 10
-              }
+              disabled={!postTitle || uploading || postTitle.length < 10}
             >
               Publish
             </Button>
