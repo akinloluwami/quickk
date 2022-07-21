@@ -61,7 +61,7 @@ const Write = () => {
               Publish
             </Button>
           </Flex>
-          {/* {image && (
+          {image && (
             <Box
               display={"flex"}
               justifyContent={"center"}
@@ -88,7 +88,7 @@ const Write = () => {
               </Button>
               <img src={image} alt="" />
             </Box>
-          )} */}
+          )}
           <Input
             placeholder={"Article Title..."}
             fontSize={"2em"}
