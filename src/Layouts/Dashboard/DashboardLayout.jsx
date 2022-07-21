@@ -5,11 +5,13 @@ import DashboardTop from "./DashboardTop";
 import Sidebar from "./Sidebar";
 import { fetchData } from "../../utils/Request";
 import DashboardIndex from "../../pages/Dashboard/Dashboard";
+import Posts from "../../pages/Dashboard/Posts";
 const DashboardLayout = ({ children }) => {
   const [displayName, setDisplayName] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [following, setFollowing] = useState(0);
   const [followers, setFollowers] = useState(0);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     const response = fetchData("/dashboard/user/profile", {
@@ -23,6 +25,7 @@ const DashboardLayout = ({ children }) => {
       setDisplayName(res.data.displayName);
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
+      setUsername(res.data.username);
       console.log(res.data);
     });
     setProfilePic(
@@ -34,6 +37,7 @@ const DashboardLayout = ({ children }) => {
     <>
       <Box bg={"#FAFAFA"} h={"100vh"}>
         <DashboardTop displayName={displayName} profilePic={profilePic} />
+        <Posts username={username} />
         {/* <DashboardIndex following={following} followers={followers} /> */}
 
         <Flex position={"relative"}>

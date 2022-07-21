@@ -35,4 +35,26 @@ module.exports = {
       notifications: user.notifications,
     });
   },
+  getAllPostsFromUser: async (req, res) => {
+    const { username } = req.body;
+    const user = await User.findOne({
+      where: {
+        username,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const posts = await Post.findAll({
+      where: {
+        userUuid: user.uuid,
+      },
+    });
+    return res.status(200).json({
+      message: "Posts retrieved successfully",
+      posts,
+    });
+  },
 };
