@@ -69,14 +69,14 @@ const Write = () => {
             overflow={"hidden"}
             position={"relative"}
           >
-            {/* <Button
+            <Button
               onClick={() => {}}
               position={"absolute"}
               top={"0"}
               left={"0"}
             >
               x
-            </Button> */}
+            </Button>
             <img src={image} alt="" />
           </Box>
           <Input
