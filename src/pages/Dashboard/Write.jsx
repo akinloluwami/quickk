@@ -1,23 +1,29 @@
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
-import { Box, Input, Button, Flex } from "@chakra-ui/react";
+import { Box, Input, Button, Flex, Text } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 const Write = () => {
   const inputRef = useRef();
-  const [displayImage, setDisplayImage] = useState("");
+  const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+
   const handleClick = () => {
     inputRef.current.click();
   };
-  const handleFileChange = (event) => {
-    const fileObj = event.target.files && event.target.files[0];
-    if (!fileObj) {
-      return;
+
+  const displayImage = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setUploading(true);
+
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        setImage(e.target.result);
+        console.log(e.target.result);
+        setUploading(false);
+      };
+      reader.readAsDataURL(e.target.files[0]);
     }
-    console.log("fileObj is", fileObj);
-    event.target.value = null;
-    console.log(event.target.files);
-    console.log(fileObj);
-    console.log(fileObj.name);
   };
+
   return (
     <>
       <DashboardLayout>
@@ -26,12 +32,22 @@ const Write = () => {
             <Input
               ref={inputRef}
               type={"file"}
+              onChange={displayImage}
               display={"none"}
-              onChange={handleFileChange}
             />
-            <Button variantcolor={"teal"} onClick={handleClick}>
-              Add Cover Image
-            </Button>
+            {!image ? (
+              <Button
+                variantcolor={"teal"}
+                onClick={() => {
+                  handleClick();
+                  displayImage();
+                }}
+              >
+                {uploading ? "Uploading..." : "Upload Image"}
+              </Button>
+            ) : (
+              <Text>Cover Image Uploaded</Text>
+            )}
             <Button
               backgroundColor={"#0031af"}
               color={"#fff"}
@@ -40,6 +56,29 @@ const Write = () => {
               Publish
             </Button>
           </Flex>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            margin={"10px"}
+            borderRadius={"10px"}
+            backgroundColor={"#fff"}
+            padding={"10px"}
+            width={"100%"}
+            height={"400px"}
+            overflow={"hidden"}
+            position={"relative"}
+          >
+            {/* <Button
+              onClick={() => {}}
+              position={"absolute"}
+              top={"0"}
+              left={"0"}
+            >
+              x
+            </Button> */}
+            <img src={image} alt="" />
+          </Box>
           <Input
             placeholder={"Article Title..."}
             fontSize={"2em"}
