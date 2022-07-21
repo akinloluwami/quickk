@@ -7,10 +7,16 @@ const cors = require("cors");
 const User = require("./src/schema/User");
 const Post = require("./src/schema/Post");
 const sequelize = require("./src/utils/db");
+const fileupload = require("express-fileupload");
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  fileupload({
+    useTempFiles: true,
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("Quickk, server is running");
