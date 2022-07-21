@@ -9,12 +9,18 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import Logo from "./dashboard.svg";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiBell } from "react-icons/fi";
 import { BiUserCircle } from "react-icons/bi";
 import { BiChevronDown } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const DashboardTop = ({ displayName, profilePic }) => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   return (
     <>
       <Box
@@ -29,7 +35,10 @@ const DashboardTop = ({ displayName, profilePic }) => {
           <img src={Logo} alt="" />
         </Box>
 
-        <Box>
+        <Flex>
+          <Flex alignItems={"center"}>
+            <FiBell color={"#000"} cursor={"pointer"} size={"1.5em"} />
+          </Flex>
           <Menu>
             <MenuButton>
               <Flex alignItems={"center"} gap={"1em"}>
@@ -44,19 +53,20 @@ const DashboardTop = ({ displayName, profilePic }) => {
             </MenuButton>
 
             <MenuList>
-              
-              <Link to='/profile'>
+              <Link to="/profile">
+                <MenuItem>
+                  <Text mr="1em">
+                    <BiUserCircle />
+                  </Text>{" "}
+                  Profile.
+                </MenuItem>
+              </Link>
 
-              <MenuItem>
-                <Text mr="1em">
-                  <BiUserCircle />
-                </Text>{" "}
-                Profile.
-              </MenuItem>
-
-               </Link>
-
-              <MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleLogout();
+                }}
+              >
                 <Text mr="1em">
                   <FiLogOut />
                 </Text>
@@ -64,7 +74,7 @@ const DashboardTop = ({ displayName, profilePic }) => {
               </MenuItem>
             </MenuList>
           </Menu>
-        </Box>
+        </Flex>
       </Box>
     </>
   );
