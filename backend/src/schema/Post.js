@@ -46,6 +46,10 @@ const Post = sequelize.define("Post", {
     allowNull: true,
     defaultValue: [],
   },
+  coverImageUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 module.exports = Post;

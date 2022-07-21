@@ -30,6 +30,9 @@ module.exports = {
       followers: user.followers,
       following: user.following,
       isVerified: user.isVerified,
+      bio: user.bio,
+      isNewNotification: user.isNewNotification,
+      notifications: user.notifications,
     });
   },
 };

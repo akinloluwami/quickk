@@ -6,5 +6,6 @@ router.get("/user/post/:slug", postController.getSinglePostFromUser);
 router.post("/like", postController.likePost);
 router.post("/unlike", postController.unlikePost);
 router.post("/comment", postController.commentOnPost);
+router.post("/upload-image", postController.uploadImage);
 
 module.exports = router;
