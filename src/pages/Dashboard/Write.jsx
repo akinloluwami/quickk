@@ -5,8 +5,9 @@ const Write = () => {
     <>
       <DashboardLayout>
         <Flex justifyContent={"center"} flexDirection={"column"}>
-          <Flex margin={"10px"}>
+          <Flex margin={"10px"} justifyContent={"space-between"}>
             <Button variantColor={"teal"}>Add Cover Image</Button>
+            <Button backgroundColor={"red"}>Publish</Button>
           </Flex>
           <Input placeholder={"Title"} />
         </Flex>
