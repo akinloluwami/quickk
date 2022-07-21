@@ -6,3 +6,4 @@ seeders
 models
 node_modules
 yarn-error.log
+tmp
