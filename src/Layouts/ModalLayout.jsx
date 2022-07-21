@@ -1,6 +1,7 @@
 import { Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 
 const ModalLayout = ({isOpen , onClose , children , modalHeader }) => {
+    
     <>
     
         <Modal isOpen = { isOpen} onClose = {onClose}>

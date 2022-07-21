@@ -1,20 +1,26 @@
 import { Box, Text } from "@chakra-ui/react";
 
-function Card({ title, number, color }) {
+function DashboardCard({ title, number, color , icon }) {
   return (
-    <Box
-      borderWidth="1px"
-      borderRadius="lg"
-      borderColor="gray.200"
-      borderStyle="solid"
-      overflow="hidden"
-    >
-      <Box bg={color} p="4" color="white" fontWeight="bold">
-        <Text fontSize="xl">{title}</Text>
-        <Text fontSize="2xl">{number}</Text>
-      </Box>
-    </Box>
+  
+      <>
+      
+        <Box padding={'2em'}  bg={'#fff'} 
+        width={['100%']} 
+        borderLeft={`0.3em solid ${color}`} 
+        borderRadius={'0.2em'} >
+            <Text mb={'1em'}>
+             {icon}
+            </Text>
+            <Text fontWeight={'bold'}>{title}</Text>
+            <Text>{number}</Text>
+            
+
+        </Box>
+
+      </>
+   
   );
 }
 
-export default Card;
+export default DashboardCard;

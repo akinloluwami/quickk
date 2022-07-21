@@ -23,6 +23,7 @@ const DashboardLayout = ({ children }) => {
       setDisplayName(res.data.displayName);
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
+      console.log(res.data);
     });
     setProfilePic(
       `https://avatars.dicebear.com/api/initials/${displayName}.svg`
