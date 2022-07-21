@@ -11,22 +11,25 @@ module.exports = {
       api_key: process.env.API_KEY,
       api_secret: process.env.API_SECRET,
     });
-    const data = {
-      image: req.body.image,
-    };
-    try {
-      const result = await cloudinary.uploader.upload(data.image);
-      res.status(200).json({
-        message: "Image uploaded successfully",
-        data: result,
+    const file = req.files.image;
+    cloudinary.uploader
+      .upload(file.tempFilePath, {
+        folder: "quickk",
+        public_id: file.name + "_" + Date.now(),
+        resource_type: "auto",
+      })
+      .then((result) => {
+        res.status(200).json({
+          message: "Image uploaded successfully",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          message: "Error uploading image",
+          error: err,
+        });
       });
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({
-        message: "Error uploading image",
-        data: err,
-      });
-    }
   },
   /******************************************************/
   createPost: async (req, res) => {
