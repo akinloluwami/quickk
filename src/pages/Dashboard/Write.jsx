@@ -1,5 +1,5 @@
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
-import { Box, Input, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Input, Button, Flex, Text, Textarea } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
 const Write = () => {
@@ -7,6 +7,7 @@ const Write = () => {
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [postTitle, setPostTitle] = useState("");
+  const [postContent, setPostContent] = useState("");
 
   const handleClick = () => {
     inputRef.current.click();
@@ -101,6 +102,20 @@ const Write = () => {
             py={"1em"}
             onChange={(e) => {
               setPostTitle(e.target.value);
+            }}
+          />
+          <Textarea
+            placeholder={"Write your article..."}
+            fontSize={"1.5em"}
+            height={"100%"}
+            fontWeight={"500"}
+            py={"1em"}
+            px={"1em"}
+            borderRadius={"10px"}
+            border={"1px solid #0031af"}
+            marginTop={"10px"}
+            onChange={(e) => {
+              setPostContent(e.target.value);
             }}
           />
         </Flex>
