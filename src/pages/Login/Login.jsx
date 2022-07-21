@@ -30,6 +30,7 @@ function Login() {
       setLoading(false);
       setTimeout(() => {
         navigate("/dashboard");
+        window.location.reload();
       }, 1500);
     } else {
       toast.error(response.response.data.message || "Something went wrong");

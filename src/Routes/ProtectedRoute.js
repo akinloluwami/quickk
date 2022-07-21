@@ -12,6 +12,7 @@ const ProtectedRoute = () => {
         const token = localStorage.getItem('token');
         if (token) {
             setIsAuthenticated(true);
+            console.log('protected')
         }
     }
     , []);
