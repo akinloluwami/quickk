@@ -1,5 +1,6 @@
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import { Box, Input, Button, Flex, Text } from "@chakra-ui/react";
+import { FaTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
 const Write = () => {
   const inputRef = useRef();
@@ -72,10 +73,13 @@ const Write = () => {
             <Button
               onClick={() => {}}
               position={"absolute"}
-              top={"0"}
-              left={"0"}
+              top={"15px"}
+              left={"15px"}
+              backgroundColor={"#fff"}
+              color={"#0031af"}
+              title={"Remove Cover Image"}
             >
-              x
+              <FaTimes fontSize={"1.5em"} color={"red"} />
             </Button>
             <img src={image} alt="" />
           </Box>
