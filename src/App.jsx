@@ -20,6 +20,7 @@ import Analytics from './pages/Dashboard/Analytics';
 import Profile from './pages/Profile/profile';
 import PostIndex from "./pages/Post/PostIndex";
 import ProfileDonations from "./pages/Profile/profileDonations";
+import NotFound from "./pages/NotFound/NotFound";
 
 
 function App() {
@@ -46,9 +47,14 @@ function App() {
           <Route path="/dashboard/analytics" element={<Analytics />} />
           <Route path="/profile" element={<Profile />} />
 
+
           {/* Dynamic routes  */}
           <Route path='/post/:id' element={<PostIndex/>} />
           <Route path='/profile-donations' element={<ProfileDonations/>} />
+
+
+          {/* Not found  */}
+          <Route path="*" element={<NotFound/>} />
          
 
         </Routes>
