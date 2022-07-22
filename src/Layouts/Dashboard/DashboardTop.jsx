@@ -14,8 +14,16 @@ import { BiUserCircle } from "react-icons/bi";
 import { BiChevronDown } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Buttons from '../../components/major/Buttons';
 
 const DashboardTop = ({ displayName, profilePic }) => {
+
+  //initilize state 
+  const [isAuthenticated , setIsAuthenticated] = useState(localStorage.getItem("token") ? true : false);
+
+  
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -38,10 +46,29 @@ const DashboardTop = ({ displayName, profilePic }) => {
         </Box>
 
         <Flex>
-          <Flex alignItems={"center"} mx={'1em'}>
-            <FiBell color={"#000"} cursor={"pointer"} size={"1.5em"} />
-          </Flex>
-          <Menu>
+         
+
+          {/* only display menue when user is logged in */}
+          {/* check for authentication state */}
+          {
+            !isAuthenticated ? (
+              <>
+                <Link to="/login">
+
+                  <Buttons value={'Log in'}/>
+
+                </Link>
+              </>
+            ) : 
+            (
+              <>
+                
+                <Flex alignItems={"center"} mx={'1em'}>
+                 <FiBell color={"#000"} cursor={"pointer"} size={"1.5em"} />
+                </Flex> 
+
+                {/* Menu for user */}
+                <Menu>
             <MenuButton>
               <Flex alignItems={"center"} gap={"1em"}>
                 <Avatar name={displayName} size={"md"} />
@@ -76,6 +103,13 @@ const DashboardTop = ({ displayName, profilePic }) => {
               </MenuItem>
             </MenuList>
           </Menu>
+              
+              </>
+            )
+            
+            
+          }
+
         </Flex>
       </Box>
     </>
@@ -83,3 +117,5 @@ const DashboardTop = ({ displayName, profilePic }) => {
 };
 
 export default DashboardTop;
+
+
