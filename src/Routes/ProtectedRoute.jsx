@@ -30,33 +30,7 @@ const useAuth = () => {
 
 //function for protected routes
 const ProtectedRoutes = () => {
-    const { isAuthenticated } = useAuth();
-   
-    //check if item is authenticated
-    // if (isAuthenticated) {
-    //     // All private routes goes hereh
-    //    return (
-    //       <>
-             
-           
-    //         <PrivateRoutes/>
-            
-          
-    //       </>
-    //    )
-    // } else {
-        
-    //     return (
-    //         // All public Routes goes here 
-    //         <>
-
-    //            <PublicRoutes/>
-
-    //         </>
-    //     )
-    // }
-
-    
+    const { isAuthenticated } = useAuth();    
       return (
          <>
             {

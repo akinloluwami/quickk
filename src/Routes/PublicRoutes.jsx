@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword/ResetPassword";
 import VerifyEmail from "../pages/VerifyEmail/VerifyEmail";
+import NotFound from "../pages/NotFound/NotFound";
 
 const PublicRoutes = () => {
     return (
@@ -18,6 +19,7 @@ const PublicRoutes = () => {
                 <Route path="/verify-email" element={<VerifyEmail />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="*" element={<NotFound/>} />
             </Routes>
         
         </>
