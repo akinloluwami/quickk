@@ -23,7 +23,13 @@ function Login() {
     e.preventDefault();
     setLoading(true);
     const data = { email, password };
-    const response = await postData(`/auth/login`, data);
+    const response = await postData(`/auth/login`, data , {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true,
+      "mode": "cors",
+
+    });
     if (response.status === 200) {
       localStorage.setItem("token", response.data.token);
       toast.success("Login sucessful");
@@ -69,7 +75,7 @@ function Login() {
                 icon={<MdOutlinePassword />}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Center>
+              <Center> 
                 <Buttons
                   onClick={(e) => {
                     handleSubmit(e);
