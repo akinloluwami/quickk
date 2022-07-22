@@ -3,13 +3,21 @@ const mysql = require("mysql2");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const cors = require("cors");
+
 const User = require("./src/schema/User");
 const Post = require("./src/schema/Post");
 const sequelize = require("./src/utils/db");
 const fileupload = require("express-fileupload");
 
-app.use(cors());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
