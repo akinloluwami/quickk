@@ -1,11 +1,10 @@
 import React from "react";
-import Profile from './Profile/profile';
+import Profile from "./Profile/profile";
 
 function User() {
   return (
     <div>
-     
-      <Profile/>
+      <Profile />
     </div>
   );
 }
