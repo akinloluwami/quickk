@@ -17,9 +17,11 @@ import { useNavigate } from "react-router-dom";
 
 const DashboardTop = ({ displayName, profilePic }) => {
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
+    window.location.reload();
   };
   return (
     <>
