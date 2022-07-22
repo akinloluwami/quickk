@@ -10,13 +10,13 @@ import Newslatter from "../pages/Dashboard/Newslatter";
 import Analytics from "../pages/Dashboard/Analytics";
 import Posts from "../pages/Dashboard/Posts";
 import Profile from "../pages/Profile/profile";
-import NotFound from "../pages/NotFound/NotFound";
-
+// import NotFound from "../pages/NotFound/NotFound";
+import User from "../pages/User";
 const Private = () => {
   return (
     <>
       <Routes>
-        <Route path="*" element={<NotFound />} />
+        <Route path=":/username" element={<User />} />
         <Route path="/dashboard" element={<DashboardIndex />} />
         <Route path="/dashboard/draft" element={<Draft />} />
         <Route path="/dashboard/write" element={<Write />} />
