@@ -36,7 +36,7 @@ module.exports = {
     });
   },
   getAllPostsFromUser: async (req, res) => {
-    const { username } = req.body;
+    const { username } = req.params;
     const user = await User.findOne({
       where: {
         username,
