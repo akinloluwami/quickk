@@ -3,7 +3,12 @@ import { Box, Input, Button, Flex, Text, Textarea } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
 import { postData } from "../../utils/Request";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Write = () => {
+  const navigate = useNavigate();
   const inputRef = useRef();
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -11,6 +16,7 @@ const Write = () => {
   const [postContent, setPostContent] = useState("");
   const [coverImageUrl, setCoverImageUrl] = useState("");
   const [domImage, setDomImage] = useState(null);
+  const [publishing, setPublishing] = useState(false);
   const handleClick = () => {
     inputRef.current.click();
   };
@@ -38,6 +44,7 @@ const Write = () => {
   };
 
   const handlePublish = async () => {
+    setPublishing(true);
     if (image) {
       await uploadCoverImage();
     }
@@ -52,13 +59,17 @@ const Write = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    console.log(res.data.post);
-    console.log(data);
+    setPublishing(false);
+    toast.success("Post created successfully");
+    setTimeout(() => {
+      navigate("/dashboard/posts");
+    }, 2000);
   };
 
   return (
     <>
       <DashboardLayout>
+        <ToastContainer />
         <Flex justifyContent={"center"} flexDirection={"column"}>
           <Flex margin={"10px"} justifyContent={"space-between"}>
             <Input
@@ -90,10 +101,11 @@ const Write = () => {
                 uploading ||
                 postTitle.length < 10 ||
                 !postContent ||
-                postContent.length < 50
+                postContent.length < 50 ||
+                publishing
               }
             >
-              Publish
+              {publishing ? "Publishing..." : "Publish"}
             </Button>
           </Flex>
           {image && (
