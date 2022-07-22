@@ -12,12 +12,13 @@ import Posts from "../pages/Dashboard/Posts";
 import Profile from "../pages/Profile/profile";
 // import NotFound from "../pages/NotFound/NotFound";
 import User from "../pages/User";
+import BlogPost from "../pages/BlogPost";
 const Private = () => {
   return (
     <>
       <Routes>
-        <Route path="/dashboard" element={<DashboardIndex/>} />
-        <Route path=":/username" element={<User />} />
+        <Route path="/dashboard" element={<DashboardIndex />} />
+        <Route path="/:username" element={<User />} />
         <Route path="/dashboard" element={<DashboardIndex />} />
         <Route path="/dashboard/draft" element={<Draft />} />
         <Route path="/dashboard/write" element={<Write />} />
@@ -28,6 +29,7 @@ const Private = () => {
         <Route path="/dashboard/newsletter" element={<Newslatter />} />
         <Route path="/dashboard/analytics" element={<Analytics />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/:username/:slug" element={<BlogPost />} />
       </Routes>
     </>
   );
