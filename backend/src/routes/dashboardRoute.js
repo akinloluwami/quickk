@@ -2,6 +2,10 @@ const dashboardController = require("../controllers/dashboardController");
 const router = require("express").Router();
 
 router.get("/user/profile", dashboardController.getUserProfile);
-router.get("/user/posts", dashboardController.getAllPostsFromUser);
+router.get("/user/posts/:username", dashboardController.getAllPostsFromUser);
 
 module.exports = router;
+
+// git add .
+// git commit -am "make it better"
+// git push heroku master
