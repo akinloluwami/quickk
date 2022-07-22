@@ -43,8 +43,10 @@ const AuthLayout = ({ children }) => {
 
                 <Box bg={''} width={['100%','50%']} h='100vh'>
                     
-                    <Logo/>
                     
+                    <center>
+                        <Logo/>
+                    </center>
                     {children}
                     
                 </Box>

@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
 import { MobileNav } from "./Dashboard Components/MobileNav";
 import DashboardTop from "./DashboardTop";
 import Sidebar from "./Sidebar";
 import { fetchData } from "../../utils/Request";
 import DashboardIndex from "../../pages/Dashboard/Dashboard";
+
 // import Posts from "../../pages/Dashboard/Posts";
 
 
 const DashboardLayout = ({ children }) => {
+
+
   const [displayName, setDisplayName] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [following, setFollowing] = useState(0);
@@ -27,6 +30,7 @@ const DashboardLayout = ({ children }) => {
       setDisplayName(res.data.displayName);
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
+
       // setUsername(res.data.username);
       console.log(res.data);
     });
@@ -50,6 +54,7 @@ const DashboardLayout = ({ children }) => {
           {/* Main display sections  */}
           <Box p={["1.5em", "2em"]} w={"100%"}>
             <Box>{children}</Box>
+           
           </Box>
         </Flex>
 
@@ -66,8 +71,12 @@ const DashboardLayout = ({ children }) => {
           <MobileNav />
         </Box>
 
+        
+
         {/* mobile view tab end  */}
       </Box>
+      
+     
     </>
   );
 };
