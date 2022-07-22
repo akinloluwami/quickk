@@ -168,13 +168,17 @@ module.exports = {
         message: "User not found",
       });
     }
-
     const post = await Post.findOne({
       where: {
         userUuid: user.uuid,
         slug,
       },
     });
+    if (!post) {
+      return res.status(400).json({
+        message: "Post not found",
+      });
+    }
     res.status(200).json({
       message: "Post retrieved successfully",
       post,
