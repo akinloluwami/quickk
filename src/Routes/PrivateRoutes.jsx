@@ -21,7 +21,7 @@ const Private = () => {
 
 
                 <Routes>
-                    <Route path="/" element={<Home/>} />
+                    
                     <Route path="*" element={<NotFound/>} />
                     <Route path="/dashboard" element={<DashboardIndex />} />
                     <Route path="/dashboard/draft" element={<Draft />} />
