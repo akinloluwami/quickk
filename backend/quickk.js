@@ -3,6 +3,7 @@ const mysql = require("mysql2");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const User = require("./src/schema/User");
 const Post = require("./src/schema/Post");
@@ -17,6 +18,8 @@ app.use(function (req, res, next) {
   );
   next();
 });
+
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
