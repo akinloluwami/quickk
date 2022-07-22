@@ -24,7 +24,7 @@ const Private = () => {
                     <Route path="/" element={<Home/>} />
                     <Route path="*" element={<NotFound/>} />
                     <Route path="/dashboard" element={<DashboardIndex />} />
-                    {/* <Route path="/dashboard/draft" element={<Draft />} />
+                    <Route path="/dashboard/draft" element={<Draft />} />
                     <Route path="/dashboard/donations" element={<Donations />} />
                     <Route path="/dashboard/explore" element={<Donations />} />
                   
@@ -32,7 +32,7 @@ const Private = () => {
                     <Route path="/dashboard/scheduled" element={<Scheduled />} />
                     <Route path="/dashboard/newsletter" element={<Newslatter />} />
                     <Route path="/dashboard/analytics" element={<Analytics />} />
-                    <Route path="/profile" element={<Profile />} />  */}
+                    <Route path="/profile" element={<Profile />} /> 
 
                 </Routes>
             
