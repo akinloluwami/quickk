@@ -57,4 +57,30 @@ module.exports = {
       posts,
     });
   },
+  getOverviewInfo: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    return res.status(200).json({
+      message: "Overview info retrieved successfully",
+      followers: user.followers,
+      following: user.following,
+      notifications: user.notifications,
+    });
+  },
 };
