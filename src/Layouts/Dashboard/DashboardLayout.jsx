@@ -27,7 +27,6 @@ const DashboardLayout = ({ children }) => {
       setDisplayName(res.data.displayName);
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
-      console.log(res.data);
       localStorage.setItem("userName", res.data.username);
     });
     setProfilePic(
