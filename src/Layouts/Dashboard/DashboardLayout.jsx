@@ -9,6 +9,10 @@ import DashboardIndex from "../../pages/Dashboard/Dashboard";
 // import Posts from "../../pages/Dashboard/Posts";
 
 const DashboardLayout = ({ children }) => {
+
+  //check if its authenticated 
+  const [isAuthenticated, setIsAuthenticated] = useState( localStorage.getItem("token") ? true : false );
+
   const [displayName, setDisplayName] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [following, setFollowing] = useState(0);
