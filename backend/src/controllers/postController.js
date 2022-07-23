@@ -157,7 +157,7 @@ module.exports = {
   },
   /******************************************************/
   getSinglePostFromUser: async (req, res) => {
-    const { username, slug } = req.body;
+    const { username, slug } = req.params;
     const user = await User.findOne({
       where: {
         username,
@@ -165,7 +165,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "User not found",
+        error: "User not found",
       });
     }
     const post = await Post.findOne({
@@ -176,13 +176,21 @@ module.exports = {
     });
     if (!post) {
       return res.status(400).json({
-        message: "Post not found",
+        error: "Post not found",
       });
     }
-    res.status(200).json({
-      message: "Post retrieved successfully",
-      post,
-    });
+    try {
+      res.status(200).json({
+        message: "Post retrieved successfully",
+        post,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        message: "Error retrieving post",
+        error: err,
+      });
+    }
   },
   /******************************************************/
   likePost: async (req, res) => {
@@ -348,6 +356,96 @@ module.exports = {
     res.status(200).json({
       message: "Comment added successfully",
       commentData,
+    });
+  },
+  getUsernameFromJwt: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    res.status(200).json({
+      message: "User retrieved successfully",
+      username: user.username,
+    });
+  },
+  viewPost: async (req, res) => {
+    const { slug, id } = req.query;
+    const post = await Post.findOne({
+      where: {
+        slug,
+        id,
+      },
+    });
+    if (!post) {
+      return res.status(400).json({
+        message: "Post does not exist",
+      });
+    }
+    const viewData = {
+      date: new Date(),
+    };
+    post.update({
+      views: [...post.views, viewData],
+    });
+    await post.save();
+    res.status(200).json({
+      message: "Post viewed successfully",
+      viewData,
+    });
+  },
+  deletePost: async (req, res) => {
+    const { slug, id } = req.params;
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const post = await Post.findOne({
+      where: {
+        slug,
+        id,
+      },
+    });
+    if (!post) {
+      return res.status(400).json({
+        message: "Post not found",
+      });
+    }
+    if (post.userUuid !== user.uuid) {
+      return res.status(400).json({
+        message: "You are not authorized to delete this post",
+      });
+    }
+    await post.destroy();
+    res.status(200).json({
+      message: "Post deleted successfully",
     });
   },
 };
