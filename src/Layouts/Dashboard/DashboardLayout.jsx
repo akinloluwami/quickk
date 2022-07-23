@@ -9,6 +9,10 @@ import DashboardIndex from "../../pages/Dashboard/Dashboard";
 // import Posts from "../../pages/Dashboard/Posts";
 
 const DashboardLayout = ({ children }) => {
+
+  //check if its authenticated 
+  const [isAuthenticated, setIsAuthenticated] = useState( localStorage.getItem("token") ? true : false );
+
   const [displayName, setDisplayName] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [following, setFollowing] = useState(0);
@@ -41,29 +45,95 @@ const DashboardLayout = ({ children }) => {
         {/* <Posts username={username} /> */}
         {/* <DashboardIndex following={following} followers={followers} /> */}
 
-        <Flex position={"relative"}>
-          <Box bg={"#fff"} display={["none", "block"]}>
-            <Sidebar />
-          </Box>
+        <Flex position={"relative"} justifyContent={'center'} >
+          
+          
+            {/* check if its authenticate  */}
 
-          {/* Main display sections  */}
-          <Box p={["1.5em", "2em"]} w={"100%"}>
-            <Box>{children}</Box>
-          </Box>
+            {
+              isAuthenticated ? 
+              ( 
+                <>
+                 <Box bg={"#fff"} display={["none", "block"]}>
+                  <Sidebar />
+                </Box>
+                </>
+               ) : (
+                 <>
+                    <Box bg={"#fff"} display={["none"]}>
+                      <Sidebar />
+                    </Box>
+                </>)
+            }
+
+
+            {/* Main display sections  */}
+              {
+                isAuthenticated ? 
+                (
+                  <>
+
+                    <Box p={["1.5em", "2em"]} w={"100%"}>
+                      <Box>{children}</Box>
+                    </Box>
+                  
+                  </>
+                ) : (
+                  <>
+
+                    <center>
+                      <Box p={["1.5em", "2em"]} justifyContent={'center'} w={"100%"}>
+                        <Box>{children}</Box>
+                      </Box>
+                    </center>
+                  
+                  </>
+                )
+              }
         </Flex>
 
         {/* Display mobile tab on small device  */}
 
-        <Box
-          display={["block", "none"]}
-          position={"fixed"}
-          right={"0"}
-          left={"0"}
-          bottom={"0"}
-          px={"0em"}
-        >
-          <MobileNav />
-        </Box>
+        {
+          isAuthenticated ? 
+          (
+            <>
+
+              <Box
+                  display={["block", "none"]}
+                  position={"fixed"}
+                  right={"0"}
+                  left={"0"}
+                  bottom={"0"}
+                  px={"0em"}
+                  
+                >
+               <MobileNav />
+            </Box>
+            
+            </>
+          ) : 
+
+          (
+            <>
+            
+
+            <Box
+              display={["none"]}
+              position={"fixed"}
+              right={"0"}
+              left={"0"}
+              bottom={"0"}
+              px={"0em"}
+                
+            >
+              <MobileNav />
+            </Box>
+            
+            </>
+          )
+     
+        }
 
         {/* mobile view tab end  */}
       </Box>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
-import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Center, Image, Flex, Text } from "@chakra-ui/react";
 import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import Inputs from "../../components/major/Inputs";
 import AuthLayout from "../../Layouts/AuthLayout";
@@ -48,6 +48,15 @@ function Signup() {
       <AuthLayout>
         <Flex justifyContent={"center"} alignItems="center" py="2em" h="80%">
           <Box my="1em" bg={"#fff"} width={["90%", "60%"]} py="2em" px={"1em"}>
+
+          <center>
+                <Link to={'/'} >
+                  <Box my={'3em'} display={['block' , 'none']}>
+                    <Image src={'https://res.cloudinary.com/dhkccnvyn/image/upload/v1658534732/quick/dashboard_zosbzh.svg'} />
+                  </Box>
+                </Link>
+            </center>
+
             <form>
               <Box my="1em">
                 <Text
