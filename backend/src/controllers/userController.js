@@ -7,7 +7,7 @@ module.exports = {
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userFollowing = decoded.uuid;
-    const userToFollow = req.query.username;
+    const userToFollow = req.params.username;
     console.log(userFollowing, userToFollow);
 
     if (!userFollowing || !userToFollow) {
@@ -70,7 +70,7 @@ module.exports = {
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userFollowing = decoded.uuid;
-    const userToUnfollow = req.query.username;
+    const userToUnfollow = req.params.username;
     console.log(userFollowing, userToUnfollow);
 
     if (!userFollowing || !userToUnfollow) {
@@ -176,10 +176,10 @@ module.exports = {
   },
   /************************************************/
   getUserProfile: async (req, res) => {
-    const { user_name } = req.query;
+    const { userName } = req.params;
     const user = await User.findOne({
       where: {
-        username: user_name,
+        username: userName,
       },
     });
     if (!user) {
@@ -364,6 +364,32 @@ module.exports = {
       message: "Username retrieved successfully",
       username,
       displayName,
+    });
+  },
+  getUuidFromJwt: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "No token provided",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const { uuid, username } = user;
+    return res.status(200).json({
+      message: "Username retrieved successfully",
+      uuid,
+      username,
     });
   },
 };

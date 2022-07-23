@@ -9,9 +9,10 @@ import DashboardIndex from "../../pages/Dashboard/Dashboard";
 // import Posts from "../../pages/Dashboard/Posts";
 
 const DashboardLayout = ({ children }) => {
-
-  //check if its authenticated 
-  const [isAuthenticated, setIsAuthenticated] = useState( localStorage.getItem("token") ? true : false );
+  //check if its authenticated
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("token") ? true : false
+  );
 
   const [displayName, setDisplayName] = useState("");
   const [profilePic, setProfilePic] = useState("");
@@ -45,80 +46,74 @@ const DashboardLayout = ({ children }) => {
         {/* <Posts username={username} /> */}
         {/* <DashboardIndex following={following} followers={followers} /> */}
 
-        <Flex position={"relative"} justifyContent={'center'} >
-          
-          
-            {/* check if its authenticate  */}
+        <Flex position={"relative"} justifyContent={"center"}>
+          {/* check if its authenticate  */}
 
-            {
-              isAuthenticated ? 
-              ( 
-                <>
-                 <Box bg={"#fff"} position={'fixed'} top={0} bottom={0} zIndex={'1'} overflow={'hidden'} left='0' display={["none", "block"]} >
-                  <Sidebar />
+          {isAuthenticated ? (
+            <>
+              <Box
+                bg={"#fff"}
+                position={"fixed"}
+                top={0}
+                bottom={0}
+                zIndex={"1"}
+                overflow={"hidden"}
+                left="0"
+                display={["none", "block"]}
+              >
+                <Sidebar />
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box bg={"#fff"} display={["none"]}>
+                <Sidebar />
+              </Box>
+            </>
+          )}
+
+          <Spacer />
+
+          {/* Main display sections  */}
+          {isAuthenticated ? (
+            <>
+              <Box
+                p={["1.5em", "2em"]}
+                w={["100%", "82%"]}
+                mx={"auto"}
+                position={"relative"}
+              >
+                <Box>{children}</Box>
+              </Box>
+            </>
+          ) : (
+            <>
+              <center>
+                <Box p={["1.5em", "2em"]} justifyContent={"center"} w={"100%"}>
+                  <Box>{children}</Box>
                 </Box>
-                </>
-               ) : (
-                 <>
-                    <Box bg={"#fff"} display={["none"]}>
-                      <Sidebar />
-                    </Box>
-                </>)
-            }
-
-            <Spacer/>
-
-            {/* Main display sections  */}
-              {
-                isAuthenticated ? 
-                (
-                  <>
-
-                    <Box p={["1.5em", "2em"]} w={["100%","82%"]} mx={'auto'}   position={'relative'} >
-                      <Box>{children}</Box>
-                    </Box>
-                  
-                  </>
-                ) : (
-                  <>
-
-                    <center>
-                      <Box p={["1.5em", "2em"]} justifyContent={'center'} w={"100%"}>
-                        <Box>{children}</Box>
-                      </Box>
-                    </center>
-                  
-                  </>
-                )
-              }
+              </center>
+            </>
+          )}
         </Flex>
 
         {/* Display mobile tab on small device  */}
 
-        {
-          isAuthenticated ? 
-          (
-            <>
-
-              <Box
-                  display={["block", "none"]}
-                  position={"fixed"}
-                  right={"0"}
-                  left={"0"}
-                  bottom={"0"}
-                  px={"0em"}
-                  
-                >
-               <MobileNav />
+        {isAuthenticated ? (
+          <>
+            <Box
+              display={["block", "none"]}
+              position={"fixed"}
+              right={"0"}
+              left={"0"}
+              bottom={"0"}
+              px={"0em"}
+            >
+              <MobileNav />
             </Box>
-            
-            </>
-          ) : 
-
-          (
-            <>
-            
-
+          </>
+        ) : (
+          <>
             <Box
               display={["none"]}
               position={"fixed"}
@@ -126,15 +121,11 @@ const DashboardLayout = ({ children }) => {
               left={"0"}
               bottom={"0"}
               px={"0em"}
-                
             >
               <MobileNav />
             </Box>
-            
-            </>
-          )
-     
-        }
+          </>
+        )}
 
         {/* mobile view tab end  */}
       </Box>

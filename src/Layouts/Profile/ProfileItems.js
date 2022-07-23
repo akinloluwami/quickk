@@ -1,15 +1,12 @@
 const ProfileItems = [
-    {
-        name: 'Blog',
-        path: '/profile',
-    }, 
-    {
-        name: 'Donations',
-        path: '/profile-donations ',
-    },
-
-   
-
-]
+  {
+    name: "Blog",
+    path: "/profile",
+  },
+  {
+    name: "Donations",
+    path: "/profile-donations ",
+  },
+];
 
 export default ProfileItems;
