@@ -37,51 +37,26 @@ function PostsRect({
 
   return (
     <Fragment>
-
-      
-      
-      <Box 
-        
+      <Flex
         boxShadow={"sm"}
-        bg={"#fff"}
-
+        height={"100px"}
         justifyContent={"space-between"}
         alignItems={"center"}
-        px={"2em"}
-        py={["1em","4em"]}
+        padding={"10px"}
         borderRadius={"10px"}
-        my={"1em"}
+        margin={"20px"}
         _hover={{
           boxShadow: "md",
           cursor: "pointer",
-          backgroundColor:'sand'
         }}
         display={isDeleted ? "none" : "block"}
       >
-        
-          <Box>
-            <Text fontSize={["xl","2xl"]} fontWeight={"400"} marginBottom={"10px"}>
-              {title}
-            </Text>
-         
-          </Box>
-         
-
-      
-          
-          
-         
-           {/* handle engagement in post  */}
-
-            <Flex
-             alignItems={['left' , 'center']}
-             justifyContent={'space-between'}
-             flexDir={['column' , 'row']}
-             >
-
-                     <Box display={'flex'} my={['1.5em','2em']}>
-
-           <Box
+        <Flex flexDirection={"column"}>
+          <Text fontSize={"2xl"} fontWeight={"400"} marginBottom={"10px"}>
+            {title}
+          </Text>
+          <Flex>
+            <Box
               fontSize={"sm"}
               mx="5px"
               display={"flex"}
@@ -112,11 +87,11 @@ function PostsRect({
               alignItems={"center"}
             >
               <RiHeart3Fill />
-              <Text  marginLeft={"5px"}>
+              <Text fontWeight={"bold"} marginLeft={"5px"}>
                 {likes}
               </Text>
             </Box>
-            
+
             <Box
               fontSize={"sm"}
               mx="5px"
@@ -128,64 +103,55 @@ function PostsRect({
                 {comments}
               </Text>
             </Box>
-
-           </Box >
-         
-          
-        <Box>
-
-          <Link to={`/${username}/${slug}`} target="_blank">
-            <Button variantColor="teal" size="sm" mx={"10px"}>
-              <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
-                <AiFillEye
-                  style={{
-                    marginRight: "5px",
-                  }}
-                />
-                View
-              </Text>
-            </Button>
-          </Link>
-
-          <Button variantColor="teal" size="sm" mx={"10px"}>
-            <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
-              <FiEdit
-                style={{
-                  marginRight: "5px",
-                }}
-              />
-              Edit
-             </Text>
-             </Button>
-
-              <Button
-                variantColor="red"
-                size="sm"
-                backgroundColor={"rgba(255,0,0,0.7)"}
-                color={"#fff"}
-                _hover={{
-                  backgroundColor: "red",
-                }}
-                onClick={deletePost}
-                disabled={deleting}
-              >
-
-            <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
-                  <MdDelete
+          </Flex>
+          <Box>
+            <Link to={`/${username}/${slug}`} target="_blank">
+              <Button variantColor="teal" size="sm" mx={"10px"}>
+                <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
+                  <AiFillEye
                     style={{
                       marginRight: "5px",
                     }}
                   />
-                  {deleting ? "Deleting..." : "Delete"}
+                  View
                 </Text>
               </Button>
-            </Box>
+            </Link>
 
-            </Flex>
+            <Button variantColor="teal" size="sm" mx={"10px"}>
+              <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
+                <FiEdit
+                  style={{
+                    marginRight: "5px",
+                  }}
+                />
+                Edit
+              </Text>
+            </Button>
 
-
-
-      </Box>
+            <Button
+              variantColor="red"
+              size="sm"
+              backgroundColor={"rgba(255,0,0,0.7)"}
+              color={"#fff"}
+              _hover={{
+                backgroundColor: "red",
+              }}
+              onClick={deletePost}
+              disabled={deleting}
+            >
+              <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
+                <MdDelete
+                  style={{
+                    marginRight: "5px",
+                  }}
+                />
+                {deleting ? "Deleting..." : "Delete"}
+              </Text>
+            </Button>
+          </Box>
+        </Flex>
+      </Flex>
     </Fragment>
   );
 }

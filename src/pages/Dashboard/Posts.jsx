@@ -12,7 +12,6 @@ import {
 import { FaTimes } from "react-icons/fa";
 import { fetchData } from "../../utils/Request";
 import PostsRect from "../../components/major/PostsRect";
-
 const Posts = () => {
   const username = localStorage.getItem("userName");
   const [posts, setPosts] = useState([]);
