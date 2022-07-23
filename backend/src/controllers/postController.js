@@ -382,43 +382,43 @@ module.exports = {
       username: user.username,
     });
   },
-  // viewPost: async (req, res) => {
-  //   const { slug, id } = req.body;
-  //   const token = req.headers.authorization;
-  //   if (!token) {
-  //     return res.status(400).json({
-  //       message: "Token is required",
-  //     });
-  //   }
-  //   const tkn = token.split(" ")[1];
-  //   const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
-  //   const user = await User.findOne({
-  //     where: {
-  //       uuid: decoded.uuid,
-  //     },
-  //   });
-  //   const post = await Post.findOne({
-  //     where: {
-  //       slug,
-  //       id,
-  //     },
-  //   });
-  //   if (!post) {
-  //     return res.status(400).json({
-  //       message: "Post not found",
-  //     });
-  //   }
-  //   const viewData = {
-  //     userUuid: !user ? "" : user.uuid,
-  //     date: new Date(),
-  //   };
-  //   post.update({
-  //     views: [...post.views, viewData],
-  //   });
-  //   await post.save();
-  //   res.status(200).json({
-  //     message: "Post viewed successfully",
-  //     viewData,
-  //   });
-  // },
+  viewPost: async (req, res) => {
+    const { slug, id } = req.body;
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    const post = await Post.findOne({
+      where: {
+        slug,
+        id,
+      },
+    });
+    if (!post) {
+      return res.status(400).json({
+        message: "Post not found",
+      });
+    }
+    const viewData = {
+      userUuid: !user ? "" : user.uuid,
+      date: new Date(),
+    };
+    post.update({
+      views: [...post.views, viewData],
+    });
+    await post.save();
+    res.status(200).json({
+      message: "Post viewed successfully",
+      viewData,
+    });
+  },
 };
