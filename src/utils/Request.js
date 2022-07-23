@@ -31,8 +31,6 @@ const fetchData = async (url, payload) => {
     //this return response is what you will use in your function to get the datas
   } catch (error) {
     const err = error.response;
-
-    console.log(err);
     return error;
   }
 };
