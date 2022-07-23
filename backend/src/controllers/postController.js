@@ -408,7 +408,7 @@ module.exports = {
     });
   },
   deletePost: async (req, res) => {
-    const { slug, id } = req.body;
+    const { slug, id } = req.params;
     const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
