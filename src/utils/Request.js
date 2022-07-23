@@ -35,4 +35,15 @@ const fetchData = async (url, payload) => {
   }
 };
 
-export { postData, fetchData };
+const deleteData = async (url, payload) => {
+  try {
+    const response = await axios.delete(`${defaultUrl}${url}`, payload);
+    return response;
+    //this return response is what you will use in your function to get the datas
+  } catch (error) {
+    const err = error.response;
+    return error;
+  }
+};
+
+export { postData, fetchData, deleteData };
