@@ -9,6 +9,6 @@ router.post("/comment", postController.commentOnPost);
 router.post("/upload-image", postController.uploadImage);
 router.get("/:username/:slug", postController.getSinglePostFromUser);
 router.get("/username", postController.getUsernameFromJwt);
-router.post("view", postController.viewPost);
+router.post("/view", postController.viewPost);
 
 module.exports = router;
