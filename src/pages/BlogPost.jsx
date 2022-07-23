@@ -2,6 +2,11 @@ import React, { useState, useEffect, Fragment, useRef } from "react";
 import { fetchData, postData } from "../utils/Request";
 import { Text, Flex, Box, Button, Link, Textarea } from "@chakra-ui/react";
 import { RiHeart3Fill } from "react-icons/ri";
+import ContainerLayout from '../Layouts/ContainerLayout.jsx/ContainerLayout';
+import ContentLoader from '../components/minor/ContentLoader';
+import DashboardTop from '../Layouts/Dashboard/DashboardTop';
+import { AiFillEye , AiFillHeart , AiOutlineComment } from 'react-icons/ai'
+
 function BlogPost() {
   const username = window.location.pathname.split("/")[1];
   const slug = window.location.pathname.split("/")[2];
@@ -160,25 +165,71 @@ function BlogPost() {
 
   return (
     <Fragment>
-      {loading ? (
-        <Text>Loading...</Text>
+
+        
+        <Box px={['0','4em']} 
+        position={'fixed'} 
+        left={0} right={0}
+        top={0}
+        zIndex={999}
+     
+        >
+          <DashboardTop/>
+        </Box>
+        <ContainerLayout>
+       
+
+
+            <Box my={'8em'}>
+            {loading ? (
+              <>  
+
+              <ContentLoader/>
+              
+              </>
       ) : error ? (
         <Text>{errorMessage}</Text>
       ) : (
-        <Box>
-          <Text fontSize={"2xl"} fontWeight={"bold"}>
+        <Box px={['' , '5em']}>
+          <Text fontSize={"2xl"} fontWeight={"bold"} my={'1em'}>
             {postTitle}
           </Text>
           <Text>{postContent}</Text>
-          <Text>{postViews} views</Text>
-          <Text>
-            {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
-          </Text>
-          {postComments.length > 0 ? (
-            displayComments()
-          ) : (
-            <Text>No comments</Text>
-          )}
+
+
+          {/* Make views and others flex  */}
+          <Box my={'1em'}>
+            <Flex gap={'2em'}>
+              
+                
+                <Flex alignItems={'center'}>
+                  <Text mr={'0.5em'}><AiFillEye /> </Text>
+                  <Text>
+                    {postViews} views
+                  </Text>
+                </Flex>
+
+              <Flex gap={'0.5em'} alignItems={'center'}>
+
+                <AiFillHeart/>
+                <Text>
+                  {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
+                </Text>
+
+              </Flex>
+
+             <Flex alignItems={'center'} gap={'0.5em'}>
+             <AiOutlineComment/>
+                {postComments.length > 0 ? (
+                  displayComments()
+                ) : (
+                  <Text>No comments</Text>
+                )}
+             </Flex>
+
+            </Flex>
+          </Box>
+
           {isOwner ? (
             <Link href={`/dashboard/post/${username}/${slug}/edit`}>
               <Button>Edit</Button>
@@ -216,6 +267,11 @@ function BlogPost() {
           )}
         </Box>
       )}
+
+            </Box>
+
+        </ContainerLayout>
+
     </Fragment>
   );
 }
