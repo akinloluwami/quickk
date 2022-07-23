@@ -11,12 +11,13 @@ function BlogPost() {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [postViews, setPostViews] = useState(0);
-  const [postLikes, setPostLikes] = useState(0);
+  const [postLikes, setPostLikes] = useState([]);
   const [postComments, setPostComments] = useState(0);
   const [isOwner, setIsOwner] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
   const [postId, setPostId] = useState("");
+  const [postLikesCount, setPostLikesCount] = useState(0);
 
   const viewPost = () => {
     postData(`/post/view?slug=${slug}&id=${postId}}`);
@@ -32,9 +33,10 @@ function BlogPost() {
         setPostTitle(data.data.post.title);
         setPostContent(data.data.post.content);
         setPostViews(data.data.post.views.length);
-        setPostLikes(data.data.post.likes.length);
+        setPostLikes(data.data.post.likes);
         setPostComments(data.data.post.comments);
         setLoading(false);
+        setPostLikesCount(data.data.post.likes.length);
         viewPost();
       } else {
         setError(true);
@@ -52,14 +54,60 @@ function BlogPost() {
         },
       });
       response.then((data) => {
+        console.log(data);
         if (data.status === 200) {
           if (data.data.username === username) {
             setIsOwner(true);
           }
+          const liked = postLikes.find(
+            (like) => like?.userUuid === data?.data?.uuid
+          );
+          if (liked) {
+            setHasLiked(true);
+            console.log("liked");
+          }
         }
       });
-    }, []);
+    }, [postLikes]);
   }
+  const likePost = () => {
+    setHasLiked(true);
+    setPostLikesCount(postLikesCount + 1);
+    postData(
+      "/post/like",
+      {
+        slug: slug,
+        id: postId,
+      },
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  };
+
+  const unlikePost = () => {
+    setHasLiked(false);
+    setPostLikesCount(postLikesCount - 1);
+    postData(
+      "/post/unlike",
+      {
+        slug: slug,
+        id: postId,
+      },
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  };
+
   return (
     <Fragment>
       {loading ? (
@@ -73,7 +121,9 @@ function BlogPost() {
           </Text>
           <Text>{postContent}</Text>
           <Text>{postViews} views</Text>
-          <Text>{postLikes} likes</Text>
+          <Text>
+            {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
+          </Text>
           {postComments.length > 0 ? (
             postComments.map((comment) => <Text>{comment.content}</Text>)
           ) : (
@@ -94,7 +144,11 @@ function BlogPost() {
             </>
           ) : (
             <Box>
-              {hasLiked ? <RiHeart3Fill color="red" /> : <RiHeart3Fill />}
+              {hasLiked ? (
+                <RiHeart3Fill color="red" onClick={unlikePost} />
+              ) : (
+                <RiHeart3Fill onClick={likePost} />
+              )}
               <Box>
                 <Text>Add a comment</Text>
                 <Textarea onChange={(e) => setNewComment(e.target.value)} />
