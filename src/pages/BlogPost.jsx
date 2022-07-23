@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { fetchData } from "../utils/Request";
+import { fetchData, postData } from "../utils/Request";
 import { Text, Flex, Box, Button, Link, Textarea } from "@chakra-ui/react";
 import { RiHeart3Fill } from "react-icons/ri";
 function BlogPost() {
@@ -16,23 +16,36 @@ function BlogPost() {
   const [isOwner, setIsOwner] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
+  const [postId, setPostId] = useState("");
+
+  const viewPost = () => {
+    const response = postData(`/post/view?slug=${slug}&id=${postId}}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  };
+
   useEffect(() => {
     const response = fetchData(`/post/${username}/${slug}`);
     response.then((data) => {
       if (data.status === 200) {
+        setPostId(data.data.post.id);
         setPostTitle(data.data.post.title);
         setPostContent(data.data.post.content);
         setPostViews(data.data.post.views.length);
         setPostLikes(data.data.post.likes.length);
         setPostComments(data.data.post.comments);
         setLoading(false);
+        viewPost();
       } else {
         setError(true);
         setErrorMessage(data.response.data.error);
         setLoading(false);
       }
     });
-  }, []);
+  }, [postId]);
   useEffect(() => {
     const response = fetchData("/post/username", {
       headers: {
@@ -41,10 +54,9 @@ function BlogPost() {
       },
     });
     response.then((data) => {
-      console.log(data);
       if (data.status === 200) {
         if (data.data.username === username) {
-          //   setIsOwner(true);
+          setIsOwner(true);
         }
       }
     });
