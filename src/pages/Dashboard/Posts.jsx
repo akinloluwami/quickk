@@ -35,6 +35,8 @@ const Posts = () => {
                 comments={post.comments.length}
                 date={post.createdAt}
                 likes={post.likes.length}
+                slug={post.slug}
+                username={username}
               />
             ))}
           </>
