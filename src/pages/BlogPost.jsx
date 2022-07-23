@@ -29,7 +29,6 @@ function BlogPost() {
     const response = fetchData(`/post/${username}/${slug}`);
 
     response.then((data) => {
-      console.log(data);
       if (data.status === 200) {
         setPostId(data.data.post.id);
         setPostTitle(data.data.post.title);
@@ -56,7 +55,6 @@ function BlogPost() {
         },
       });
       response.then((data) => {
-        console.log(data);
         if (data.status === 200) {
           if (data.data.username === username) {
             setIsOwner(true);
@@ -136,6 +134,30 @@ function BlogPost() {
     });
   };
 
+  const displayComments = () => {
+    return postComments.map((comment) => {
+      const uuid = comment.userUuid;
+      fetchData(`/user/username/${uuid}`).then((data) => {
+        if (data.status === 200) {
+          console.log(data.data.username);
+          console.log(data.data.displayName);
+        }
+      });
+      return (
+        <Box
+          key={postComments.indexOf(comment)}
+          boxShadow="0px 0px 10px rgba(0, 0, 0, 0.1)"
+          my={2}
+        >
+          <Flex>
+            <Text>{comment.date}</Text>
+          </Flex>
+          <Text>{comment.comment}</Text>
+        </Box>
+      );
+    });
+  };
+
   return (
     <Fragment>
       {loading ? (
@@ -153,7 +175,7 @@ function BlogPost() {
             {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
           </Text>
           {postComments.length > 0 ? (
-            postComments.map((comment) => <Text>On a normal level</Text>)
+            displayComments()
           ) : (
             <Text>No comments</Text>
           )}
