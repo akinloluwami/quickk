@@ -24,7 +24,9 @@ function BlogPost() {
 
   useEffect(() => {
     const response = fetchData(`/post/${username}/${slug}`);
+
     response.then((data) => {
+      console.log(data);
       if (data.status === 200) {
         setPostId(data.data.post.id);
         setPostTitle(data.data.post.title);
