@@ -202,6 +202,7 @@ module.exports = {
       });
     }
     const tkn = token.split(" ")[1];
+
     const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
     const user = await User.findOne({
       where: {
@@ -380,6 +381,7 @@ module.exports = {
     res.status(200).json({
       message: "User retrieved successfully",
       username: user.username,
+      uuid: user.uuid,
     });
   },
   viewPost: async (req, res) => {
