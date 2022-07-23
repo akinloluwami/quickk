@@ -55,7 +55,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "User not found",
+        message: "Cannot find user1",
       });
     }
     const slug = title
@@ -118,7 +118,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "User not found",
+        message: "Cannot find user2",
       });
     }
     if (!title || !content) {
@@ -165,7 +165,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        error: "User not found",
+        error: "Cannot find...",
       });
     }
     const post = await Post.findOne({
@@ -211,7 +211,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "User not found",
+        message: "Cannot find user4",
       });
     }
     const post = await Post.findOne({
@@ -275,7 +275,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "User not found",
+        message: "Cannot find user5",
       });
     }
     const post = await Post.findOne({
@@ -331,7 +331,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "User not found",
+        message: "Cannot find user6",
       });
     }
     const post = await Post.findOne({
@@ -375,7 +375,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "User not found",
+        message: "Cannot find user7",
       });
     }
     res.status(200).json({
@@ -426,7 +426,7 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "User not found",
+        message: "Cannot find user8",
       });
     }
     const post = await Post.findOne({
