@@ -19,12 +19,7 @@ function BlogPost() {
   const [postId, setPostId] = useState("");
 
   const viewPost = () => {
-    const response = postData(`/post/view?slug=${slug}&id=${postId}}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    postData(`/post/view?slug=${slug}&id=${postId}}`);
   };
 
   useEffect(() => {
@@ -46,21 +41,23 @@ function BlogPost() {
       }
     });
   }, [postId]);
-  useEffect(() => {
-    const response = fetchData("/post/username", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    response.then((data) => {
-      if (data.status === 200) {
-        if (data.data.username === username) {
-          setIsOwner(true);
+  if (localStorage.getItem("token")) {
+    useEffect(() => {
+      const response = fetchData("/post/username", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      response.then((data) => {
+        if (data.status === 200) {
+          if (data.data.username === username) {
+            setIsOwner(true);
+          }
         }
-      }
-    });
-  }, []);
+      });
+    }, []);
+  }
   return (
     <Fragment>
       {loading ? (
@@ -84,6 +81,15 @@ function BlogPost() {
             <Link href={`/dashboard/post/${username}/${slug}/edit`}>
               <Button>Edit</Button>
             </Link>
+          ) : !localStorage.getItem("token") ? (
+            <>
+              <Text>
+                <Link href="/login">
+                  <Button>Login</Button>
+                </Link>{" "}
+                to like and comment
+              </Text>
+            </>
           ) : (
             <Box>
               {hasLiked ? <RiHeart3Fill color="red" /> : <RiHeart3Fill />}
