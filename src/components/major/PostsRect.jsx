@@ -37,21 +37,25 @@ function PostsRect({
 
   return (
     <Fragment>
-      <Flex
+      <Flex 
+        
         boxShadow={"sm"}
+        bg={"#fff"}
         height={"100px"}
         justifyContent={"space-between"}
         alignItems={"center"}
-        padding={"10px"}
+        px={"2em"}
+        py={"4em"}
         borderRadius={"10px"}
-        margin={"20px"}
+        my={"1em"}
         _hover={{
           boxShadow: "md",
           cursor: "pointer",
+          backgroundColor:'sand'
         }}
         display={isDeleted ? "none" : "flex"}
       >
-        <Flex flexDirection={"column"}>
+        <Flex flexDirection={"column"} >
           <Text fontSize={"2xl"} fontWeight={"400"} marginBottom={"10px"}>
             {title}
           </Text>
@@ -85,7 +89,7 @@ function PostsRect({
               alignItems={"center"}
             >
               <RiHeart3Fill />
-              <Text fontWeight={"bold"} marginLeft={"5px"}>
+              <Text  marginLeft={"5px"}>
                 {likes}
               </Text>
             </Box>
