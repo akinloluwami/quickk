@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Box, Text, Flex, Spacer, HStack } from "@chakra-ui/react";
 import { MobileNav } from "./Dashboard Components/MobileNav";
 import DashboardTop from "./DashboardTop";
 import Sidebar from "./Sidebar";
@@ -54,7 +54,7 @@ const DashboardLayout = ({ children }) => {
               isAuthenticated ? 
               ( 
                 <>
-                 <Box bg={"#fff"} display={["none", "block"]}>
+                 <Box bg={"#fff"} position={'fixed'} top={0} bottom={0} zIndex={'1'} overflow={'hidden'} left='0' display={["none", "block"]} >
                   <Sidebar />
                 </Box>
                 </>
@@ -66,6 +66,7 @@ const DashboardLayout = ({ children }) => {
                 </>)
             }
 
+            <Spacer/>
 
             {/* Main display sections  */}
               {
@@ -73,7 +74,7 @@ const DashboardLayout = ({ children }) => {
                 (
                   <>
 
-                    <Box p={["1.5em", "2em"]} w={"100%"}>
+                    <Box p={["1.5em", "2em"]} w={["100%","82%"]} mx={'auto'}   position={'relative'} >
                       <Box>{children}</Box>
                     </Box>
                   
