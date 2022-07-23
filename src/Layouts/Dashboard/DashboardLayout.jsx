@@ -45,7 +45,7 @@ const DashboardLayout = ({ children }) => {
         {/* <Posts username={username} /> */}
         {/* <DashboardIndex following={following} followers={followers} /> */}
 
-        <Flex position={"relative"}  >
+        <Flex position={"relative"} justifyContent={'center'} >
           
           
             {/* check if its authenticate  */}
@@ -82,7 +82,7 @@ const DashboardLayout = ({ children }) => {
                   <>
 
                     <center>
-                      <Box p={["1.5em", "2em"]} w={"100%"}>
+                      <Box p={["1.5em", "2em"]} justifyContent={'center'} w={"100%"}>
                         <Box>{children}</Box>
                       </Box>
                     </center>
