@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -7,8 +7,34 @@ import { AiFillEye } from "react-icons/ai";
 import { MdComment } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
+import { deleteData } from "../../utils/Request";
 
-function PostsRect({ title, views, likes, comments, date, slug, username }) {
+function PostsRect({
+  title,
+  views,
+  likes,
+  comments,
+  date,
+  slug,
+  username,
+  id,
+}) {
+  const [deleting, setDeleting] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
+  const deletePost = () => {
+    setDeleting(true);
+    deleteData(`/post/delete/${slug}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((res) => {
+      setDeleting(false);
+      setIsDeleted(true);
+      console.log(res);
+    });
+  };
+
   return (
     <Fragment>
       <Flex
@@ -23,6 +49,7 @@ function PostsRect({ title, views, likes, comments, date, slug, username }) {
           boxShadow: "md",
           cursor: "pointer",
         }}
+        display={isDeleted ? "none" : "flex"}
       >
         <Flex flexDirection={"column"}>
           <Text fontSize={"2xl"} fontWeight={"400"} marginBottom={"10px"}>
@@ -106,6 +133,8 @@ function PostsRect({ title, views, likes, comments, date, slug, username }) {
             _hover={{
               backgroundColor: "red",
             }}
+            onClick={deletePost}
+            disabled={deleting}
           >
             <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
               <MdDelete
@@ -113,7 +142,7 @@ function PostsRect({ title, views, likes, comments, date, slug, username }) {
                   marginRight: "5px",
                 }}
               />
-              Delete
+              {deleting ? "Deleting..." : "Delete"}
             </Text>
           </Button>
         </Flex>
