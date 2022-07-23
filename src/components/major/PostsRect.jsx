@@ -2,7 +2,9 @@ import React, { Fragment } from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-
+import { RiHeart3Fill, RiTimeFill } from "react-icons/ri";
+import { AiFillEye } from "react-icons/ai";
+import { MdComment } from "react-icons/md";
 function PostsRect({ title, views, likes, comments, date, slug, username }) {
   return (
     <Fragment>
@@ -20,18 +22,50 @@ function PostsRect({ title, views, likes, comments, date, slug, username }) {
             {title}
           </Text>
           <Flex>
-            <Text fontSize={"sm"} mx="5px">
-              Posted {moment(date).fromNow()}
-            </Text>
-            <Text fontSize={"sm"} mx="5px">
-              {views} views
-            </Text>
-            <Text fontSize={"sm"} mx="5px">
-              {likes} likes
-            </Text>
-            <Text fontSize={"sm"} mx="5px">
-              {comments} comments
-            </Text>
+            <Box
+              fontSize={"sm"}
+              mx="5px"
+              display={"flex"}
+              alignItems={"center"}
+            >
+              <RiTimeFill />
+              <Text fontWeight={"bold"} marginLeft={"5px"}>
+                {moment(date).fromNow()}
+              </Text>
+            </Box>
+            <Box
+              fontSize={"sm"}
+              mx="5px"
+              display={"flex"}
+              alignItems={"center"}
+            >
+              <AiFillEye />
+              <Text fontWeight={"bold"} marginLeft={"5px"}>
+                {views}
+              </Text>
+            </Box>
+            <Box
+              fontSize={"sm"}
+              mx="5px"
+              display={"flex"}
+              alignItems={"center"}
+            >
+              <RiHeart3Fill />
+              <Text fontWeight={"bold"} marginLeft={"5px"}>
+                {likes}
+              </Text>
+            </Box>
+            <Box
+              fontSize={"sm"}
+              mx="5px"
+              display={"flex"}
+              alignItems={"center"}
+            >
+              <MdComment />
+              <Text fontWeight={"bold"} marginLeft={"5px"}>
+                {comments}
+              </Text>
+            </Box>
           </Flex>
         </Flex>
         <Flex>
