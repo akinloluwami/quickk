@@ -38,52 +38,25 @@ function PostsRect({
 
   return (
     <Fragment>
-      <Box
+      <Flex
         boxShadow={"sm"}
-        bg={"#fff"}
+        height={"100px"}
         justifyContent={"space-between"}
         alignItems={"center"}
-        px={"2em"}
-        py={["1em", "4em"]}
+        padding={"10px"}
         borderRadius={"10px"}
-        my={"1em"}
+        margin={"20px"}
         _hover={{
           boxShadow: "md",
           cursor: "pointer",
-          backgroundColor: "sand",
         }}
         display={isDeleted ? "none" : "block"}
       >
-        <Box>
-          {coverImage && (
-            <img
-              src={coverImage}
-              alt=""
-              style={{
-                width: "100%",
-                height: "200px",
-                objectFit: "cover",
-                borderRadius: "10px",
-              }}
-            />
-          )}
-          <Text
-            fontSize={["xl", "2xl"]}
-            fontWeight={"400"}
-            marginBottom={"10px"}
-          >
+        <Flex flexDirection={"column"}>
+          <Text fontSize={"2xl"} fontWeight={"400"} marginBottom={"10px"}>
             {title}
           </Text>
-        </Box>
-
-        {/* handle engagement in post  */}
-
-        <Flex
-          alignItems={["left", "center"]}
-          justifyContent={"space-between"}
-          flexDir={["column", "row"]}
-        >
-          <Box display={"flex"} my={["1.5em", "2em"]}>
+          <Flex>
             <Box
               fontSize={"sm"}
               mx="5px"
@@ -114,7 +87,9 @@ function PostsRect({
               alignItems={"center"}
             >
               <RiHeart3Fill />
-              <Text marginLeft={"5px"}>{likes}</Text>
+              <Text fontWeight={"bold"} marginLeft={"5px"}>
+                {likes}
+              </Text>
             </Box>
 
             <Box
@@ -128,8 +103,7 @@ function PostsRect({
                 {comments}
               </Text>
             </Box>
-          </Box>
-
+          </Flex>
           <Box>
             <Link to={`/${username}/${slug}`} target="_blank">
               <Button variantColor="teal" size="sm" mx={"10px"}>
@@ -144,18 +118,16 @@ function PostsRect({
               </Button>
             </Link>
 
-            <Link to={`/dashboard/post/${slug}/edit`}>
-              <Button variantColor="teal" size="sm" mx={"10px"}>
-                <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
-                  <FiEdit
-                    style={{
-                      marginRight: "5px",
-                    }}
-                  />
-                  Edit
-                </Text>
-              </Button>
-            </Link>
+            <Button variantColor="teal" size="sm" mx={"10px"}>
+              <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
+                <FiEdit
+                  style={{
+                    marginRight: "5px",
+                  }}
+                />
+                Edit
+              </Text>
+            </Button>
 
             <Button
               variantColor="red"
@@ -179,7 +151,7 @@ function PostsRect({
             </Button>
           </Box>
         </Flex>
-      </Box>
+      </Flex>
     </Fragment>
   );
 }

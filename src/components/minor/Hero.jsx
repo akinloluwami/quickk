@@ -17,7 +17,7 @@ import { FaBars } from "react-icons/fa";
 import Memojie from "../Avater.svg";
 import { Link } from "react-router-dom";
 
-const Hero = () => {
+const  Hero = () => {
   return (
     <>
       <Box py="1em" bg={"#000"} h="100vh" color={"#fff"}>

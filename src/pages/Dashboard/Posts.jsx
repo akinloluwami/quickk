@@ -36,11 +36,9 @@ const Posts = () => {
       </Helmet>
       <DashboardLayout>
         {posts.length > 0 ? (
-          <Box w={['100%' , '70%']} 
-            mx={'auto'}
-          >
+          <Box w={["100%", "70%"]} mx={"auto"}>
             <Text>
-              <Text fontSize={"xl"} fontWeight={'bold'}>
+              <Text fontSize={"xl"} fontWeight={"bold"}>
                 {" "}
                 {posts.length}
                 {posts.length > 1 ? " Posts" : " Post"}
