@@ -3,7 +3,7 @@ import { Box, Flex, Text, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-function PostsRect({ title, views, likes, comments, date }) {
+function PostsRect({ title, views, likes, comments, date, slug, username }) {
   return (
     <Fragment>
       <Flex
@@ -35,7 +35,7 @@ function PostsRect({ title, views, likes, comments, date }) {
           </Flex>
         </Flex>
         <Flex>
-          <Link to={`/`}>
+          <Link to={`/${username}/${slug}`} target="_blank">
             <Button variantColor="teal" size="sm" mx={"10px"}>
               <Text fontSize={"1xl"}>View</Text>
             </Button>
