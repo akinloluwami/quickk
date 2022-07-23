@@ -346,4 +346,24 @@ module.exports = {
       },
     });
   },
+  /************************************************/
+  getUsernameFromUuid: async (req, res) => {
+    const { uuid } = req.params;
+    const user = await User.findOne({
+      where: {
+        uuid: uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const { username, displayName } = user;
+    return res.status(200).json({
+      message: "Username retrieved successfully",
+      username,
+      displayName,
+    });
+  },
 };

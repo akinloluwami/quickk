@@ -18,7 +18,6 @@ const postData = async (url, payload, configurations) => {
     //if the endpoint has data that is return, now you will need to
     //return error.response.data.message
     //this will make axios automatically detect the error and display the message
-    console.log(err);
     return error;
   }
 };

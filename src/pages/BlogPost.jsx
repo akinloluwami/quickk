@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { fetchData, postData } from "../utils/Request";
 import { Text, Flex, Box, Button, Link, Textarea } from "@chakra-ui/react";
 import { RiHeart3Fill } from "react-icons/ri";
@@ -11,12 +11,15 @@ function BlogPost() {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [postViews, setPostViews] = useState(0);
-  const [postLikes, setPostLikes] = useState(0);
+  const [postLikes, setPostLikes] = useState([]);
   const [postComments, setPostComments] = useState(0);
   const [isOwner, setIsOwner] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [hasLiked, setHasLiked] = useState(false);
   const [postId, setPostId] = useState("");
+  const [postLikesCount, setPostLikesCount] = useState(0);
+  const [commenting, setCommenting] = useState(false);
+  const commentTextareaRef = useRef();
 
   const viewPost = () => {
     postData(`/post/view?slug=${slug}&id=${postId}}`);
@@ -26,15 +29,15 @@ function BlogPost() {
     const response = fetchData(`/post/${username}/${slug}`);
 
     response.then((data) => {
-      console.log(data);
       if (data.status === 200) {
         setPostId(data.data.post.id);
         setPostTitle(data.data.post.title);
         setPostContent(data.data.post.content);
         setPostViews(data.data.post.views.length);
-        setPostLikes(data.data.post.likes.length);
+        setPostLikes(data.data.post.likes);
         setPostComments(data.data.post.comments);
         setLoading(false);
+        setPostLikesCount(data.data.post.likes.length);
         viewPost();
       } else {
         setError(true);
@@ -56,10 +59,105 @@ function BlogPost() {
           if (data.data.username === username) {
             setIsOwner(true);
           }
+          const liked = postLikes.find(
+            (like) => like?.userUuid === data?.data?.uuid
+          );
+          if (liked) {
+            setHasLiked(true);
+            console.log("liked");
+          }
         }
       });
-    }, []);
+    }, [postLikes]);
   }
+  const likePost = () => {
+    setHasLiked(true);
+    setPostLikesCount(postLikesCount + 1);
+    postData(
+      "/post/like",
+      {
+        slug: slug,
+        id: postId,
+      },
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  };
+
+  const unlikePost = () => {
+    setHasLiked(false);
+    setPostLikesCount(postLikesCount - 1);
+    postData(
+      "/post/unlike",
+      {
+        slug: slug,
+        id: postId,
+      },
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  };
+
+  const commentOnPost = () => {
+    setCommenting(true);
+    postData(
+      "/post/comment",
+      {
+        slug: slug,
+        id: postId,
+        comment: newComment,
+      },
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    ).then((data) => {
+      setCommenting(false);
+      console.log(data);
+      if (data.status === 200) {
+        setNewComment("");
+        commentTextareaRef.current.value = "";
+      }
+    });
+  };
+
+  const displayComments = () => {
+    return postComments.map((comment) => {
+      const uuid = comment.userUuid;
+      fetchData(`/user/username/${uuid}`).then((data) => {
+        if (data.status === 200) {
+          console.log(data.data.username);
+          console.log(data.data.displayName);
+        }
+      });
+      return (
+        <Box
+          key={postComments.indexOf(comment)}
+          boxShadow="0px 0px 10px rgba(0, 0, 0, 0.1)"
+          my={2}
+        >
+          <Flex>
+            <Text>{comment.date}</Text>
+          </Flex>
+          <Text>{comment.comment}</Text>
+        </Box>
+      );
+    });
+  };
+
   return (
     <Fragment>
       {loading ? (
@@ -73,9 +171,11 @@ function BlogPost() {
           </Text>
           <Text>{postContent}</Text>
           <Text>{postViews} views</Text>
-          <Text>{postLikes} likes</Text>
+          <Text>
+            {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
+          </Text>
           {postComments.length > 0 ? (
-            postComments.map((comment) => <Text>{comment.content}</Text>)
+            displayComments()
           ) : (
             <Text>No comments</Text>
           )}
@@ -94,11 +194,23 @@ function BlogPost() {
             </>
           ) : (
             <Box>
-              {hasLiked ? <RiHeart3Fill color="red" /> : <RiHeart3Fill />}
+              {hasLiked ? (
+                <RiHeart3Fill color="red" onClick={unlikePost} />
+              ) : (
+                <RiHeart3Fill onClick={likePost} />
+              )}
               <Box>
                 <Text>Add a comment</Text>
-                <Textarea onChange={(e) => setNewComment(e.target.value)} />
-                <Button>Comment</Button>
+                <Textarea
+                  onChange={(e) => setNewComment(e.target.value)}
+                  ref={commentTextareaRef}
+                />
+                <Button
+                  disabled={commenting || newComment.length === 0}
+                  onClick={commentOnPost}
+                >
+                  {commenting ? "Commenting..." : "Comment"}
+                </Button>
               </Box>
             </Box>
           )}
