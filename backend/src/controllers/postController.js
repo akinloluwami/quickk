@@ -407,4 +407,45 @@ module.exports = {
       viewData,
     });
   },
+  deletePost: async (req, res) => {
+    const { slug, id } = req.body;
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const post = await Post.findOne({
+      where: {
+        slug,
+        id,
+      },
+    });
+    if (!post) {
+      return res.status(400).json({
+        message: "Post not found",
+      });
+    }
+    if (post.userUuid !== user.uuid) {
+      return res.status(400).json({
+        message: "You are not authorized to delete this post",
+      });
+    }
+    await post.destroy();
+    res.status(200).json({
+      message: "Post deleted successfully",
+    });
+  },
 };
