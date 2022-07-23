@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { fetchData, postData } from "../utils/Request";
 import { Text, Flex, Box, Button, Link, Textarea } from "@chakra-ui/react";
 import { RiHeart3Fill } from "react-icons/ri";
@@ -18,6 +18,8 @@ function BlogPost() {
   const [hasLiked, setHasLiked] = useState(false);
   const [postId, setPostId] = useState("");
   const [postLikesCount, setPostLikesCount] = useState(0);
+  const [commenting, setCommenting] = useState(false);
+  const commentTextareaRef = useRef();
 
   const viewPost = () => {
     postData(`/post/view?slug=${slug}&id=${postId}}`);
@@ -108,6 +110,32 @@ function BlogPost() {
     );
   };
 
+  const commentOnPost = () => {
+    setCommenting(true);
+    postData(
+      "/post/comment",
+      {
+        slug: slug,
+        id: postId,
+        comment: newComment,
+      },
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    ).then((data) => {
+      setCommenting(false);
+      console.log(data);
+      if (data.status === 200) {
+        setNewComment("");
+        commentTextareaRef.current.value = "";
+      }
+    });
+  };
+
   return (
     <Fragment>
       {loading ? (
@@ -125,7 +153,7 @@ function BlogPost() {
             {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
           </Text>
           {postComments.length > 0 ? (
-            postComments.map((comment) => <Text>{comment.content}</Text>)
+            postComments.map((comment) => <Text>On a normal level</Text>)
           ) : (
             <Text>No comments</Text>
           )}
@@ -151,8 +179,16 @@ function BlogPost() {
               )}
               <Box>
                 <Text>Add a comment</Text>
-                <Textarea onChange={(e) => setNewComment(e.target.value)} />
-                <Button>Comment</Button>
+                <Textarea
+                  onChange={(e) => setNewComment(e.target.value)}
+                  ref={commentTextareaRef}
+                />
+                <Button
+                  disabled={commenting || newComment.length === 0}
+                  onClick={commentOnPost}
+                >
+                  {commenting ? "Commenting..." : "Comment"}
+                </Button>
               </Box>
             </Box>
           )}
