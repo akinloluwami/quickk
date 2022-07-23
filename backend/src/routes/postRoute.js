@@ -10,5 +10,5 @@ router.post("/upload-image", postController.uploadImage);
 router.get("/:username/:slug", postController.getSinglePostFromUser);
 router.get("/username", postController.getUsernameFromJwt);
 router.post("/view", postController.viewPost);
-router.delete("/delete", postController.deletePost);
+router.delete("/delete/:slug/:id", postController.deletePost);
 module.exports = router;
