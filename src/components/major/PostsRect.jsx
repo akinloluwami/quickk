@@ -5,6 +5,9 @@ import moment from "moment";
 import { RiHeart3Fill, RiTimeFill } from "react-icons/ri";
 import { AiFillEye } from "react-icons/ai";
 import { MdComment } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
+
 function PostsRect({ title, views, likes, comments, date, slug, username }) {
   return (
     <Fragment>
@@ -15,10 +18,14 @@ function PostsRect({ title, views, likes, comments, date, slug, username }) {
         alignItems={"center"}
         padding={"10px"}
         borderRadius={"10px"}
-        margin={"10px"}
+        margin={"20px"}
+        _hover={{
+          boxShadow: "md",
+          cursor: "pointer",
+        }}
       >
         <Flex flexDirection={"column"}>
-          <Text fontSize={"2xl"} fontWeight={"bold"}>
+          <Text fontSize={"2xl"} fontWeight={"400"} marginBottom={"10px"}>
             {title}
           </Text>
           <Flex>
@@ -71,14 +78,43 @@ function PostsRect({ title, views, likes, comments, date, slug, username }) {
         <Flex>
           <Link to={`/${username}/${slug}`} target="_blank">
             <Button variantColor="teal" size="sm" mx={"10px"}>
-              <Text fontSize={"1xl"}>View</Text>
+              <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
+                <AiFillEye
+                  style={{
+                    marginRight: "5px",
+                  }}
+                />
+                View
+              </Text>
             </Button>
           </Link>
           <Button variantColor="teal" size="sm" mx={"10px"}>
-            <Text fontSize={"1xl"}>Edit</Text>
+            <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
+              <FiEdit
+                style={{
+                  marginRight: "5px",
+                }}
+              />
+              Edit
+            </Text>
           </Button>
-          <Button variantColor="red" size="sm">
-            <Text fontSize={"1xl"}>Delete</Text>
+          <Button
+            variantColor="red"
+            size="sm"
+            backgroundColor={"rgba(255,0,0,0.7)"}
+            color={"#fff"}
+            _hover={{
+              backgroundColor: "red",
+            }}
+          >
+            <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
+              <MdDelete
+                style={{
+                  marginRight: "5px",
+                }}
+              />
+              Delete
+            </Text>
           </Button>
         </Flex>
       </Flex>
