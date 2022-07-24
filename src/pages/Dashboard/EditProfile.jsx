@@ -32,6 +32,7 @@ const EditProfile = () => {
   const [uploading, setUploading] = useState(false);
   const [domImage, setDomImage] = useState(null);
   const [fileSelected, setFileSelected] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const handleClick = () => {
     inputRef.current.click();
   };
@@ -121,6 +122,26 @@ const EditProfile = () => {
       }
     });
   };
+  const deleteProfilePicture = async () => {
+    setDeleting(true);
+    const response = deleteData("/dashboard/user/delete/dp", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    response.then((res) => {
+      if (res.status === 200) {
+        toast.success("Profile picture deleted successfully");
+        setProfilePicture("");
+        setFileSelected(false);
+        setDomImage(null);
+        setDeleting(false);
+        window.location.reload();
+      } else {
+        toast.error(res.response.data.message);
+      }
+    });
+  };
 
   return (
     <>
@@ -151,8 +172,8 @@ const EditProfile = () => {
                 display={"none"}
               />
               {profilePicture && (
-                <Button size={"sm"} m="5px">
-                  Remove Profile Picture
+                <Button size={"sm"} m="5px" onClick={deleteProfilePicture}>
+                  {deleting ? "Deleting..." : "Delete Profile Picture"}
                 </Button>
               )}
             </Flex>
