@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import 'react-loading-skeleton/dist/skeleton.css'
 import { useEffect } from "react";
 import ProtectedRoutes from "./Routes/ProtectedRoute";
 
