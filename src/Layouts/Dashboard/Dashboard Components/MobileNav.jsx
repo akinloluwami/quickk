@@ -1,9 +1,16 @@
 import { UnorderedList, Box, ListItem, Text } from "@chakra-ui/react";
 import BarItems from "../../../utils/BarContent";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Fragment } from "react";
 
 export const MobileNav = () => {
+
+  const activeStyle  = {
+    backgroundColor : '#d8d8ff47',
+    borderRadius : '0.4em',
+    color: '#0031af'
+  }
+
   return (
     <>
       <Box bg={"#fff"} py={"1.5em"} px={"0em"}>
@@ -17,7 +24,12 @@ export const MobileNav = () => {
             const { name, link, icon, mobileView, styles, bg } = items;
             return (
               <Fragment key={index}>
-                <Link to={link} key={index}>
+                <NavLink to={link}
+                 key={index}
+                 style={({isActive}) => 
+                    isActive ? activeStyle : undefined
+                 }
+                 >
                   {/* display item on mobile now */}
                   {mobileView ? (
                     <>
@@ -50,7 +62,7 @@ export const MobileNav = () => {
                       </ListItem>
                     </>
                   )}
-                </Link>
+                </NavLink>
               </Fragment>
             );
           })}
