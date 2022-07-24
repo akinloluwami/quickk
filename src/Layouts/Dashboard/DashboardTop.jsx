@@ -18,7 +18,7 @@ import { useState } from "react";
 import Buttons from "../../components/major/Buttons";
 import { FaUserEdit } from "react-icons/fa";
 
-const DashboardTop = ({ displayName, profilePic }) => {
+const DashboardTop = ({ displayName, profilePic, username }) => {
   //initilize state
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("token") ? true : false
@@ -75,7 +75,7 @@ const DashboardTop = ({ displayName, profilePic }) => {
                 </MenuButton>
 
                 <MenuList>
-                  <Link to="/profile">
+                  <Link to={`/${username}`}>
                     <MenuItem>
                       <Text mr="1em">
                         <BiUserCircle />
