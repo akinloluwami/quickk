@@ -18,6 +18,7 @@ function PostsRect({
   slug,
   username,
   id,
+  coverImage,
 }) {
   const [deleting, setDeleting] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
@@ -54,6 +55,18 @@ function PostsRect({
         display={isDeleted ? "none" : "block"}
       >
         <Box>
+          {coverImage && (
+            <img
+              src={coverImage}
+              alt=""
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "cover",
+                borderRadius: "10px",
+              }}
+            />
+          )}
           <Text
             fontSize={["xl", "2xl"]}
             fontWeight={"400"}
