@@ -2,10 +2,11 @@ import React, { useState, useEffect, Fragment, useRef } from "react";
 import { fetchData, postData } from "../utils/Request";
 import { Text, Flex, Box, Button, Link, Textarea } from "@chakra-ui/react";
 import { RiHeart3Fill } from "react-icons/ri";
-import ContainerLayout from '../Layouts/ContainerLayout.jsx/ContainerLayout';
-import ContentLoader from '../components/minor/ContentLoader';
-import DashboardTop from '../Layouts/Dashboard/DashboardTop';
-import { AiFillEye , AiFillHeart , AiOutlineComment } from 'react-icons/ai'
+import ContainerLayout from "../Layouts/ContainerLayout.jsx/ContainerLayout";
+import ContentLoader from "../components/minor/ContentLoader";
+import DashboardTop from "../Layouts/Dashboard/DashboardTop";
+import { AiFillEye, AiFillHeart, AiOutlineComment } from "react-icons/ai";
+import moment from "moment";
 
 function BlogPost() {
   const username = window.location.pathname.split("/")[1];
@@ -155,7 +156,7 @@ function BlogPost() {
           my={2}
         >
           <Flex>
-            <Text>{comment.date}</Text>
+            <Text>{moment(comment.date).fromNow()}</Text>
           </Flex>
           <Text>{comment.comment}</Text>
         </Box>
@@ -165,113 +166,98 @@ function BlogPost() {
 
   return (
     <Fragment>
-
-        
-        <Box px={['0','4em']} 
-        position={'fixed'} 
-        left={0} right={0}
+      <Box
+        px={["0", "4em"]}
+        position={"fixed"}
+        left={0}
+        right={0}
         top={0}
         zIndex={999}
-     
-        >
-          <DashboardTop/>
-        </Box>
-        <ContainerLayout>
-       
-
-
-            <Box my={'8em'}>
-            {loading ? (
-              <>  
-
-              <ContentLoader/>
-              
-              </>
-      ) : error ? (
-        <Text>{errorMessage}</Text>
-      ) : (
-        <Box px={['' , '5em']}>
-          <Text fontSize={"2xl"} fontWeight={"bold"} my={'1em'}>
-            {postTitle}
-          </Text>
-          <Text>{postContent}</Text>
-
-
-          {/* Make views and others flex  */}
-          <Box my={'1em'}>
-            <Flex gap={'2em'}>
-              
-                
-                <Flex alignItems={'center'}>
-                  <Text mr={'0.5em'}><AiFillEye /> </Text>
-                  <Text>
-                    {postViews} views
-                  </Text>
-                </Flex>
-
-              <Flex gap={'0.5em'} alignItems={'center'}>
-
-                <AiFillHeart/>
-                <Text>
-                  {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
-                </Text>
-
-              </Flex>
-
-             <Flex alignItems={'center'} gap={'0.5em'}>
-             <AiOutlineComment/>
-                {postComments.length > 0 ? (
-                  displayComments()
-                ) : (
-                  <Text>No comments</Text>
-                )}
-             </Flex>
-
-            </Flex>
-          </Box>
-
-          {isOwner ? (
-            <Link href={`/dashboard/post/${username}/${slug}/edit`}>
-              <Button>Edit</Button>
-            </Link>
-          ) : !localStorage.getItem("token") ? (
+      >
+        <DashboardTop />
+      </Box>
+      <ContainerLayout>
+        <Box my={"8em"}>
+          {loading ? (
             <>
-              <Text>
-                <Link href="/login">
-                  <Button>Login</Button>
-                </Link>{" "}
-                to like and comment
-              </Text>
+              <ContentLoader />
             </>
+          ) : error ? (
+            <Text>{errorMessage}</Text>
           ) : (
-            <Box>
-              {hasLiked ? (
-                <RiHeart3Fill color="red" onClick={unlikePost} />
-              ) : (
-                <RiHeart3Fill onClick={likePost} />
-              )}
-              <Box>
-                <Text>Add a comment</Text>
-                <Textarea
-                  onChange={(e) => setNewComment(e.target.value)}
-                  ref={commentTextareaRef}
-                />
-                <Button
-                  disabled={commenting || newComment.length === 0}
-                  onClick={commentOnPost}
-                >
-                  {commenting ? "Commenting..." : "Comment"}
-                </Button>
+            <Box px={["", "5em"]}>
+              <Text fontSize={"2xl"} fontWeight={"bold"} my={"1em"}>
+                {postTitle}
+              </Text>
+              <Text>{postContent}</Text>
+
+              {/* Make views and others flex  */}
+              <Box my={"1em"}>
+                <Flex gap={"2em"}>
+                  <Flex alignItems={"center"}>
+                    <Text mr={"0.5em"}>
+                      <AiFillEye />{" "}
+                    </Text>
+                    <Text>{postViews} views</Text>
+                  </Flex>
+
+                  <Flex gap={"0.5em"} alignItems={"center"}>
+                    <AiFillHeart />
+                    <Text>
+                      {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
+                    </Text>
+                  </Flex>
+
+                  <Flex alignItems={"center"} gap={"0.5em"}>
+                    <AiOutlineComment />
+                    {postComments.length > 0 ? (
+                      displayComments()
+                    ) : (
+                      <Text>No comments</Text>
+                    )}
+                  </Flex>
+                </Flex>
               </Box>
+
+              {isOwner ? (
+                <Link href={`/dashboard/post/${username}/${slug}/edit`}>
+                  <Button>Edit</Button>
+                </Link>
+              ) : !localStorage.getItem("token") ? (
+                <>
+                  <Text>
+                    <Link href="/login">
+                      <Button>Login</Button>
+                    </Link>{" "}
+                    to like and comment
+                  </Text>
+                </>
+              ) : (
+                <Box>
+                  {hasLiked ? (
+                    <RiHeart3Fill color="red" onClick={unlikePost} />
+                  ) : (
+                    <RiHeart3Fill onClick={likePost} />
+                  )}
+                  <Box>
+                    <Text>Add a comment</Text>
+                    <Textarea
+                      onChange={(e) => setNewComment(e.target.value)}
+                      ref={commentTextareaRef}
+                    />
+                    <Button
+                      disabled={commenting || newComment.length === 0}
+                      onClick={commentOnPost}
+                    >
+                      {commenting ? "Commenting..." : "Comment"}
+                    </Button>
+                  </Box>
+                </Box>
+              )}
             </Box>
           )}
         </Box>
-      )}
-
-            </Box>
-
-        </ContainerLayout>
-
+      </ContainerLayout>
     </Fragment>
   );
 }
