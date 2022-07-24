@@ -142,7 +142,14 @@ const ProfileBlock = () => {
       <Box p="1em">
         <Flex gap={"2em"} alignItems={"center"} flexDir={["column", "row"]}>
           <Box justifyContent={["left"]}>
-            <Avatar size={["lg", "xl"]} src={profilePicture} />
+            {profilePicture.length > 0 ? (
+              <Avatar size={["lg", "xl"]} src={profilePicture} />
+            ) : (
+              <Avatar
+                size={["lg", "xl"]}
+                src={`https://avatars.dicebear.com/api/initials/${displayName}.svg`}
+              />
+            )}
           </Box>
           <Box textAlign={["center", "left"]}>
             <Text fontWeight={"bold"}>{displayName}</Text>
