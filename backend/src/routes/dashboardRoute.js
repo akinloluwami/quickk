@@ -4,6 +4,7 @@ const router = require("express").Router();
 router.get("/user/profile", dashboardController.getUserProfile);
 router.get("/user/posts/:username", dashboardController.getAllPostsFromUser);
 router.get("/overview", dashboardController.getOverviewInfo);
+router.get("/page-views", dashboardController.getPageViews);
 
 module.exports = router;
 

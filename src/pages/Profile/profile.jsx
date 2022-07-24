@@ -1,4 +1,4 @@
-import { Box, Center } from "@chakra-ui/react";
+import { Box, Center, Link, Text } from "@chakra-ui/react";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import ProfileLayout from "../../Layouts/Profile/ProfileLayout";
 import BlogBox from "./Components/BlogBox";
@@ -10,6 +10,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const response = fetchData(`/user/profile/${username}`);
@@ -23,6 +24,18 @@ const Profile = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    const response = fetchData(`/dashboard/user/posts/${username}`, {
+      method: "GET",
+      username: username,
+    });
+    response.then((res) => {
+      console.log(res.data.posts);
+      setPosts(res.data.posts.reverse());
+    });
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -40,8 +53,25 @@ const Profile = () => {
       ) : (
         <ProfileLayout>
           <Box>
-            <BlogBox />
-            <BlogBox />
+            {posts.length < 1 ? (
+              <Box>
+                <Text>No posts from this user yet.</Text>
+              </Box>
+            ) : (
+              <Box>
+                {posts.map((post) => (
+                  <Link href={`/${username}/${post.slug}`} key={post.id}>
+                    <BlogBox
+                      title={post.title}
+                      slug={post.slug}
+                      content={post.content}
+                      date={post.createdAt}
+                      likes={post.likes.length}
+                    />
+                  </Link>
+                ))}
+              </Box>
+            )}
           </Box>
         </ProfileLayout>
       )}
