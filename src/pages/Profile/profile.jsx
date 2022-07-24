@@ -1,11 +1,11 @@
-import { Box, Center, Link, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Link, Text } from "@chakra-ui/react";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import ProfileLayout from "../../Layouts/Profile/ProfileLayout";
 import BlogBox from "./Components/BlogBox";
 import { fetchData } from "../../utils/Request";
 import { useState, useEffect } from "react";
 import LoadingProfile from "../../components/minor/LoadingProfile";
-import NoUser from '../../components/minor/NoUser';
+import NoUser from "../../components/minor/NoUser";
 
 const Profile = () => {
   const username = window.location.pathname.split("/")[1];
@@ -43,17 +43,13 @@ const Profile = () => {
       {loading ? (
         <Center>
           <Box>
-            
-            <LoadingProfile/>
-
+            <LoadingProfile />
           </Box>
         </Center>
       ) : error ? (
         <Center>
           <Box>
-
-              <NoUser message={errorMessage}/>
-
+            <NoUser message={errorMessage} />
           </Box>
         </Center>
       ) : (
@@ -64,19 +60,24 @@ const Profile = () => {
                 <Text>No posts from this user yet.</Text>
               </Box>
             ) : (
-              <Box>
+              <Flex flexWrap={"wrap"} justifyContent={"center"}>
                 {posts.map((post) => (
-                  <Link href={`/${username}/${post.slug}`} key={post.id}>
+                  <Link
+                    href={`/${username}/${post.slug}`}
+                    key={post.id}
+                    width="fit-content"
+                  >
                     <BlogBox
                       title={post.title}
                       slug={post.slug}
                       content={post.content}
                       date={post.createdAt}
                       likes={post.likes.length}
+                      coverImage={post.coverImageUrl}
                     />
                   </Link>
                 ))}
-              </Box>
+              </Flex>
             )}
           </Box>
         </ProfileLayout>
