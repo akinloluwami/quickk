@@ -32,11 +32,15 @@ const DashboardLayout = ({ children }) => {
       setDisplayName(res.data.displayName);
       setFollowing(res.data.following);
       setFollowers(res.data.followers);
+      if (res.data.profilePicture !== "") {
+        setProfilePic(res.data.profilePicture);
+      } else {
+        setProfilePic(
+          `https://avatars.dicebear.com/api/initials/${displayName}.svg`
+        );
+      }
       localStorage.setItem("userName", res.data.username);
     });
-    setProfilePic(
-      `https://avatars.dicebear.com/api/initials/${displayName}.svg`
-    );
   }, [displayName]);
 
   return (
