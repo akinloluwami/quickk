@@ -5,6 +5,9 @@ router.get("/user/profile", dashboardController.getUserProfile);
 router.get("/user/posts/:username", dashboardController.getAllPostsFromUser);
 router.get("/overview", dashboardController.getOverviewInfo);
 router.get("/page-views", dashboardController.getPageViews);
+router.post("/user/update", dashboardController.updateProfile);
+router.post("/user/update/dp", dashboardController.updateProfilePicture);
+router.delete("/user/delete/dp", dashboardController.deleteProfilePicture);
 
 module.exports = router;
 

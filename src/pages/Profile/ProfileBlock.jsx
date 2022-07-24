@@ -15,6 +15,7 @@ const ProfileBlock = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [popupActive, setPopupActive] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("");
   const [followersCount, setFollowersCount] = useState(0);
   useEffect(() => {
     const response = fetchData(`/user/profile/${username}`);
@@ -31,6 +32,7 @@ const ProfileBlock = () => {
         setFollowers(user.followers);
         setFollowing(user.following);
         setFollowersCount(user.followers.length);
+        setProfilePicture(user.profilePicture);
       }
     });
   }, []);
@@ -140,7 +142,14 @@ const ProfileBlock = () => {
       <Box p="1em">
         <Flex gap={"2em"} alignItems={"center"} flexDir={["column", "row"]}>
           <Box justifyContent={["left"]}>
-            <Avatar size={["lg", "xl"]} />
+            {profilePicture.length > 0 ? (
+              <Avatar size={["lg", "xl"]} src={profilePicture} />
+            ) : (
+              <Avatar
+                size={["lg", "xl"]}
+                src={`https://avatars.dicebear.com/api/initials/${displayName}.svg`}
+              />
+            )}
           </Box>
           <Box textAlign={["center", "left"]}>
             <Text fontWeight={"bold"}>{displayName}</Text>

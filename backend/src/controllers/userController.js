@@ -201,6 +201,7 @@ module.exports = {
       youtube,
       tiktok,
       website,
+      profilePicture,
     } = user;
     return res.status(200).json({
       message: "User profile retrieved successfully",
@@ -218,6 +219,7 @@ module.exports = {
         youtube,
         tiktok,
         website,
+        profilePicture,
       },
     });
   },

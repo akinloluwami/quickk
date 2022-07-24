@@ -64,7 +64,7 @@ const DashboardTop = ({ displayName, profilePic }) => {
               <Menu>
                 <MenuButton>
                   <Flex alignItems={"center"} gap={"1em"}>
-                    <Avatar name={displayName} size={"md"} />
+                    <Avatar name={displayName} size={"md"} src={profilePic} />
                     <Text fontWeight={"bold"} display={["none", "block"]}>
                       {displayName}
                     </Text>
