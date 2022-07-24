@@ -6,6 +6,7 @@ import { postData } from "../../utils/Request";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
 
 const Write = () => {
   const navigate = useNavigate();
@@ -17,10 +18,12 @@ const Write = () => {
   const [coverImageUrl, setCoverImageUrl] = useState("");
   const [domImage, setDomImage] = useState(null);
   const [publishing, setPublishing] = useState(false);
+
   const handleClick = () => {
     inputRef.current.click();
   };
   const uploadCoverImage = async () => {
+    setUploading(true);
     const formData = new FormData();
     formData.append("image", image);
     setUploading(true);
@@ -39,15 +42,21 @@ const Write = () => {
     reader.readAsDataURL(e.target.files[0]);
   };
 
+  useEffect(() => {
+    if (image) {
+      uploadCoverImage();
+    }
+  }, [image]);
+
   const handleRemoveImage = () => {
     setImage(null);
+    setDomImage(null);
+    setCoverImageUrl("");
+    setCoverImageSelected(false);
   };
 
   const handlePublish = async () => {
     setPublishing(true);
-    if (image) {
-      await uploadCoverImage();
-    }
     const data = {
       title: postTitle,
       content: postContent,
@@ -86,10 +95,10 @@ const Write = () => {
                   handleImageInput();
                 }}
               >
-                {uploading ? "Uploading..." : "Upload Image"}
+                {uploading ? "Uploading..." : "Select Cover Image"}
               </Button>
             ) : (
-              <Text>Cover Image Uploaded</Text>
+              <Text>...</Text>
             )}
             <Button
               backgroundColor={"#0031af"}
