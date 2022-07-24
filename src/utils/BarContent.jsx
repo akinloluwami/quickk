@@ -27,7 +27,7 @@ const BarItems = [
   },
   {
     name: "Overview",
-    link: "/dashboard",
+    link: "/dashboard/overview",
     icon: <MdOutlineDashboard />,
     mobileView: true,
     styles : {

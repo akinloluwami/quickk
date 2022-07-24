@@ -36,7 +36,7 @@ function Login() {
       toast.success("Login sucessful");
       setLoading(false);
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/dashboard/overview");
         window.location.reload();
       }, 1500);
     } else {

@@ -20,7 +20,7 @@ const Private = () => {
       <Routes>
         <Route path="/" element={<DashboardIndex />} />
         <Route path="/:username" element={<User />} />
-        <Route path="/dashboard" element={<DashboardIndex />} />
+        <Route path="/dashboard/overview" element={<DashboardIndex />} />
         <Route path="/dashboard/draft" element={<Draft />} />
         <Route path="/dashboard/write" element={<Write />} />
         <Route path="/dashboard/donations" element={<Donations />} />
