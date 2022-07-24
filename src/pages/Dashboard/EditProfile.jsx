@@ -12,10 +12,12 @@ import { FaTimes } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { postData, fetchData, deleteData } from "../../utils/Request";
+
 const EditProfile = () => {
   const navigate = useNavigate();
+  const inputRef = useRef();
   const [displayName, setDisplayName] = useState("");
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
@@ -27,6 +29,12 @@ const EditProfile = () => {
   const [website, setWebsite] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
   const [updating, setUpdating] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [domImage, setDomImage] = useState(null);
+  const [fileSelected, setFileSelected] = useState(false);
+  const handleClick = () => {
+    inputRef.current.click();
+  };
 
   useEffect(() => {
     const response = fetchData("/dashboard/user/profile", {
@@ -60,6 +68,30 @@ const EditProfile = () => {
       setWalletAddress(walletAddress);
     });
   }, []);
+
+  const uploadProfilePicture = async () => {
+    const formData = new FormData();
+    formData.append("image", profilePicture);
+    setUploading(true);
+    const res = await postData("/dashboard/user/update/dp", formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    setUploading(false);
+    setProfilePicture(res.data.profilePicture);
+    window.location.reload();
+  };
+
+  const handleImageInput = (e) => {
+    setProfilePicture(e.target.files[0]);
+    setFileSelected(true);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setDomImage(e.target.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
 
   const handleUpdate = () => {
     setUpdating(true);
@@ -97,19 +129,40 @@ const EditProfile = () => {
         <Box>
           <Text fontSize={"lg"}>Profile Picture</Text>
           <Box>
-            <Avatar size={"xl"} />
+            {profilePicture ? (
+              <Avatar src={profilePicture} size={"xl"} />
+            ) : (
+              <Avatar
+                src={`https://avatars.dicebear.com/api/initials/${displayName}.svg`}
+                size={"xl"}
+              />
+            )}
             <Flex>
-              <Button size={"sm"} m="5px">
-                {profilePicture.length > 0
+              <Button size={"sm"} m="5px" onClick={handleClick}>
+                {profilePicture !== ""
                   ? "Change Profile Picture"
                   : "Add Profile Picture"}
               </Button>
+
+              <Input
+                type={"file"}
+                ref={inputRef}
+                onChange={handleImageInput}
+                display={"none"}
+              />
               {profilePicture && (
                 <Button size={"sm"} m="5px">
                   Remove Profile Picture
                 </Button>
               )}
             </Flex>
+            <Button
+              width="100px"
+              onClick={uploadProfilePicture}
+              display={fileSelected ? "block" : "none"}
+            >
+              {uploading ? "Uploading..." : "Upload"}
+            </Button>
           </Box>
           <Text fontSize="lg">Basic Info</Text>
           <Input
