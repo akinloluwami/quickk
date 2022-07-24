@@ -4,6 +4,8 @@ import ProfileLayout from "../../Layouts/Profile/ProfileLayout";
 import BlogBox from "./Components/BlogBox";
 import { fetchData } from "../../utils/Request";
 import { useState, useEffect } from "react";
+import LoadingProfile from "../../components/minor/LoadingProfile";
+import NoUser from '../../components/minor/NoUser';
 
 const Profile = () => {
   const username = window.location.pathname.split("/")[1];
@@ -41,13 +43,17 @@ const Profile = () => {
       {loading ? (
         <Center>
           <Box>
-            <Box>Loading...</Box>
+            
+            <LoadingProfile/>
+
           </Box>
         </Center>
       ) : error ? (
         <Center>
           <Box>
-            <Box>{errorMessage}</Box>
+
+              <NoUser message={errorMessage}/>
+
           </Box>
         </Center>
       ) : (
