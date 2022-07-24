@@ -9,6 +9,7 @@ import { AiFillEye, AiFillHeart, AiOutlineComment } from "react-icons/ai";
 import moment from "moment";
 
 function BlogPost() {
+
   const username = window.location.pathname.split("/")[1];
   const slug = window.location.pathname.split("/")[2];
   const [loading, setLoading] = useState(true);
