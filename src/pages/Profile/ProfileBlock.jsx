@@ -165,7 +165,9 @@ const ProfileBlock = () => {
             ) : isFollowing ? (
               <Button onClick={unfollowUser}>Unfollow</Button>
             ) : isOwner ? (
-              <Button>Edit Profile</Button>
+              <Link href="/edit-profile">
+                <Button>Edit Profile</Button>
+              </Link>
             ) : (
               <Button onClick={followUser}>Follow</Button>
             )}
