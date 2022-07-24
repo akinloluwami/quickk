@@ -9,6 +9,7 @@ import { fetchData } from "../../utils/Request";
 const DashboardIndex = () => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [pageViews, setPageViews] = useState(0);
 
   useEffect(() => {
     const response = fetchData("/dashboard/overview", {
@@ -21,6 +22,18 @@ const DashboardIndex = () => {
       const { followers, following } = res.data;
       setFollowers(followers);
       setFollowing(following);
+    });
+  }, []);
+
+  useEffect(() => {
+    const response = fetchData("/dashboard/page-views", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    response.then((res) => {
+      setPageViews(res.data.pageViews);
     });
   }, []);
 
@@ -39,7 +52,7 @@ const DashboardIndex = () => {
     },
     {
       title: "Total Page Views",
-      number: "10,234",
+      number: pageViews,
       color: " rgb(168, 85, 247)",
       icon: <FiGlobe size={"1.5em"} fill={" rgb(168, 85, 247)"} />,
     },
