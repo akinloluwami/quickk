@@ -1,6 +1,11 @@
 import { Box, Flex, Img, Text, Link } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
-import { AiOutlineComment, AiOutlineMore, AiFillHeart } from "react-icons/ai";
+import {
+  AiOutlineComment,
+  AiOutlineMore,
+  AiFillHeart,
+  AiFillEye,
+} from "react-icons/ai";
 import { BiDonateBlood } from "react-icons/bi";
 import { BsCalendarDate } from "react-icons/bs";
 import moment from "moment";
@@ -38,11 +43,15 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
                   : content}
               </Text>
 
-              <Box display={"flex"} gap={"1em"}>
-                <BsCalendarDate /> <Text>{moment(date).fromNow()}</Text>
+              <Box display={"flex"} gap={"1em"} alignItems="center">
+                <BsCalendarDate />{" "}
+                <Text fontWeight={"bold"}>{moment(date).fromNow()}</Text>
               </Box>
-              <Box display={"flex"} gap={"1em"}>
-                <AiFillHeart /> <Text>{likes}</Text>
+              <Box display={"flex"} gap={"1em"} alignItems="center">
+                <AiFillHeart /> <Text fontWeight={"bold"}>{likes}</Text>
+              </Box>
+              <Box display={"flex"} gap={"1em"} alignItems="center">
+                <AiFillEye /> <Text fontWeight={"bold"}>{views}</Text>
               </Box>
             </Box>
           </Flex>
