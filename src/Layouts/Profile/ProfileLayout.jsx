@@ -136,17 +136,17 @@ const ProfileLayout = ({ children }) => {
         justifyContent={"space-between"}
       >
         {/* <ProfileBlock /> */}
-        <Link to={`/${username}`} boxShadow={"sm"}>
+        <Link href={`/${username}`} boxShadow={"sm"}>
           <Text fontSize={"1.2em"} fontWeight={"500"}>
             Posts
           </Text>
         </Link>
-        <Link to={`/${username}/donate`}>
+        <Link href={`/${username}/donate`}>
           <Text fontSize={"1.2em"} fontWeight={"500"}>
             Donate
           </Text>
         </Link>
-        <Link to={`/${username}/profile`}>
+        <Link href={`/${username}/profile`}>
           <Text fontSize={"1.2em"} fontWeight={"500"}>
             <Text fontSize={"1.2em"} fontWeight={"500"}>
               Profile
