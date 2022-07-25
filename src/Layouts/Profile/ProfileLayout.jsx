@@ -12,6 +12,8 @@ import ProfileBlock from "../../pages/Profile/ProfileBlock";
 import React, { Fragment, useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
 
+import { NavLink } from "react-router-dom";
+
 const ProfileLayout = ({ children }) => {
   const username = window.location.pathname.split("/")[1];
   const [loading, setLoading] = useState(true);
@@ -129,30 +131,32 @@ const ProfileLayout = ({ children }) => {
         )}
       </Flex>
       <Flex
-        bg={"#e2e8f0"}
+        // bg={"#e2e8f0"}
+        
         w={"100%"}
         px={"2em"}
-        py={".5em"}
-        justifyContent={"space-between"}
+        py={"1.5em"}
+        justifyContent={["space-between" , " left "]}
+        gap={['' , '5em']}
       >
         {/* <ProfileBlock /> */}
-        <Link href={`/${username}`} boxShadow={"sm"}>
+        <NavLink to={`/${username}`} boxShadow={"sm"}>
           <Text fontSize={"1.2em"} fontWeight={"500"}>
             Posts
           </Text>
-        </Link>
-        <Link href={`/${username}/donate`}>
+        </NavLink>
+        <NavLink to={`/${username}/donate`}>
           <Text fontSize={"1.2em"} fontWeight={"500"}>
             Donate
           </Text>
-        </Link>
-        <Link href={`/${username}/profile`}>
-          <Text fontSize={"1.2em"} fontWeight={"500"}>
+        </NavLink>
+        <NavLink to={`/${username}/profile`}>
+          
             <Text fontSize={"1.2em"} fontWeight={"500"}>
               Profile
             </Text>
-          </Text>
-        </Link>
+         
+        </NavLink>
       </Flex>
       <Box my={"1em"}>{children}</Box>
     </>
