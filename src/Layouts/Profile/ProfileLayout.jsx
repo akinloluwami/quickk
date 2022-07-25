@@ -213,7 +213,7 @@ const ProfileLayout = ({ children }) => {
          
         </NavLink>
       </Flex>
-      <Box my={"1em"}>{children}</Box>
+      <Box my={"1em"} mx={['' , '2em']}>{children}</Box>
     </Box>
     
     </>
