@@ -196,10 +196,14 @@ function BlogPost() {
         right={0}
         top={0}
         zIndex={999}
-        py={"1em"}
       >
-        <Flex alignItems={"center"} justifyContent={"space-between"}>
-          <Link to={"/"} display={"flex"} alignItems={"center"}>
+        <Flex
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          backgroundColor={"#fff"}
+          py={"1em"}
+        >
+          <Link href={`/${username}`} display={"flex"} alignItems={"center"}>
             <Avatar src={ownerProfileImage} />
             <Text ml={"0.5em"} fontSize={"1.5em"} fontWeight={"bold"}>
               {ownerDisplayName}
