@@ -202,6 +202,32 @@ function BlogPost() {
               >
                 {postTitle}
               </Text>
+              <Flex gap={"2em"} justifyContent="center">
+                <Flex alignItems={"center"}>
+                  <Text mr={"0.5em"}>
+                    <AiFillEye />{" "}
+                  </Text>
+                  <Text>{postViews} views</Text>
+                </Flex>
+
+                <Flex gap={"0.5em"} alignItems={"center"}>
+                  <AiFillHeart />
+                  <Text>
+                    {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
+                  </Text>
+                </Flex>
+
+                <Flex alignItems={"center"} gap={"0.5em"}>
+                  <AiOutlineComment />
+                  {postComments.length > 0 ? (
+                    <>
+                      <Text>{postComments.length} comment</Text>
+                    </>
+                  ) : (
+                    <Text>No comments</Text>
+                  )}
+                </Flex>
+              </Flex>
               {coverImage && (
                 <Box
                   width={"100%"}
