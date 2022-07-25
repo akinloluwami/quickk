@@ -80,6 +80,10 @@ const ProfileLayout = ({ children }) => {
     });
   };
 
+  const activeStyle = {
+    backgroundColor: "red",
+  }
+
   return (
     <Box position={"relative"}>
       <Flex
@@ -173,12 +177,18 @@ const ProfileLayout = ({ children }) => {
         gap={['' , '5em']}
       >
         {/* <ProfileBlock /> */}
-        <NavLink to={`/${username}`} boxShadow={"sm"}>
-          <Text fontSize={"1.2em"} fontWeight={"500"}>
+        <NavLink to={`/${username}`} boxShadow={"sm"} 
+        style={ ({isActive }) => isActive ? activeStyle : {}}
+        >
+          <Text fontSize={"1.2em"} fontWeight={"500"} 
+            
+          >
             Posts
           </Text>
         </NavLink>
-        <NavLink to={`/${username}/donate`}>
+        <NavLink to={`/${username}/donate`}
+          style={ ({isActive }) => isActive ? activeStyle : {}}
+        >
           <Text fontSize={"1.2em"} fontWeight={"500"}>
             Donate
           </Text>
