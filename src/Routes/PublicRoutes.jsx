@@ -8,6 +8,8 @@ import VerifyEmail from "../pages/VerifyEmail/VerifyEmail";
 import User from "../pages/User";
 import NotFound from "../pages/NotFound/NotFound";
 import BlogPost from "../pages/BlogPost";
+import Donate from "../pages/Profile/Donate";
+import UserProfile from "../pages/Profile/UserProfile";
 const PublicRoutes = () => {
   return (
     <>
@@ -20,6 +22,8 @@ const PublicRoutes = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/:username/:slug" element={<BlogPost />} />
+        <Route path="/:username/donate" element={<Donate />} />
+        <Route path="/:username/profile" element={<UserProfile />} />
       </Routes>
     </>
   );
