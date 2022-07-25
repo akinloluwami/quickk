@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 const Write = () => {
   const navigate = useNavigate();
@@ -80,6 +81,11 @@ const Write = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {postTitle ? `Editing "${postTitle}"` : "Create New Post"}
+        </title>
+      </Helmet>
       <DashboardLayout>
         <ToastContainer />
         <Flex justifyContent={"center"} flexDirection={"column"}>
