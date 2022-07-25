@@ -5,6 +5,7 @@ import { Flex } from "@chakra-ui/react";
 import DashboardCard from "../../components/minor/Card";
 import { FiUsers, FiUser, FiGlobe, FiGift } from "react-icons/fi";
 import { fetchData } from "../../utils/Request";
+import { Helmet } from "react-helmet";
 
 const DashboardIndex = () => {
   const [followers, setFollowers] = useState([]);
@@ -66,6 +67,9 @@ const DashboardIndex = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Overview | Quickk Dashboard </title>
+      </Helmet>
       <DashboardLayout>
         <Flex gap={"1em"} flexDir={["column", "row"]}>
           {data.map((item, index) => (
