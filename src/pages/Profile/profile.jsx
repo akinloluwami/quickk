@@ -6,6 +6,7 @@ import { fetchData } from "../../utils/Request";
 import { useState, useEffect } from "react";
 import LoadingProfile from "../../components/minor/LoadingProfile";
 import NoUser from "../../components/minor/NoUser";
+import { Helmet } from "react-helmet";
 
 const Profile = () => {
   const username = window.location.pathname.split("/")[1];
@@ -13,11 +14,13 @@ const Profile = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [posts, setPosts] = useState([]);
+  const [displayName, setDisplayName] = useState("");
 
   useEffect(() => {
     const response = fetchData(`/user/profile/${username}`);
     response.then((data) => {
       if (data.status === 200) {
+        setDisplayName(data.data.user.displayName);
         setLoading(false);
       } else {
         setError(true);
@@ -40,6 +43,11 @@ const Profile = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {displayName} | @{username}
+        </title>
+      </Helmet>
       {loading ? (
         <Center>
           <Box>
