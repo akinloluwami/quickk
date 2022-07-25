@@ -110,7 +110,7 @@ const ProfileBlock = () => {
         boxShadow={"0px 0px 10px rgba(0,0,0,0.1)"}
         flexDirection={"column"}
         transition={"all 0.3s ease-in-out"}
-        transform={popupActive ? "translateY(0)" : "translateY(-150%)"}
+        transform={popupActive ? "translateY(0)" : "translateY(-200%)"}
       >
         <Button
           position={"absolute"}
