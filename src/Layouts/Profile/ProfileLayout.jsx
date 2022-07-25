@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
 
 import { NavLink } from "react-router-dom";
-import DashboardTop from "../Dashboard/DashboardTop";
 
 const ProfileLayout = ({ children }) => {
 

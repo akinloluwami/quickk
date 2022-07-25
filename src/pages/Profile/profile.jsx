@@ -45,11 +45,6 @@ const Profile = () => {
   return (
     <>
       <ContainerLayout>
-      <Helmet>
-        <title>
-          {displayName} | @{username}
-        </title>
-      </Helmet>
       {loading ? (
         <Center>
           <Box>
