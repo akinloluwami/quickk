@@ -1,15 +1,5 @@
-import {
-  Flex,
-  Box,
-  ListItem,
-  UnorderedList,
-  Text,
-  Avatar,
-  Button,
-  Link,
-} from "@chakra-ui/react";
-import ProfileBlock from "../../pages/Profile/ProfileBlock";
-import React, { Fragment, useState, useEffect } from "react";
+import { Flex, Box, Text, Avatar, Button, Link } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
 
 const ProfileLayout = ({ children }) => {
