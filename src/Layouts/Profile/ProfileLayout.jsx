@@ -205,7 +205,7 @@ const ProfileLayout = ({ children }) => {
             Donate
           </Text>
         </NavLink>
-        <NavLink to={`/${username}/profile`}>
+        <NavLink to={`/${username}/profile`} style={ ({isActive }) => isActive ? activeStyle : {}}>
           
             <Text fontSize={"1.2em"} fontWeight={"500"}>
               Profile
