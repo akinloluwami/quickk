@@ -10,6 +10,12 @@ import { BiDonateBlood } from "react-icons/bi";
 import { BsCalendarDate } from "react-icons/bs";
 import moment from "moment";
 const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
+  const removeTags = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent;
+  };
+
   return (
     <>
       <Box
@@ -38,9 +44,9 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
                 {title}
               </Text>
               <Text my={"1em"}>
-                {content.length > 100
+                {removeTags(content).length > 100
                   ? content.substring(0, 100) + "..."
-                  : content}
+                  : removeTags(content)}
               </Text>
 
               <Box display={"flex"} gap={"1em"} alignItems="center">
