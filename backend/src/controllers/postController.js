@@ -33,7 +33,7 @@ module.exports = {
     cloudinary.uploader
       .upload(file.tempFilePath, {
         folder: "quickk",
-        public_id: "quickk" + "_" + Date.now() + "_" + file.originalname,
+        public_id: "quickk" + "_" + Date.now(),
         resource_type: "auto",
       })
       .then((result) => {
