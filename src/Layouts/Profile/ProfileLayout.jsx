@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
 
 import { NavLink } from "react-router-dom";
+import DashboardTop from "../Dashboard/DashboardTop";
 
 const ProfileLayout = ({ children }) => {
+
   const username = window.location.pathname.split("/")[1];
   const [loading, setLoading] = useState(true);
   const [displayName, setDisplayName] = useState("");
@@ -14,6 +16,7 @@ const ProfileLayout = ({ children }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followers, setFollowers] = useState([]);
   const [popupActive, setPopupActive] = useState(false);
+
   useEffect(() => {
     const response = fetchData(`/user/profile/${username}`);
     response.then((data) => {
@@ -81,11 +84,21 @@ const ProfileLayout = ({ children }) => {
   };
 
   const activeStyle = {
-    backgroundColor: "red",
+    backgroundColor: "rgb(66 153 225 / 8%)",
+    padding: "0.5rem",
+    color: 'blue',
+    fontWeight: 'bold',
+    borderRadius: "0.5rem",
   }
 
   return (
-    <Box position={"relative"}>
+    
+    <>
+
+    <DashboardTop/>
+    
+    <Box position={"relative"} mx={['' , '4em']}>
+      
       <Flex
         position={"absolute"}
         top={"0"}
@@ -203,6 +216,8 @@ const ProfileLayout = ({ children }) => {
       </Flex>
       <Box my={"1em"}>{children}</Box>
     </Box>
+    
+    </>
   );
 };
 

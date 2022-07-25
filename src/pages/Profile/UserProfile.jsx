@@ -44,6 +44,7 @@ function Donate() {
         </Center>
       ) : (
         <ProfileLayout>
+          
           <Box>
             <ProfileBlock />
           </Box>
