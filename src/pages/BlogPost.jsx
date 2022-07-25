@@ -27,6 +27,7 @@ function BlogPost() {
   const [postLikesCount, setPostLikesCount] = useState(0);
   const [commenting, setCommenting] = useState(false);
   const commentTextareaRef = useRef();
+  const [coverImage, setCoverImage] = useState("");
 
   const viewPost = () => {
     postData(`/post/view?slug=${slug}&id=${postId}}`);
@@ -45,6 +46,7 @@ function BlogPost() {
         setPostComments(data.data.post.comments);
         setLoading(false);
         setPostLikesCount(data.data.post.likes.length);
+        setCoverImage(data.data.post.coverImageUrl);
         viewPost();
       } else {
         setError(true);
@@ -177,7 +179,10 @@ function BlogPost() {
         top={0}
         zIndex={999}
       >
-        <DashboardTop />
+        <Flex alignItems={"center"} justifyContent={"space-between"}>
+          <Text>Logo</Text>
+          <Button>Button</Button>
+        </Flex>
       </Box>
       <ContainerLayout>
         <Box my={"8em"}>
@@ -189,40 +194,29 @@ function BlogPost() {
             <Text>{errorMessage}</Text>
           ) : (
             <Box px={["", "5em"]}>
-              <Text fontSize={"2xl"} fontWeight={"bold"} my={"1em"}>
+              <Text
+                fontSize={"5xl"}
+                fontWeight={"bold"}
+                my={"1em"}
+                textAlign={"center"}
+              >
                 {postTitle}
               </Text>
+              {coverImage && (
+                <Box
+                  width={"100%"}
+                  height={"300px"}
+                  backgroundImage={`url(${coverImage})`}
+                  backgroundSize={"cover"}
+                  backgroundPosition={"center"}
+                  borderRadius={"0.1em"}
+                  my={"1em"}
+                />
+              )}
               <Text>{postContent}</Text>
 
               {/* Make views and others flex  */}
               <Box my={"1em"}>
-                <Flex gap={"2em"}>
-                  <Flex alignItems={"center"}>
-                    <Text mr={"0.5em"}>
-                      <AiFillEye />{" "}
-                    </Text>
-                    <Text>{postViews} views</Text>
-                  </Flex>
-
-                  <Flex gap={"0.5em"} alignItems={"center"}>
-                    <AiFillHeart />
-                    <Text>
-                      {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
-                    </Text>
-                  </Flex>
-
-                  <Flex alignItems={"center"} gap={"0.5em"}>
-                    <AiOutlineComment />
-                    {postComments.length > 0 ? (
-                      <>
-                        <Text>{postComments.length} comment</Text>
-                      </>
-                    ) : (
-                      <Text>No comments</Text>
-                    )}
-                  </Flex>
-                </Flex>
-
                 {/* section to display comments  */}
 
                 <Box my={"1em"}>
