@@ -9,6 +9,7 @@ import { postData } from "../../utils/Request";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
+import { Helmet } from "react-helmet";
 
 function VerifyEmail() {
   const [second, setSecond] = useState(0);
@@ -62,6 +63,9 @@ function VerifyEmail() {
 
   return (
     <AuthLayout>
+      <Helmet>
+        <title>Verify Email | Quickk</title>
+      </Helmet>
       <ToastContainer autoClose={2000} />
       <div className="ve">
         <div className="logo">
