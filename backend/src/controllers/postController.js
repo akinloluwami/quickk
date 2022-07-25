@@ -394,6 +394,8 @@ module.exports = {
       message: "User retrieved successfully",
       username: user.username,
       uuid: user.uuid,
+      displayName: user.displayName,
+      profilePicture: user.profilePicture,
     });
   },
   viewPost: async (req, res) => {
