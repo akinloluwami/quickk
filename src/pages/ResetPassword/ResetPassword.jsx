@@ -11,6 +11,7 @@ import { postData } from "../../utils/Request";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
+import { Helmet } from "react-helmet";
 
 function ResetPassword() {
   const token = window.location.search.split("=")[1];
@@ -37,6 +38,9 @@ function ResetPassword() {
   };
   return (
     <>
+      <Helmet>
+        <title>Reset Password | Quickk</title>
+      </Helmet>
       <ToastContainer />
       <AuthLayout>
         <Flex justifyContent={"center"} alignItems="center" py="2em" h="80%">
