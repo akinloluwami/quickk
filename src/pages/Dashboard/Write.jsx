@@ -16,8 +16,10 @@ const Write = () => {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [coverImageUrl, setCoverImageUrl] = useState("");
-  const [domImage, setDomImage] = useState(null);
   const [publishing, setPublishing] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [domImage, setDomImage] = useState("");
 
   const handleClick = () => {
     inputRef.current.click();
@@ -29,17 +31,18 @@ const Write = () => {
     setUploading(true);
     const res = await postData("/post/upload-image", formData);
     setUploading(false);
-    setCoverImageUrl(res.data.image);
     console.log(res);
+    if (res.code === "ERR_BAD_REQUEST") {
+      setError(true);
+      setErrorMessage(res.response.data.message);
+    } else {
+      setCoverImageUrl(res.data.image);
+    }
   };
 
   const handleImageInput = (e) => {
     setImage(e.target.files[0]);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setDomImage(e.target.result);
-    };
-    reader.readAsDataURL(e.target.files[0]);
+    setDomImage(URL.createObjectURL(e.target.files[0]));
   };
 
   useEffect(() => {
@@ -52,7 +55,6 @@ const Write = () => {
     setImage(null);
     setDomImage(null);
     setCoverImageUrl("");
-    setCoverImageSelected(false);
   };
 
   const handlePublish = async () => {
@@ -73,6 +75,7 @@ const Write = () => {
     setTimeout(() => {
       navigate("/dashboard/posts");
     }, 2000);
+    console.log(res.data.post);
   };
 
   return (
@@ -95,10 +98,37 @@ const Write = () => {
                   handleImageInput();
                 }}
               >
-                {uploading ? "Uploading..." : "Select Cover Image"}
+                Select Cover Image
               </Button>
             ) : (
-              <Text>...</Text>
+              <Box>
+                {uploading ? (
+                  <Text>Uploading...</Text>
+                ) : (
+                  <>
+                    {errorMessage ? (
+                      <Text color={"red"} fontSize={"sm"} fontWeight={"bold"}>
+                        {errorMessage}
+                        <Button
+                          color={"#fff"}
+                          backgroundColor="rgba(0,0,255,0.3)"
+                          mx={2}
+                          onClick={() => {
+                            handleClick();
+                            handleImageInput();
+                          }}
+                        >
+                          Choose another image
+                        </Button>
+                      </Text>
+                    ) : (
+                      <Button>
+                        <Text color={"teal"}>Image uploaded successfully</Text>
+                      </Button>
+                    )}
+                  </>
+                )}
+              </Box>
             )}
             <Button
               backgroundColor={"#0031af"}
@@ -117,7 +147,7 @@ const Write = () => {
               {publishing ? "Publishing..." : "Publish"}
             </Button>
           </Flex>
-          {image && (
+          {image && !error && (
             <Box
               display={"flex"}
               justifyContent={"center"}

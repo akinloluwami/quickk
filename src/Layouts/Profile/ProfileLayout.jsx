@@ -1,15 +1,5 @@
-import {
-  Flex,
-  Box,
-  ListItem,
-  UnorderedList,
-  Text,
-  Avatar,
-  Button,
-  Link,
-} from "@chakra-ui/react";
-import ProfileBlock from "../../pages/Profile/ProfileBlock";
-import React, { Fragment, useState, useEffect } from "react";
+import { Flex, Box, Text, Avatar, Button, Link } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
 
 const ProfileLayout = ({ children }) => {
@@ -89,7 +79,50 @@ const ProfileLayout = ({ children }) => {
   };
 
   return (
-    <>
+    <Box position={"relative"}>
+      <Flex
+        position={"absolute"}
+        top={"0"}
+        left={"0"}
+        width={"100%"}
+        padding={"1em"}
+        height="fit-content"
+        backgroundColor={"#fff"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        zIndex={"1"}
+        boxShadow={"0px 0px 10px rgba(0,0,0,0.1)"}
+        flexDirection={"column"}
+        transition={"all 0.3s ease-in-out"}
+        transform={popupActive ? "translateY(0)" : "translateY(-200%)"}
+      >
+        <Button
+          position={"absolute"}
+          top={"0"}
+          left={"0"}
+          onClick={() => {
+            setPopupActive(false);
+          }}
+        >
+          <Text fontSize={"1.5em"}>x</Text>
+        </Button>
+        <Avatar />
+        <Text fontSize={"1.5em"} fontWeight={"bold"}>
+          Follow {displayName} to see what they share on Quickk.
+        </Text>
+        <Flex my={"20px"}>
+          <Link href="/login" mx={"1em"}>
+            <Button>
+              <Text>Login</Text>
+            </Button>
+          </Link>
+          <Link href="/signup" mx={"1em"}>
+            <Button>
+              <Text>Signup</Text>
+            </Button>
+          </Link>
+        </Flex>
+      </Flex>
       <Flex
         padding={"1em"}
         alignItems={"center"}
@@ -155,7 +188,7 @@ const ProfileLayout = ({ children }) => {
         </Link>
       </Flex>
       <Box my={"1em"}>{children}</Box>
-    </>
+    </Box>
   );
 };
 

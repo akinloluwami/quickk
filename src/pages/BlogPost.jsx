@@ -1,13 +1,27 @@
 import React, { useState, useEffect, Fragment, useRef } from "react";
 import { fetchData, postData } from "../utils/Request";
-import { Text, Flex, Box, Button, Link, Textarea } from "@chakra-ui/react";
+import {
+  Text,
+  Flex,
+  Box,
+  Button,
+  Link,
+  Textarea,
+  Avatar,
+  MenuList,
+  MenuItem,
+  MenuButton,
+  Menu,
+} from "@chakra-ui/react";
 import { RiHeart3Fill } from "react-icons/ri";
 import ContainerLayout from "../Layouts/ContainerLayout.jsx/ContainerLayout";
 import ContentLoader from "../components/minor/ContentLoader";
 import DashboardTop from "../Layouts/Dashboard/DashboardTop";
 import { AiFillEye, AiFillHeart, AiOutlineComment } from "react-icons/ai";
+import { FiEdit, FiLogOut } from "react-icons/fi";
 import moment from "moment";
-import { BiTimeFive } from "react-icons/bi";
+import { BiChevronDown, BiTimeFive, BiUserCircle } from "react-icons/bi";
+import { FaEdit, FaUserEdit } from "react-icons/fa";
 
 function BlogPost() {
   const username = window.location.pathname.split("/")[1];
@@ -27,15 +41,36 @@ function BlogPost() {
   const [postLikesCount, setPostLikesCount] = useState(0);
   const [commenting, setCommenting] = useState(false);
   const commentTextareaRef = useRef();
+  const [coverImage, setCoverImage] = useState("");
+  const [ownerProfileImage, setOwnerProfileImage] = useState("");
+  const [ownerDisplayName, setOwnerDisplayName] = useState("");
+  const [viewerProfilePicture, setViewerProfilePicture] = useState("");
+  const [viewerDisplayName, setViewerDisplayName] = useState("");
+  const [viewerUserName, setViewerUserName] = useState("");
 
   const viewPost = () => {
     postData(`/post/view?slug=${slug}&id=${postId}}`);
   };
 
   useEffect(() => {
+    const response = fetchData(`/user/profile/${username}`);
+    response.then((data) => {
+      if (data.status === 200) {
+        setLoading(false);
+        const user = data.data.user;
+        setOwnerDisplayName(user.displayName);
+        setOwnerProfileImage(user.profilePicture);
+      } else {
+        setError(true);
+        setErrorMessage("User not found");
+        setLoading(false);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     const response = fetchData(`/post/${username}/${slug}`);
     response.then((data) => {
-      console.log(data);
       if (data.status === 200) {
         setPostId(data.data.post.id);
         setPostTitle(data.data.post.title);
@@ -45,6 +80,7 @@ function BlogPost() {
         setPostComments(data.data.post.comments);
         setLoading(false);
         setPostLikesCount(data.data.post.likes.length);
+        setCoverImage(data.data.post.coverImageUrl);
         viewPost();
       } else {
         setError(true);
@@ -63,6 +99,10 @@ function BlogPost() {
       });
       response.then((data) => {
         if (data.status === 200) {
+          console.log(data.data);
+          setViewerUserName(data.data.username);
+          setViewerProfilePicture(data.data.profilePicture);
+          setViewerDisplayName(data.data.displayName);
           if (data.data.username === username) {
             setIsOwner(true);
           }
@@ -71,7 +111,6 @@ function BlogPost() {
           );
           if (liked) {
             setHasLiked(true);
-            console.log("liked");
           }
         }
       });
@@ -133,7 +172,6 @@ function BlogPost() {
       }
     ).then((data) => {
       setCommenting(false);
-      console.log(data);
       if (data.status === 200) {
         setNewComment("");
         commentTextareaRef.current.value = "";
@@ -144,12 +182,7 @@ function BlogPost() {
   const displayComments = () => {
     return postComments.map((comment) => {
       const uuid = comment.userUuid;
-      fetchData(`/user/username/${uuid}`).then((data) => {
-        if (data.status === 200) {
-          console.log(data.data.username);
-          console.log(data.data.displayName);
-        }
-      });
+      fetchData(`/user/username/${uuid}`);
       return (
         <Box
           key={postComments.indexOf(comment)}
@@ -167,6 +200,11 @@ function BlogPost() {
     });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
+
   return (
     <Fragment>
       <Box
@@ -177,7 +215,89 @@ function BlogPost() {
         top={0}
         zIndex={999}
       >
-        <DashboardTop />
+        <Flex
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          backgroundColor={"#fff"}
+          py={"1em"}
+        >
+          <Link href={`/${username}`} display={"flex"} alignItems={"center"}>
+            <Avatar src={ownerProfileImage} />
+            <Text ml={"0.5em"} fontSize={"1.5em"} fontWeight={"bold"}>
+              {ownerDisplayName}
+            </Text>
+          </Link>
+          {localStorage.getItem("token") && !isOwner ? (
+            <Menu>
+              <MenuButton>
+                <Flex alignItems={"center"} gap={"1em"}>
+                  {viewerProfilePicture ? (
+                    <Avatar my={"1em"} src={viewerProfilePicture} size={"md"} />
+                  ) : (
+                    <Avatar
+                      src={`https://avatars.dicebear.com/api/initials/${viewerDisplayName}.svg`}
+                      size={"md"}
+                      my={"1em"}
+                    />
+                  )}
+
+                  <Text fontWeight={"bold"} display={["none", "block"]}>
+                    {viewerDisplayName}
+                  </Text>
+                  <Text>
+                    <BiChevronDown />
+                  </Text>
+                </Flex>
+              </MenuButton>
+
+              <MenuList>
+                <Link href={`/${viewerUserName}`}>
+                  <MenuItem>
+                    <Text mr="1em">
+                      <BiUserCircle />
+                    </Text>{" "}
+                    Profile.
+                  </MenuItem>
+                </Link>
+                <Link href="/edit-profile">
+                  <MenuItem>
+                    <Text mr="1em">
+                      <FaUserEdit />
+                    </Text>{" "}
+                    Edit Profile
+                  </MenuItem>
+                </Link>
+
+                <MenuItem
+                  onClick={() => {
+                    handleLogout();
+                  }}
+                >
+                  <Text mr="1em">
+                    <FiLogOut />
+                  </Text>
+                  logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : isOwner ? (
+            <Link href={`/dashboard/post/${username}/${slug}/edit`}>
+              <Button
+                gap={"0.5em"}
+                color={"#fff"}
+                bg={"#0031af"}
+                _hover={{ bg: "#0031af" }}
+              >
+                <FaEdit />
+                Edit
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/">
+              <Button>Login</Button>
+            </Link>
+          )}
+        </Flex>
       </Box>
       <ContainerLayout>
         <Box my={"8em"}>
@@ -189,40 +309,58 @@ function BlogPost() {
             <Text>{errorMessage}</Text>
           ) : (
             <Box px={["", "5em"]}>
-              <Text fontSize={"2xl"} fontWeight={"bold"} my={"1em"}>
+              <Text
+                fontSize={"5xl"}
+                fontWeight={"bold"}
+                my={"1em"}
+                textAlign={"center"}
+              >
                 {postTitle}
               </Text>
+              <Flex gap={"2em"} justifyContent="center">
+                <Flex alignItems={"center"}>
+                  <Text mr={"0.5em"}>
+                    <AiFillEye />{" "}
+                  </Text>
+                  <Text>
+                    {postViews}
+                    {postViews === 1 ? " view" : " views"}
+                  </Text>
+                </Flex>
+
+                <Flex gap={"0.5em"} alignItems={"center"}>
+                  <AiFillHeart />
+                  <Text>
+                    {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
+                  </Text>
+                </Flex>
+
+                <Flex alignItems={"center"} gap={"0.5em"}>
+                  <AiOutlineComment />
+                  {postComments.length > 0 ? (
+                    <>
+                      <Text>{postComments.length} comment</Text>
+                    </>
+                  ) : (
+                    <Text>No comments</Text>
+                  )}
+                </Flex>
+              </Flex>
+              {coverImage && (
+                <Box
+                  width={"100%"}
+                  height={"400px"}
+                  backgroundImage={`url(${coverImage})`}
+                  backgroundSize={"cover"}
+                  backgroundPosition={"center"}
+                  borderRadius={"0.2em"}
+                  my={"1em"}
+                />
+              )}
               <Text>{postContent}</Text>
 
               {/* Make views and others flex  */}
               <Box my={"1em"}>
-                <Flex gap={"2em"}>
-                  <Flex alignItems={"center"}>
-                    <Text mr={"0.5em"}>
-                      <AiFillEye />{" "}
-                    </Text>
-                    <Text>{postViews} views</Text>
-                  </Flex>
-
-                  <Flex gap={"0.5em"} alignItems={"center"}>
-                    <AiFillHeart />
-                    <Text>
-                      {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
-                    </Text>
-                  </Flex>
-
-                  <Flex alignItems={"center"} gap={"0.5em"}>
-                    <AiOutlineComment />
-                    {postComments.length > 0 ? (
-                      <>
-                        <Text>{postComments.length} comment</Text>
-                      </>
-                    ) : (
-                      <Text>No comments</Text>
-                    )}
-                  </Flex>
-                </Flex>
-
                 {/* section to display comments  */}
 
                 <Box my={"1em"}>
@@ -257,9 +395,21 @@ function BlogPost() {
               ) : (
                 <Box>
                   {hasLiked ? (
-                    <RiHeart3Fill color="red" onClick={unlikePost} />
+                    <RiHeart3Fill
+                      color="red"
+                      onClick={unlikePost}
+                      style={{
+                        fontSize: "40px",
+                      }}
+                    />
                   ) : (
-                    <RiHeart3Fill onClick={likePost} />
+                    <RiHeart3Fill
+                      onClick={likePost}
+                      style={{
+                        fontSize: "40px",
+                        color: "rgba(0,0,0,0.3)",
+                      }}
+                    />
                   )}
                   <Box>
                     <Text>Add a comment</Text>

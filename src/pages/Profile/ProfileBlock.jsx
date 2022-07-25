@@ -73,9 +73,7 @@ const ProfileBlock = () => {
         },
       }
     );
-    response.then((data) => {
-      console.log(data);
-    });
+    response.then((data) => {});
   };
 
   const unfollowUser = () => {

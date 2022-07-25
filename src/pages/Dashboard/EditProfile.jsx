@@ -148,45 +148,38 @@ const EditProfile = () => {
       <DashboardLayout>
         <ToastContainer />
 
-         <Box  
-
-          width={['100%' , '80%' , '60%' , '50%']}
-          mx={'auto'}
+        <Box
+          width={["100%", "80%", "60%", "50%"]}
+          mx={"auto"}
           bg="white"
-          px={'2em'}
-          py={'2em'}
-          borderRadius={'1em'}
-         >
-          <Text fontSize={"lg"} textAlign={'center'}>Profile Picture</Text>
-          <Box my={'1em'}>
-            
+          px={"2em"}
+          py={"2em"}
+          borderRadius={"1em"}
+        >
+          <Text fontSize={"lg"} textAlign={"center"}>
+            Profile Picture
+          </Text>
+          <Box my={"1em"}>
             <center>
-            {profilePicture ? (
-              <Avatar my={'1em'} src={profilePicture}   size={["lg","xl"]}/>
-            ) : (
-              <Avatar
-                src={`https://avatars.dicebear.com/api/initials/${displayName}.svg`}
-                size={["lg","xl"]}
-                my={'1em'} 
-              />
-            )}
-
-            
+              {profilePicture ? (
+                <Avatar my={"1em"} src={profilePicture} size={["lg", "xl"]} />
+              ) : (
+                <Avatar
+                  src={`https://avatars.dicebear.com/api/initials/${displayName}.svg`}
+                  size={["lg", "xl"]}
+                  my={"1em"}
+                />
+              )}
             </center>
 
             <Flex>
-
-              <Box display={'flex'} justifyContent={'center'} w={'100%'}>
-               <Button  size={"sm"} m="5px"
-                onClick={handleClick}
-                py={'1.5em'}
-                >
+              <Box display={"flex"} justifyContent={"center"} w={"100%"}>
+                <Button size={"sm"} m="5px" onClick={handleClick} py={"1.5em"}>
                   {profilePicture !== ""
                     ? "Change Profile Picture"
                     : "Add Profile Picture"}
                 </Button>
               </Box>
-
 
               <Input
                 type={"file"}
@@ -195,27 +188,34 @@ const EditProfile = () => {
                 display={"none"}
               />
               {profilePicture && (
-                <Flex flexDir={'column'} >
-                 <Button size={"sm"} m="5px" onClick={deleteProfilePicture} px={'2em'} py={'1.5em'}>
-                  {deleting ? "Deleting..." : "Delete Profile Picture"}
-                </Button>
+                <Flex flexDir={"column"}>
+                  <Button
+                    size={"sm"}
+                    m="5px"
+                    onClick={deleteProfilePicture}
+                    px={"2em"}
+                    py={"1.5em"}
+                  >
+                    {deleting ? "Deleting..." : "Delete Profile Picture"}
+                  </Button>
                 </Flex>
               )}
             </Flex>
-            
-            <center>
-            <Button my={'1em'}
-              width="100px"
-              onClick={uploadProfilePicture}
-              display={fileSelected ? "block" : "none"}
-            
-              >
-              {uploading ? "Uploading..." : "Upload"}
-            </Button>
-            </center>
 
+            <center>
+              <Button
+                my={"1em"}
+                width="100px"
+                onClick={uploadProfilePicture}
+                display={fileSelected ? "block" : "none"}
+              >
+                {uploading ? "Uploading..." : "Upload"}
+              </Button>
+            </center>
           </Box>
-          <Text fontSize="lg" my={'0.5em'}>Basic Info</Text>
+          <Text fontSize="lg" my={"0.5em"}>
+            Basic Info
+          </Text>
           <Input
             placeholder="Username"
             marginBottom="10px"
@@ -234,7 +234,9 @@ const EditProfile = () => {
             value={bio}
             onChange={(e) => setBio(e.target.value)}
           />
-          <Text fontSize="lg" my={'1em'}>Social links</Text>
+          <Text fontSize="lg" my={"1em"}>
+            Social links
+          </Text>
           <Input
             placeholder="Twitter"
             marginBottom="10px"
@@ -265,9 +267,9 @@ const EditProfile = () => {
             value={website}
             onChange={(e) => setWebsite(e.target.value)}
           />
-          <Text fontSize="lg" my={'1em'}>
+          <Text fontSize="lg" my={"1em"}>
             Payment Info
-            <Text fontSize="sm" color={'grey'} fontWeight={'bold'} my={'0.5em'}>
+            <Text fontSize="sm" color={"grey"} fontWeight={"bold"} my={"0.5em"}>
               You can only paste your wallet address here, you are not allowed
               to type.
             </Text>
@@ -276,7 +278,6 @@ const EditProfile = () => {
             placeholder="USDT Wallet Address"
             marginBottom="2px"
             value={walletAddress}
-           
             onKeyPress={(e) => {
               e.preventDefault();
             }}
@@ -290,8 +291,8 @@ const EditProfile = () => {
             width={"fit-content"}
             px={"1em"}
             borderRadius={"0.5em"}
-            my={'0.5em'}
-            py={'1em'}
+            my={"0.5em"}
+            py={"1em"}
           >
             Please make sure you submit a valid USDT wallet address to prevent
             cases of lost funds as we will not be able to verify your identity.
@@ -303,16 +304,14 @@ const EditProfile = () => {
             margin={"10px"}
             marginTop={"20px"}
             width="100%"
-            bg={'blue.500'}
-            color={'#fff'}
-            py={'1.5em'}
-            variant = {'solid'}
-            mb={['5em' , '0']}
-            _hover = {
-              {
-                background : 'blue.600'
-              }
-            }
+            bg={"blue.500"}
+            color={"#fff"}
+            py={"1.5em"}
+            variant={"solid"}
+            mb={["5em", "0"]}
+            _hover={{
+              background: "blue.600",
+            }}
           >
             {updating ? "Updating..." : "Update Profile"}
           </Button>

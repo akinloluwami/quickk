@@ -18,10 +18,22 @@ module.exports = {
         message: "Please upload an image",
       });
     }
+    //if file is not image
+    if (!file.mimetype.startsWith("image")) {
+      return res.status(400).json({
+        message: "Only image files are allowed",
+      });
+    }
+    //if file is too big
+    if (file.size > 2000000) {
+      return res.status(400).json({
+        message: "Please upload an image less than 2mb",
+      });
+    }
     cloudinary.uploader
       .upload(file.tempFilePath, {
         folder: "quickk",
-        public_id: "quickk" + "_" + Date.now() + "_" + file.originalname,
+        public_id: "quickk" + "_" + Date.now(),
         resource_type: "auto",
       })
       .then((result) => {
@@ -382,6 +394,8 @@ module.exports = {
       message: "User retrieved successfully",
       username: user.username,
       uuid: user.uuid,
+      displayName: user.displayName,
+      profilePicture: user.profilePicture,
     });
   },
   viewPost: async (req, res) => {
