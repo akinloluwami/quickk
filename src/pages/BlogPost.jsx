@@ -8,14 +8,20 @@ import {
   Link,
   Textarea,
   Avatar,
+  MenuList,
+  MenuItem,
+  MenuButton,
+  Menu,
 } from "@chakra-ui/react";
 import { RiHeart3Fill } from "react-icons/ri";
 import ContainerLayout from "../Layouts/ContainerLayout.jsx/ContainerLayout";
 import ContentLoader from "../components/minor/ContentLoader";
 import DashboardTop from "../Layouts/Dashboard/DashboardTop";
 import { AiFillEye, AiFillHeart, AiOutlineComment } from "react-icons/ai";
+import { FiEdit, FiLogOut } from "react-icons/fi";
 import moment from "moment";
-import { BiTimeFive } from "react-icons/bi";
+import { BiChevronDown, BiTimeFive, BiUserCircle } from "react-icons/bi";
+import { FaEdit, FaUserEdit } from "react-icons/fa";
 
 function BlogPost() {
   const username = window.location.pathname.split("/")[1];
@@ -187,6 +193,11 @@ function BlogPost() {
     });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
+
   return (
     <Fragment>
       <Box
@@ -209,7 +220,67 @@ function BlogPost() {
               {ownerDisplayName}
             </Text>
           </Link>
-          <Button>Button</Button>
+          {localStorage.getItem("token") && !isOwner ? (
+            <Menu>
+              <MenuButton>
+                <Flex alignItems={"center"} gap={"1em"}>
+                  <Avatar size={"md"} />
+                  <Text fontWeight={"bold"} display={["none", "block"]}>
+                    Thii
+                  </Text>
+                  <Text>
+                    <BiChevronDown />
+                  </Text>
+                </Flex>
+              </MenuButton>
+
+              <MenuList>
+                <Link to={`/${username}`}>
+                  <MenuItem>
+                    <Text mr="1em">
+                      <BiUserCircle />
+                    </Text>{" "}
+                    Profile.
+                  </MenuItem>
+                </Link>
+                <Link to="/edit-profile">
+                  <MenuItem>
+                    <Text mr="1em">
+                      <FaUserEdit />
+                    </Text>{" "}
+                    Edit Profile
+                  </MenuItem>
+                </Link>
+
+                <MenuItem
+                  onClick={() => {
+                    handleLogout();
+                  }}
+                >
+                  <Text mr="1em">
+                    <FiLogOut />
+                  </Text>
+                  logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : isOwner ? (
+            <Link href={`/dashboard/post/${username}/${slug}/edit`}>
+              <Button
+                gap={"0.5em"}
+                color={"#fff"}
+                bg={"#0031af"}
+                _hover={{ bg: "#0031af" }}
+              >
+                <FaEdit />
+                Edit
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/">
+              <Button>Login</Button>
+            </Link>
+          )}
         </Flex>
       </Box>
       <ContainerLayout>
@@ -235,7 +306,10 @@ function BlogPost() {
                   <Text mr={"0.5em"}>
                     <AiFillEye />{" "}
                   </Text>
-                  <Text>{postViews} views</Text>
+                  <Text>
+                    {postViews}
+                    {postViews === 1 ? " view" : " views"}
+                  </Text>
                 </Flex>
 
                 <Flex gap={"0.5em"} alignItems={"center"}>
@@ -305,9 +379,21 @@ function BlogPost() {
               ) : (
                 <Box>
                   {hasLiked ? (
-                    <RiHeart3Fill color="red" onClick={unlikePost} />
+                    <RiHeart3Fill
+                      color="red"
+                      onClick={unlikePost}
+                      style={{
+                        fontSize: "40px",
+                      }}
+                    />
                   ) : (
-                    <RiHeart3Fill onClick={likePost} />
+                    <RiHeart3Fill
+                      onClick={likePost}
+                      style={{
+                        fontSize: "40px",
+                        color: "rgba(0,0,0,0.3)",
+                      }}
+                    />
                   )}
                   <Box>
                     <Text>Add a comment</Text>
