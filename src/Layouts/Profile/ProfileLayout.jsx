@@ -1,7 +1,7 @@
 import { Flex, Box, Text, Avatar, Button, Link } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
-
+import DashboardTop from "../Dashboard/DashboardTop";
 import { NavLink } from "react-router-dom";
 
 const ProfileLayout = ({ children }) => {
@@ -138,7 +138,7 @@ const ProfileLayout = ({ children }) => {
             <Button>
               <Text>Signup</Text>
             </Button>
-          </Link>
+          </Link> 
         </Flex>
       </Flex>
       <Flex
