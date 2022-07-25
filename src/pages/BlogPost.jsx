@@ -1,6 +1,14 @@
 import React, { useState, useEffect, Fragment, useRef } from "react";
 import { fetchData, postData } from "../utils/Request";
-import { Text, Flex, Box, Button, Link, Textarea } from "@chakra-ui/react";
+import {
+  Text,
+  Flex,
+  Box,
+  Button,
+  Link,
+  Textarea,
+  Avatar,
+} from "@chakra-ui/react";
 import { RiHeart3Fill } from "react-icons/ri";
 import ContainerLayout from "../Layouts/ContainerLayout.jsx/ContainerLayout";
 import ContentLoader from "../components/minor/ContentLoader";
@@ -28,15 +36,32 @@ function BlogPost() {
   const [commenting, setCommenting] = useState(false);
   const commentTextareaRef = useRef();
   const [coverImage, setCoverImage] = useState("");
+  const [ownerProfileImage, setOwnerProfileImage] = useState("");
+  const [ownerDisplayName, setOwnerDisplayName] = useState("");
 
   const viewPost = () => {
     postData(`/post/view?slug=${slug}&id=${postId}}`);
   };
 
   useEffect(() => {
+    const response = fetchData(`/user/profile/${username}`);
+    response.then((data) => {
+      if (data.status === 200) {
+        setLoading(false);
+        const user = data.data.user;
+        setOwnerDisplayName(user.displayName);
+        setOwnerProfileImage(user.profilePicture);
+      } else {
+        setError(true);
+        setErrorMessage("User not found");
+        setLoading(false);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     const response = fetchData(`/post/${username}/${slug}`);
     response.then((data) => {
-      console.log(data);
       if (data.status === 200) {
         setPostId(data.data.post.id);
         setPostTitle(data.data.post.title);
@@ -73,7 +98,6 @@ function BlogPost() {
           );
           if (liked) {
             setHasLiked(true);
-            console.log("liked");
           }
         }
       });
@@ -135,7 +159,6 @@ function BlogPost() {
       }
     ).then((data) => {
       setCommenting(false);
-      console.log(data);
       if (data.status === 200) {
         setNewComment("");
         commentTextareaRef.current.value = "";
@@ -146,12 +169,7 @@ function BlogPost() {
   const displayComments = () => {
     return postComments.map((comment) => {
       const uuid = comment.userUuid;
-      fetchData(`/user/username/${uuid}`).then((data) => {
-        if (data.status === 200) {
-          console.log(data.data.username);
-          console.log(data.data.displayName);
-        }
-      });
+      fetchData(`/user/username/${uuid}`);
       return (
         <Box
           key={postComments.indexOf(comment)}
@@ -178,9 +196,15 @@ function BlogPost() {
         right={0}
         top={0}
         zIndex={999}
+        py={"1em"}
       >
         <Flex alignItems={"center"} justifyContent={"space-between"}>
-          <Text>Logo</Text>
+          <Link to={"/"} display={"flex"} alignItems={"center"}>
+            <Avatar src={ownerProfileImage} />
+            <Text ml={"0.5em"} fontSize={"1.5em"} fontWeight={"bold"}>
+              {ownerDisplayName}
+            </Text>
+          </Link>
           <Button>Button</Button>
         </Flex>
       </Box>
@@ -231,11 +255,11 @@ function BlogPost() {
               {coverImage && (
                 <Box
                   width={"100%"}
-                  height={"300px"}
+                  height={"400px"}
                   backgroundImage={`url(${coverImage})`}
                   backgroundSize={"cover"}
                   backgroundPosition={"center"}
-                  borderRadius={"0.1em"}
+                  borderRadius={"0.2em"}
                   my={"1em"}
                 />
               )}
