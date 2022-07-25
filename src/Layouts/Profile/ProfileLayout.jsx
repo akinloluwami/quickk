@@ -100,8 +100,8 @@ const ProfileLayout = ({ children }) => {
       >
         <Button
           position={"absolute"}
-          top={"0"}
-          left={"0"}
+          top={"20px"}
+          right={"20px"}
           onClick={() => {
             setPopupActive(false);
           }}
