@@ -23,6 +23,7 @@ import moment from "moment";
 import { BiChevronDown, BiTimeFive, BiUserCircle } from "react-icons/bi";
 import { FaEdit, FaUserEdit } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import ReactHtmlParser from "react-html-parser";
 
 function BlogPost() {
   const username = window.location.pathname.split("/")[1];
@@ -363,7 +364,7 @@ function BlogPost() {
                   my={"1em"}
                 />
               )}
-              <Text>{postContent}</Text>
+              {ReactHtmlParser(postContent)}
 
               {/* Make views and others flex  */}
               <Box my={"1em"}>
