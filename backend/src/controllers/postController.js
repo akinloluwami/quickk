@@ -18,6 +18,18 @@ module.exports = {
         message: "Please upload an image",
       });
     }
+    //if file is not image
+    if (!file.mimetype.startsWith("image")) {
+      return res.status(400).json({
+        message: "Only image files are allowed",
+      });
+    }
+    //if file is too big
+    if (file.size > 2000000) {
+      return res.status(400).json({
+        message: "Please upload an image less than 2mb",
+      });
+    }
     cloudinary.uploader
       .upload(file.tempFilePath, {
         folder: "quickk",
