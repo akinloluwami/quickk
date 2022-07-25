@@ -44,6 +44,9 @@ function BlogPost() {
   const [coverImage, setCoverImage] = useState("");
   const [ownerProfileImage, setOwnerProfileImage] = useState("");
   const [ownerDisplayName, setOwnerDisplayName] = useState("");
+  const [viewerProfilePicture, setViewerProfilePicture] = useState("");
+  const [viewerDisplayName, setViewerDisplayName] = useState("");
+  const [viewerUserName, setViewerUserName] = useState("");
 
   const viewPost = () => {
     postData(`/post/view?slug=${slug}&id=${postId}}`);
@@ -96,6 +99,9 @@ function BlogPost() {
       });
       response.then((data) => {
         if (data.status === 200) {
+          setViewerUserName(data.data.username);
+          setViewerProfilePicture(data.data.profilePicture);
+          setViewerDisplayName(data.data.displayName);
           if (data.data.username === username) {
             setIsOwner(true);
           }
@@ -226,7 +232,7 @@ function BlogPost() {
                 <Flex alignItems={"center"} gap={"1em"}>
                   <Avatar size={"md"} />
                   <Text fontWeight={"bold"} display={["none", "block"]}>
-                    Thii
+                    {viewerDisplayName}
                   </Text>
                   <Text>
                     <BiChevronDown />
