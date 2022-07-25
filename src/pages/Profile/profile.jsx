@@ -76,6 +76,7 @@ const Profile = () => {
                       date={post.createdAt}
                       likes={post.likes.length}
                       coverImage={post.coverImageUrl}
+                      views={post.views.length}
                     />
                   </Link>
                 ))}
