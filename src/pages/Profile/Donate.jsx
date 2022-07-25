@@ -27,6 +27,9 @@ function Donate() {
 
   return (
     <>
+      <Helmet>
+        <title>{displayName} | Donate</title>
+      </Helmet>
       <ContainerLayout>
       <ProfileLayout>
         <Box>
