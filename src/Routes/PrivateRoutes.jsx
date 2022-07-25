@@ -14,6 +14,9 @@ import Profile from "../pages/Profile/profile";
 import User from "../pages/User";
 import BlogPost from "../pages/BlogPost";
 import EditProfile from "../pages/Dashboard/EditProfile";
+import Donate from "../pages/Profile/Donate";
+import UserProfile from "../pages/Profile/UserProfile";
+
 const Private = () => {
   return (
     <>
@@ -32,6 +35,8 @@ const Private = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/:username/:slug" element={<BlogPost />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/:username/donate" element={<Donate />} />
+        <Route path="/:username/profile" element={<UserProfile />} />
       </Routes>
     </>
   );
