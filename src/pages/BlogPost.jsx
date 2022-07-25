@@ -99,6 +99,7 @@ function BlogPost() {
       });
       response.then((data) => {
         if (data.status === 200) {
+          console.log(data.data);
           setViewerUserName(data.data.username);
           setViewerProfilePicture(data.data.profilePicture);
           setViewerDisplayName(data.data.displayName);
@@ -230,7 +231,16 @@ function BlogPost() {
             <Menu>
               <MenuButton>
                 <Flex alignItems={"center"} gap={"1em"}>
-                  <Avatar size={"md"} />
+                  {viewerProfilePicture ? (
+                    <Avatar my={"1em"} src={viewerProfilePicture} size={"md"} />
+                  ) : (
+                    <Avatar
+                      src={`https://avatars.dicebear.com/api/initials/${viewerDisplayName}.svg`}
+                      size={"md"}
+                      my={"1em"}
+                    />
+                  )}
+
                   <Text fontWeight={"bold"} display={["none", "block"]}>
                     {viewerDisplayName}
                   </Text>
@@ -241,7 +251,7 @@ function BlogPost() {
               </MenuButton>
 
               <MenuList>
-                <Link to={`/${username}`}>
+                <Link href={`/${viewerUserName}`}>
                   <MenuItem>
                     <Text mr="1em">
                       <BiUserCircle />
@@ -249,7 +259,7 @@ function BlogPost() {
                     Profile.
                   </MenuItem>
                 </Link>
-                <Link to="/edit-profile">
+                <Link href="/edit-profile">
                   <MenuItem>
                     <Text mr="1em">
                       <FaUserEdit />
