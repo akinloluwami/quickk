@@ -8,6 +8,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
+import Editor from "react-medium-editor";
+import "medium-editor/dist/css/medium-editor.css";
+import "medium-editor/dist/css/themes/default.css";
 
 const Write = () => {
   const navigate = useNavigate();
@@ -78,7 +81,7 @@ const Write = () => {
     }, 2000);
     console.log(res.data.post);
   };
-
+  /*Select text to change formatting, add headers, or create links.*/
   return (
     <>
       <Helmet>
@@ -89,7 +92,11 @@ const Write = () => {
       <DashboardLayout>
         <ToastContainer />
         <Flex justifyContent={"center"} flexDirection={"column"}>
-          <Flex margin={"10px"} justifyContent={"space-between"}>
+          <Flex
+            margin={"10px"}
+            justifyContent={"space-between"}
+            position={"relative"}
+          >
             <Input
               ref={inputRef}
               type={"file"}
@@ -149,6 +156,10 @@ const Write = () => {
                 postContent.length < 50 ||
                 publishing
               }
+              position="fixed"
+              right={0}
+              top={"120px"}
+              zIndex={1}
             >
               {publishing ? "Publishing..." : "Publish"}
             </Button>
@@ -193,7 +204,7 @@ const Write = () => {
               setPostTitle(e.target.value);
             }}
           />
-          <Textarea
+          {/* <Textarea
             placeholder={"Write your article..."}
             fontSize={"1.5em"}
             height={"100%"}
@@ -205,6 +216,39 @@ const Write = () => {
             marginTop={"10px"}
             onChange={(e) => {
               setPostContent(e.target.value);
+            }}
+          /> */}
+          <Editor
+            options={{
+              toolbar: {
+                buttons: [
+                  "bold",
+                  "italic",
+                  "underline",
+                  "anchor",
+                  "h2",
+                  "h3",
+                  "quote",
+                ],
+              },
+              placeholder: {
+                text: "Write your article...",
+                hideOnClick: true,
+              },
+            }}
+            placeholder={"Write your article..."}
+            onChange={(value) => {
+              setPostContent(value);
+              console.log(value);
+            }}
+            style={{
+              borderRadius: "10px",
+              border: "1px solid #0031af",
+              marginTop: "10px",
+              padding: "10px",
+              height: "fit-content",
+              fontSize: "1.5em",
+              fontWeight: "500",
             }}
           />
         </Flex>
