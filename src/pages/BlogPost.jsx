@@ -22,6 +22,7 @@ import { FiEdit, FiLogOut } from "react-icons/fi";
 import moment from "moment";
 import { BiChevronDown, BiTimeFive, BiUserCircle } from "react-icons/bi";
 import { FaEdit, FaUserEdit } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 function BlogPost() {
   const username = window.location.pathname.split("/")[1];
@@ -207,6 +208,11 @@ function BlogPost() {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>
+          {postTitle} | {ownerDisplayName}
+        </title>
+      </Helmet>
       <Box
         px={["0", "4em"]}
         position={"fixed"}
