@@ -1,5 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, {useState , useEffect} from "react";
+import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import ProfileLayout from "../../Layouts/Profile/ProfileLayout";
 import { Helmet } from "react-helmet";
 import { fetchData, postData } from "../../utils/Request";
@@ -29,11 +30,13 @@ function Donate() {
       <Helmet>
         <title>{displayName} | Donate</title>
       </Helmet>
+      <ContainerLayout>
       <ProfileLayout>
         <Box>
           <Text>Donate</Text>
         </Box>
       </ProfileLayout>
+      </ContainerLayout>
     </>
   );
 }
