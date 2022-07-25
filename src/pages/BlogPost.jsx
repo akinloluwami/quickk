@@ -7,10 +7,9 @@ import ContentLoader from "../components/minor/ContentLoader";
 import DashboardTop from "../Layouts/Dashboard/DashboardTop";
 import { AiFillEye, AiFillHeart, AiOutlineComment } from "react-icons/ai";
 import moment from "moment";
-import  {BiTimeFive}  from "react-icons/bi";
+import { BiTimeFive } from "react-icons/bi";
 
 function BlogPost() {
-
   const username = window.location.pathname.split("/")[1];
   const slug = window.location.pathname.split("/")[2];
   const [loading, setLoading] = useState(true);
@@ -28,15 +27,15 @@ function BlogPost() {
   const [postLikesCount, setPostLikesCount] = useState(0);
   const [commenting, setCommenting] = useState(false);
   const commentTextareaRef = useRef();
-  
+
   const viewPost = () => {
     postData(`/post/view?slug=${slug}&id=${postId}}`);
   };
 
   useEffect(() => {
     const response = fetchData(`/post/${username}/${slug}`);
-
     response.then((data) => {
+      console.log(data);
       if (data.status === 200) {
         setPostId(data.data.post.id);
         setPostTitle(data.data.post.title);
@@ -154,17 +153,15 @@ function BlogPost() {
       return (
         <Box
           key={postComments.indexOf(comment)}
-          
           my={2}
-          py={'2em'}
-          borderBottom='1px solid #e6e6e6'
+          py={"2em"}
+          borderBottom="1px solid #e6e6e6"
         >
-          <Flex alignItems={'center'} gap={'0.5em'} my={'1em'}>
-            <BiTimeFive/>
+          <Flex alignItems={"center"} gap={"0.5em"} my={"1em"}>
+            <BiTimeFive />
             <Text>{moment(comment.date).fromNow()}</Text>
           </Flex>
           <Text>{comment.comment}</Text>
-          
         </Box>
       );
     });
@@ -217,28 +214,24 @@ function BlogPost() {
                   <Flex alignItems={"center"} gap={"0.5em"}>
                     <AiOutlineComment />
                     {postComments.length > 0 ? (
-                     <>
-                      <Text>{postComments.length} comment</Text>
-                     </>
+                      <>
+                        <Text>{postComments.length} comment</Text>
+                      </>
                     ) : (
                       <Text>No comments</Text>
                     )}
                   </Flex>
-                  
                 </Flex>
-
 
                 {/* section to display comments  */}
 
-
-                <Box my={'1em'}>
-
+                <Box my={"1em"}>
                   {postComments.length > 0 ? (
                     <>
-                      <Text mt={'3em'} fontWeight={'bold'}>Comments</Text>
-                      <Box>
-                         {displayComments()}
-                      </Box>
+                      <Text mt={"3em"} fontWeight={"bold"}>
+                        Comments
+                      </Text>
+                      <Box>{displayComments()}</Box>
                     </>
                   ) : (
                     <></>

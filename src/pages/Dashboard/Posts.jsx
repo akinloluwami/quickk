@@ -52,12 +52,12 @@ const Posts = () => {
                   slug={post.slug}
                   username={username}
                   id={post.id}
+                  coverImage={post.coverImageUrl}
                 />
               ))}
             </>
           </Box>
-        ) : 
-        (
+        ) : (
           <Flex
             width={"100%"}
             height={"50vh"}
@@ -72,7 +72,6 @@ const Posts = () => {
             </Text>
           </Flex>
         )}
-        
       </DashboardLayout>
     </>
   );
