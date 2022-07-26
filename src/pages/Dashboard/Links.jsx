@@ -104,7 +104,7 @@ const Links = () => {
               </Box>
             ))}
           </Box>
-          {/* <Box>
+          <Box>
             {userLinks.length < 1 ? (
               <Text>No Links</Text>
             ) : (
@@ -126,7 +126,7 @@ const Links = () => {
                 </Box>
               ))
             )}
-          </Box> */}
+          </Box>
         </Box>
       </DashboardLayout>
     </>
