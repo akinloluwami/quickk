@@ -7,7 +7,9 @@ const Settings = () => {
 
 
             <DashboardLayout>
+                
                 Settings 
+
             </DashboardLayout>
         
         </>

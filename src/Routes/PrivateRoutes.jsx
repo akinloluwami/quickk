@@ -18,6 +18,7 @@ import Donate from "../pages/Profile/Donate";
 import UserProfile from "../pages/Profile/UserProfile";
 import Links from "../pages/Dashboard/Links";
 import Settings from '../pages/Dashboard/Settings';
+import DonateRoute from '../pages/Donations/Donate';
 
 const Private = () => {
   return (
@@ -41,6 +42,8 @@ const Private = () => {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/:username/donate" element={<Donate />} />
         <Route path="/:username/profile" element={<UserProfile />} />
+        <Route path="/dashboard/donation" element={<DonateRoute />} />
+
       </Routes>
     </>
   );
