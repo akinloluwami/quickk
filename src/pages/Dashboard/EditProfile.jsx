@@ -22,12 +22,6 @@ const EditProfile = () => {
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
-  const [twitter, setTwitter] = useState("");
-  const [instagram, setInstagram] = useState("");
-  const [youtube, setYoutube] = useState("");
-  const [tiktok, setTiktok] = useState("");
-  const [website, setWebsite] = useState("");
-  const [walletAddress, setWalletAddress] = useState("");
   const [updating, setUpdating] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [domImage, setDomImage] = useState(null);
@@ -45,28 +39,11 @@ const EditProfile = () => {
     });
     response.then((res) => {
       const user = res.data;
-      const {
-        bio,
-        displayName,
-        username,
-        profilePicture,
-        twitter,
-        instagram,
-        youtube,
-        tiktok,
-        website,
-        walletAddress,
-      } = user;
+      const { bio, displayName, username, profilePicture } = user;
       setDisplayName(displayName);
       setUsername(username);
       setBio(bio);
       setProfilePicture(profilePicture);
-      setTwitter(twitter);
-      setInstagram(instagram);
-      setYoutube(youtube);
-      setTiktok(tiktok);
-      setWebsite(website);
-      setWalletAddress(walletAddress);
     });
   }, []);
 
@@ -100,12 +77,6 @@ const EditProfile = () => {
       bio,
       displayName,
       username,
-      twitter,
-      instagram,
-      youtube,
-      tiktok,
-      website,
-      walletAddress,
     };
     const response = postData("/dashboard/user/update", data, {
       headers: {
@@ -234,69 +205,7 @@ const EditProfile = () => {
             value={bio}
             onChange={(e) => setBio(e.target.value)}
           />
-          <Text fontSize="lg" my={"1em"}>
-            Social links
-          </Text>
-          <Input
-            placeholder="Twitter"
-            marginBottom="10px"
-            value={twitter}
-            onChange={(e) => setTwitter(e.target.value)}
-          />
-          <Input
-            placeholder="Instagram"
-            marginBottom="10px"
-            value={instagram}
-            onChange={(e) => setInstagram(e.target.value)}
-          />
-          <Input
-            placeholder="YouTube"
-            marginBottom="10px"
-            value={youtube}
-            onChange={(e) => setYoutube(e.target.value)}
-          />
-          <Input
-            placeholder="TikTok"
-            marginBottom="10px"
-            value={tiktok}
-            onChange={(e) => setTiktok(e.target.value)}
-          />
-          <Input
-            placeholder="Website"
-            marginBottom="10px"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-          <Text fontSize="lg" my={"1em"}>
-            Payment Info
-            <Text fontSize="sm" color={"grey"} fontWeight={"bold"} my={"0.5em"}>
-              You can only paste your wallet address here, you are not allowed
-              to type.
-            </Text>
-          </Text>
-          <Input
-            placeholder="USDT Wallet Address"
-            marginBottom="2px"
-            value={walletAddress}
-            onKeyPress={(e) => {
-              e.preventDefault();
-            }}
-            onChange={(e) => setWalletAddress(e.target.value)}
-          />
-          <Text
-            fontSize="sm"
-            color="#ff0000"
-            fontWeight="bold"
-            backgroundColor="rgba(255, 0, 0, 0.2)"
-            width={"fit-content"}
-            px={"1em"}
-            borderRadius={"0.5em"}
-            my={"0.5em"}
-            py={"1em"}
-          >
-            Please make sure you submit a valid USDT wallet address to prevent
-            cases of lost funds as we will not be able to verify your identity.
-          </Text>
+
           <Button
             onClick={handleUpdate}
             disabled={updating}
