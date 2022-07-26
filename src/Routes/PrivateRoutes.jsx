@@ -17,6 +17,10 @@ import EditProfile from "../pages/Dashboard/EditProfile";
 import Donate from "../pages/Profile/Donate";
 import UserProfile from "../pages/Profile/UserProfile";
 import Links from "../pages/Dashboard/Links";
+import Settings from '../pages/Dashboard/Settings';
+import DonateRoute from "../pages/Donations/Donation";
+import WalletSettings from '../pages/Donations/WalletSettings';
+
 
 const Private = () => {
   return (
@@ -27,7 +31,8 @@ const Private = () => {
         <Route path="/dashboard/overview" element={<DashboardIndex />} />
         <Route path="/dashboard/draft" element={<Draft />} />
         <Route path="/dashboard/write" element={<Write />} />
-        <Route path="/dashboard/donations" element={<Donations />} />
+        {/* <Route path="/dashboard/donations" element={<Donations />} /> */}
+      
         <Route path="/dashboard/explore" element={<Donations />} />
         <Route path="/dashboard/posts" element={<Posts />} />
         <Route path="/dashboard/scheduled" element={<Scheduled />} />
@@ -39,6 +44,9 @@ const Private = () => {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/:username/donate" element={<Donate />} />
         <Route path="/:username/profile" element={<UserProfile />} />
+        <Route path="/dashboard/donations" element={<DonateRoute />} />
+        <Route path="/dashboard/donations/settings" element={<WalletSettings />} />
+
       </Routes>
     </>
   );
