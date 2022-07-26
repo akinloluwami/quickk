@@ -3,11 +3,17 @@ import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import { Helmet } from "react-helmet";
 import { Text, Box, Button, Input, Flex } from "@chakra-ui/react";
 import { fetchData, postData, deleteData } from "../../utils/Request";
+import { toast, ToastContainer } from "react-toastify";
 
 const Links = () => {
   const [linkInputs, setlinkInputs] = useState([]);
-  const [updating, setUpdating] = useState(false);
   const [userLinks, setUserLinks] = useState([]);
+  const [reversedUserLinks, setReversedUserLinks] = useState([]);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    setReversedUserLinks(userLinks.reverse());
+  }, [userLinks]);
 
   const linkRegex =
     /^(http:\/\/www.|https:\/\/www.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
@@ -41,13 +47,38 @@ const Links = () => {
       title,
       url,
     };
-    postData("/dashboard/links/add", data, {
+    const response = postData("/dashboard/links/add", data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    }).then((res) => {
-      console.log(res);
     });
+    response.then((res) => {
+      if (res.status === 200) {
+        setSuccess(true);
+        toast.success("Link added successfully");
+        setUserLinks([...userLinks, res.data.link]);
+      } else {
+        toast.error(res.response.data.message);
+      }
+    });
+  };
+
+  const handleDeleteLink = (id) => {
+    deleteData(`/dashboard/links/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        toast.success("Link deleted successfully");
+        const newUserLinks = [...userLinks];
+        const index = newUserLinks.findIndex((link) => link.id === id);
+        newUserLinks.splice(index, 1);
+        setUserLinks(newUserLinks);
+      })
+      .catch((err) => {
+        toast.error("Error deleting link");
+      });
   };
 
   return (
@@ -56,6 +87,7 @@ const Links = () => {
         <title>Links | Quickk Dashboard</title>
       </Helmet>
       <DashboardLayout>
+        <ToastContainer />
         <Box>
           <Button onClick={handleAddLink}>Add New Link</Button>
           <Box>
@@ -104,10 +136,23 @@ const Links = () => {
                 <Button
                   onClick={() => {
                     addNewLink(link.title, link.link);
+                    const newLinkInputs = [...linkInputs];
+                    newLinkInputs[linkInputs.indexOf(link)].adding = true;
+                    setlinkInputs(newLinkInputs);
+                    setTimeout(() => {
+                      const newLinkInputs = [...linkInputs];
+                      newLinkInputs.splice(linkInputs.indexOf(link), 1);
+                      setlinkInputs(newLinkInputs);
+                    }, 1000);
                   }}
-                  disabled={!link.title || !link.link || !validURL(link.link)}
+                  disabled={
+                    !link.title ||
+                    !link.link ||
+                    !validURL(link.link) ||
+                    link.adding
+                  }
                 >
-                  Add
+                  {link.adding ? "Adding..." : "Add"}
                 </Button>
               </Box>
             ))}
@@ -116,7 +161,7 @@ const Links = () => {
             {userLinks.length < 1 ? (
               <Text>No Links</Text>
             ) : (
-              userLinks.map((link) => (
+              reversedUserLinks.map((link) => (
                 <Box
                   key={link.id}
                   my={4}
@@ -129,7 +174,13 @@ const Links = () => {
                   <Input value={link.url} />
                   <Flex>
                     <Button>Update</Button>
-                    <Button>Delete</Button>
+                    <Button
+                      onClick={() => {
+                        handleDeleteLink(link.id);
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </Flex>
                 </Box>
               ))
