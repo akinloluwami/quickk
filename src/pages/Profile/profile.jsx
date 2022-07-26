@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import LoadingProfile from "../../components/minor/LoadingProfile";
 import NoUser from "../../components/minor/NoUser";
 import { Helmet } from "react-helmet";
+import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 
 const Profile = () => {
   const username = window.location.pathname.split("/")[1];
@@ -43,6 +44,7 @@ const Profile = () => {
 
   return (
     <>
+    <ContainerLayout>
       <Helmet>
         <title>
           {displayName} | @{username}
@@ -91,6 +93,7 @@ const Profile = () => {
           </Box>
         </ProfileLayout>
       )}
+      </ContainerLayout>
     </>
   );
 };

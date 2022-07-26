@@ -1,8 +1,11 @@
 import { Flex, Box, Text, Avatar, Button, Link } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
+import DashboardTop from "../Dashboard/DashboardTop";
+import { NavLink } from "react-router-dom";
 
 const ProfileLayout = ({ children }) => {
+
   const username = window.location.pathname.split("/")[1];
   const [loading, setLoading] = useState(true);
   const [displayName, setDisplayName] = useState("");
@@ -12,6 +15,7 @@ const ProfileLayout = ({ children }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followers, setFollowers] = useState([]);
   const [popupActive, setPopupActive] = useState(false);
+
   useEffect(() => {
     const response = fetchData(`/user/profile/${username}`);
     response.then((data) => {
@@ -78,8 +82,22 @@ const ProfileLayout = ({ children }) => {
     });
   };
 
+  const activeStyle = {
+    backgroundColor: "rgb(66 153 225 / 8%)",
+    padding: "0.5rem",
+    color: 'blue',
+    fontWeight: 'bold',
+    borderRadius: "0.5rem",
+  }
+
   return (
-    <Box position={"relative"}>
+    
+    <>
+
+    <DashboardTop/>
+    
+    <Box position={"relative"} mx={['' , '4em']}>
+      
       <Flex
         position={"absolute"}
         top={"0"}
@@ -120,7 +138,7 @@ const ProfileLayout = ({ children }) => {
             <Button>
               <Text>Signup</Text>
             </Button>
-          </Link>
+          </Link> 
         </Flex>
       </Flex>
       <Flex
@@ -162,33 +180,43 @@ const ProfileLayout = ({ children }) => {
         )}
       </Flex>
       <Flex
-        bg={"#e2e8f0"}
+        // bg={"#e2e8f0"}
+        
         w={"100%"}
         px={"2em"}
-        py={".5em"}
-        justifyContent={"space-between"}
+        py={"1.5em"}
+        justifyContent={["space-between" , " left "]}
+        gap={['' , '5em']}
       >
         {/* <ProfileBlock /> */}
-        <Link href={`/${username}`} boxShadow={"sm"}>
-          <Text fontSize={"1.2em"} fontWeight={"500"}>
+        <NavLink to={`/${username}`} boxShadow={"sm"} 
+        style={ ({isActive }) => isActive ? activeStyle : {}}
+        >
+          <Text fontSize={"1.2em"} fontWeight={"500"} 
+            
+          >
             Posts
           </Text>
-        </Link>
-        <Link href={`/${username}/donate`}>
+        </NavLink>
+        <NavLink to={`/${username}/donate`}
+          style={ ({isActive }) => isActive ? activeStyle : {}}
+        >
           <Text fontSize={"1.2em"} fontWeight={"500"}>
             Donate
           </Text>
-        </Link>
-        <Link href={`/${username}/profile`}>
-          <Text fontSize={"1.2em"} fontWeight={"500"}>
+        </NavLink>
+        <NavLink to={`/${username}/profile`} style={ ({isActive }) => isActive ? activeStyle : {}}>
+          
             <Text fontSize={"1.2em"} fontWeight={"500"}>
               Profile
             </Text>
-          </Text>
-        </Link>
+         
+        </NavLink>
       </Flex>
-      <Box my={"1em"}>{children}</Box>
+      <Box my={"1em"} mx={['' , '2em']}>{children}</Box>
     </Box>
+    
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import LoadingProfile from "../../components/minor/LoadingProfile";
 import NoUser from "../../components/minor/NoUser";
 import ProfileBlock from "./ProfileBlock";
+import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 function Donate() {
   const username = window.location.pathname.split("/")[1];
   const [loading, setLoading] = useState(true);
@@ -27,6 +28,8 @@ function Donate() {
   }, []);
   return (
     <>
+
+      <ContainerLayout>
       {loading ? (
         <Center>
           <Box>
@@ -41,11 +44,14 @@ function Donate() {
         </Center>
       ) : (
         <ProfileLayout>
+          
           <Box>
             <ProfileBlock />
           </Box>
         </ProfileLayout>
       )}
+      </ContainerLayout>
+
     </>
   );
 }
