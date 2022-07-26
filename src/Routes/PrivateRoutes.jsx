@@ -16,6 +16,7 @@ import BlogPost from "../pages/BlogPost";
 import EditProfile from "../pages/Dashboard/EditProfile";
 import Donate from "../pages/Profile/Donate";
 import UserProfile from "../pages/Profile/UserProfile";
+import Links from "../pages/Dashboard/Links";
 
 const Private = () => {
   return (
@@ -32,6 +33,7 @@ const Private = () => {
         <Route path="/dashboard/scheduled" element={<Scheduled />} />
         <Route path="/dashboard/newsletter" element={<Newslatter />} />
         <Route path="/dashboard/analytics" element={<Analytics />} />
+        <Route path="/dashboard/links" element={<Links />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/:username/:slug" element={<BlogPost />} />
         <Route path="/edit-profile" element={<EditProfile />} />
