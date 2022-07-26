@@ -283,9 +283,43 @@ module.exports = {
       message: "Profile picture updated successfully",
     });
   },
+  deleteProfilePicture: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    await User.update(
+      {
+        profilePicture: "",
+      },
+      {
+        where: {
+          uuid: decoded.uuid,
+        },
+      }
+    );
+    return res.status(200).json({
+      message: "Profile picture deleted successfully",
+    });
+  },
 
   addLink: async (req, res) => {
-    const { linkTitle, linkAddress } = req.body;
+    const { title, url } = req.body;
+
     const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
@@ -305,10 +339,35 @@ module.exports = {
       });
     }
     const links = user.links;
+    if (!title) {
+      return res.status(400).json({
+        message: "Title cannot be empty",
+      });
+    }
+    if (!url) {
+      return res.status(400).json({
+        message: "URL cannot be empty",
+      });
+    }
+    if (!url.match(/^(http|https):\/\/[^ "]+$/)) {
+      return res.status(400).json({
+        message: "URL must be a valid URL",
+      });
+    }
+    const linkExists = await Link.findOne({
+      where: {
+        url,
+      },
+    });
+    if (linkExists) {
+      return res.status(400).json({
+        message: "URL already exists",
+      });
+    }
     links.push({
-      linkTitle,
-      linkAddress,
       id: links.length + 1,
+      title,
+      url,
     });
     await User.update(
       {
@@ -320,5 +379,78 @@ module.exports = {
         },
       }
     );
+    return res.status(200).json({
+      message: "Link added successfully",
+    });
+  },
+  deleteLink: async (req, res) => {
+    const { id } = req.body;
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const links = user.links;
+    if (!id) {
+      return res.status(400).json({
+        message: "ID cannot be empty",
+      });
+    }
+    const linkIndex = links.findIndex((link) => link.id === id);
+    if (linkIndex === -1) {
+      return res.status(400).json({
+        message: "Link not found",
+      });
+    }
+    links.splice(linkIndex, 1);
+    await User.update(
+      {
+        links,
+      },
+      {
+        where: {
+          uuid: decoded.uuid,
+        },
+      }
+    );
+    return res.status(200).json({
+      message: "Link deleted successfully",
+    });
+  },
+  getLinks: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    return res.status(200).json({
+      links: user.links,
+    });
   },
 };
