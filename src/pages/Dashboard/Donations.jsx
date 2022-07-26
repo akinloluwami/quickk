@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavLink } from "react-router-dom";
 
-const Donations = () => {
+const DonationSettings = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [error, setError] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
@@ -71,7 +71,7 @@ const Donations = () => {
 
 
           <Box>
-          <Box w={"400px"} margin={"0 auto"}>
+          <Box w={['100%' , '80%']} margin={"0 auto"} p={'1.5em'}>
                 <Text
                   fontSize="3xl"
                   my={"1em"}
@@ -93,6 +93,8 @@ const Donations = () => {
                   placeholder="USDT Wallet Address"
                   marginBottom="2px"
                   value={walletAddress}
+                  variant={'filled'}
+                  p={'1.3em'}
                   onKeyPress={(e) => {
                     e.preventDefault();
                   }}
@@ -125,15 +127,19 @@ const Donations = () => {
                   type={"number"}
                   margin="2px"
                   value={amount}
+                  variant={'filled'}
+                  p={'1.3em'}
                   onChange={(e) => setAmount(e.target.value)}
                 />
                 <Button
                   width={"100%"}
                   color={"white"}
-                  borderRadius={"20px"}
+                  borderRadius={"5"}
                   bg={"#0031af"}
+                  py={'1.5em'}
                   _hover={{ bg: "#19315f" }}
-                  margin={"1rem"}
+                  mt={'1em'}
+                  mb={'3em'}
                   onClick={() => {
                     handleUpdate();
                   }}
@@ -151,4 +157,4 @@ const Donations = () => {
   );
 };
 
-export default Donations;
+export default DonationSettings;
