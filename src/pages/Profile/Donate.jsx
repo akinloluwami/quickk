@@ -69,6 +69,15 @@ function Donate() {
         <ProfileLayout>
           <Box width={"400px"}>
             <Text
+              fontSize="30px"
+              fontWeight="bold"
+              color="black"
+              textAlign="center"
+              marginBottom="1rem"
+            >
+              Support {displayName}
+            </Text>
+            <Text
               fontSize="22px"
               fontWeight="bold"
               color="black"
