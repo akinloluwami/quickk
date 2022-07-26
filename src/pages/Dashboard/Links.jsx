@@ -9,6 +9,13 @@ const Links = () => {
   const [updating, setUpdating] = useState(false);
   const [userLinks, setUserLinks] = useState([]);
 
+  const linkRegex =
+    /^(http:\/\/www.|https:\/\/www.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+
+  const validURL = (str) => {
+    return linkRegex.test(str);
+  };
+
   useEffect(() => {
     fetchData("/dashboard/links/get", {
       headers: {
@@ -98,6 +105,7 @@ const Links = () => {
                   onClick={() => {
                     addNewLink(link.title, link.link);
                   }}
+                  disabled={!link.title || !link.link || !validURL(link.link)}
                 >
                   Add
                 </Button>
