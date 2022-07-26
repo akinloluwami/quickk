@@ -8,14 +8,14 @@ const DonationsLayout = ({ children }) => {
         {
 
             name : 'Donations ', 
-            path : ''
+            path : '/dashboard/donations'
 
 
-        } ,
+        } , 
         {
 
             name : 'Settings ', 
-            path : ''
+            path : '/dashboard/donations/settings'
 
 
         }
@@ -23,16 +23,16 @@ const DonationsLayout = ({ children }) => {
     ]
 
     return (
-        
+
         <>
 
-            <Box>
+            <Box display={'flex'} gap={'2em'} justifyContent={'center'}>
                
                 {
                     tabs.map( items => {
                         return (
                             <>
-                                hi
+                                <NavLink to={items.path}>{items.name}</NavLink>
                             </>
                         )
                     })
@@ -40,7 +40,9 @@ const DonationsLayout = ({ children }) => {
                 
             </Box>
         
-            { children }  
+            <Box>
+                { children }  
+            </Box>
             
         </>
     )

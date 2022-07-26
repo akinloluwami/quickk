@@ -1,26 +1,20 @@
+import { Box , Text} from '@chakra-ui/react';
+import DonationBox from '../Profile/Components/DonationBox';
 
-import { Box } from "@chakra-ui/react";
-import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
-import DonationsLayout from "../../Layouts/DonationsLayout";
-import Donations from "../Dashboard/Donations";
+const Donate = () => {
 
-const DonateRoute = () => {
-    
     return (
         <>
+        
+            
+                <Box maxW={['100%','70%']} mx={'auto'} py={'2em'}>
+                    <Text></Text>
+                    <DonationBox/>
+                </Box>
 
-            <DashboardLayout>
-                <DonationsLayout>
-                    
-                    <Donations />
-    
-                </DonationsLayout>
-            </DashboardLayout>
-          
         </>
     )
-
-
 }
 
-export default DonateRoute;
+
+export default Donate;
