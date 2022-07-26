@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { fetchData, postData } from "../../utils/Request";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { NavLink } from "react-router-dom";
 
 const Donations = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -61,25 +62,16 @@ const Donations = () => {
       <Helmet>
         <title>Donations | Quickk Dashboard</title>
       </Helmet>
-      <DashboardLayout>
-        <Box>
-          <Flex justifyContent="center" alignItems="center" gap={8}>
-            <Button
-              onClick={() => setIsSettingsOpen(false)}
-              bg={isSettingsOpen ? "white" : "blue.500"}
-            >
-              Donations
-            </Button>
-            <Button
-              onClick={() => setIsSettingsOpen(true)}
-              bg={isSettingsOpen ? "blue.500" : "white"}
-            >
-              Settings
-            </Button>
-          </Flex>
-          <>
-            {isSettingsOpen ? (
-              <Box w={"400px"} margin={"0 auto"}>
+      
+      <Box my={'2em'}>
+          
+      <Box>
+          
+          
+
+
+          <Box>
+          <Box w={"400px"} margin={"0 auto"}>
                 <Text
                   fontSize="3xl"
                   my={"1em"}
@@ -150,16 +142,11 @@ const Donations = () => {
                   {updating ? "Updating..." : "Update"}
                 </Button>
               </Box>
-            ) : (
-              <Box w={"400px"}>
-                <Text fontSize="lg" my={"1em"}>
-                  Donations
-                </Text>
-              </Box>
-            )}
-          </>
+          </Box>
         </Box>
-      </DashboardLayout>
+
+      </Box>
+
     </>
   );
 };
