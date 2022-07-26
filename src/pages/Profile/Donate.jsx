@@ -4,8 +4,7 @@ import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import ProfileLayout from "../../Layouts/Profile/ProfileLayout";
 import { Helmet } from "react-helmet";
 import { fetchData, postData } from "../../utils/Request";
-import { useLazerpay } from "lazerpay-react";
-import { usePayercoins } from "payercoins-react";
+import DonationBox from './Components/DonationBox';
 
 function Donate() {
   const username = window.location.pathname.split("/")[1];
@@ -66,52 +65,11 @@ function Donate() {
         <title>{displayName} | Donate</title>
       </Helmet>
       <ContainerLayout>
-        <ProfileLayout>
-          <Box width={"400px"}>
-            <Text
-              fontSize="30px"
-              fontWeight="bold"
-              color="black"
-              textAlign="center"
-              marginBottom="1rem"
-            >
-              Support {displayName}
-            </Text>
-            <Text
-              fontSize="22px"
-              fontWeight="bold"
-              color="black"
-              textAlign="center"
-              marginBottom="1rem"
-            >
-              How much do you want to donate?
-            </Text>
-            <Input
-              type="number"
-              placeholder="Enter amount in USD"
-              marginBottom={"1rem"}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <Textarea
-              placeholder={`Enter a message for ${displayName} (optional)`}
-              marginBottom={"1rem"}
-            />
-            <Button
-              width={"100%"}
-              color={"white"}
-              borderRadius={"20px"}
-              bg={"#0031af"}
-              _hover={{ bg: "#19315f" }}
-              marginBottom={"1rem"}
-              onClick={() => {
-                initializePayment();
-              }}
-              disabled={amount === 0}
-            >
-              Donate
-            </Button>
-          </Box>
-        </ProfileLayout>
+      <ProfileLayout>
+        <Box>
+           <DonationBox/>
+        </Box>
+      </ProfileLayout>
       </ContainerLayout>
     </>
   );
