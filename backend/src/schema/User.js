@@ -137,6 +137,15 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     defaultValue: "",
   },
+  minimumDonationAmount: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 1,
+  },
+  links: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+  },
 });
 
 module.exports = User;
