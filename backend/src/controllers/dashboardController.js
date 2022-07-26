@@ -283,7 +283,9 @@ module.exports = {
       message: "Profile picture updated successfully",
     });
   },
-  deleteProfilePicture: async (req, res) => {
+
+  addLink: async (req, res) => {
+    const { linkTitle, linkAddress } = req.body;
     const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
@@ -302,9 +304,15 @@ module.exports = {
         message: "User not found",
       });
     }
+    const links = user.links;
+    links.push({
+      linkTitle,
+      linkAddress,
+      id: links.length + 1,
+    });
     await User.update(
       {
-        profilePicture: "",
+        links,
       },
       {
         where: {
@@ -312,8 +320,5 @@ module.exports = {
         },
       }
     );
-    return res.status(200).json({
-      message: "Profile picture deleted successfully",
-    });
   },
 };
