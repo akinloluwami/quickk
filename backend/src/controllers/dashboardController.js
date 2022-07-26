@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const Post = require("../schema/Post");
 const User = require("../schema/User");
 const cloudinary = require("cloudinary");
-const Links = require("../schema/Links");
+const Link = require("../schema/Link");
 
 module.exports = {
   getUserProfile: async (req, res) => {
@@ -315,6 +315,92 @@ module.exports = {
     );
     return res.status(200).json({
       message: "Profile picture deleted successfully",
+    });
+  },
+
+  getLinks: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const links = await Link.findAll({
+      where: {
+        userUuid: user.uuid,
+      },
+    });
+    return res.status(200).json({
+      message: "Links retrieved successfully",
+      links,
+    });
+  },
+  addLink: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const { title, url } = req.body;
+    if (!title) {
+      return res.status(400).json({
+        message: "Title is required",
+      });
+    }
+    if (!url) {
+      return res.status(400).json({
+        message: "URL is required",
+      });
+    }
+    if (!url.startsWith("http")) {
+      return res.status(400).json({
+        message: "URL must start with http",
+      });
+    }
+    const linkExists = await Link.findOne({
+      where: {
+        url,
+        uuid: user.uuid,
+      },
+    });
+    if (linkExists) {
+      return res.status(400).json({
+        message: "Link already exists",
+      });
+    }
+    const link = await Link.create({
+      title,
+      url,
+      userUuid: user.uuid,
+    });
+    return res.status(200).json({
+      message: "Link added successfully",
+      link,
     });
   },
 };
