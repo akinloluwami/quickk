@@ -7,6 +7,7 @@ import { fetchData, postData, deleteData } from "../../utils/Request";
 const Links = () => {
   const [linkInputs, setlinkInputs] = useState([]);
   const [updating, setUpdating] = useState(false);
+  const [userLinks, setUserLinks] = useState([]);
 
   useEffect(() => {
     fetchData("/dashboard/links/get", {
@@ -14,7 +15,7 @@ const Links = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     }).then((res) => {
-      console.log(res);
+      setUserLinks(res.data.links);
     });
   }, []);
 
@@ -103,6 +104,29 @@ const Links = () => {
               </Box>
             ))}
           </Box>
+          {/* <Box>
+            {userLinks.length < 1 ? (
+              <Text>No Links</Text>
+            ) : (
+              userLinks.map((link) => (
+                <Box
+                  key={link.id}
+                  my={4}
+                  bg={"#fff"}
+                  boxShadow="md"
+                  height={"150px"}
+                  width={"100%"}
+                >
+                  <Input value={link.title} />
+                  <Input value={link.url} />
+                  <Flex>
+                    <Button>Update</Button>
+                    <Button>Delete</Button>
+                  </Flex>
+                </Box>
+              ))
+            )}
+          </Box> */}
         </Box>
       </DashboardLayout>
     </>
