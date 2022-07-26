@@ -385,7 +385,7 @@ module.exports = {
     const linkExists = await Link.findOne({
       where: {
         url,
-        uuid: user.uuid,
+        userUuid: user.uuid,
       },
     });
     if (linkExists) {
