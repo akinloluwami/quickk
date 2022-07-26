@@ -17,6 +17,7 @@ import EditProfile from "../pages/Dashboard/EditProfile";
 import Donate from "../pages/Profile/Donate";
 import UserProfile from "../pages/Profile/UserProfile";
 import Links from "../pages/Dashboard/Links";
+import Settings from '../pages/Dashboard/Settings';
 
 const Private = () => {
   return (
@@ -28,6 +29,7 @@ const Private = () => {
         <Route path="/dashboard/draft" element={<Draft />} />
         <Route path="/dashboard/write" element={<Write />} />
         <Route path="/dashboard/donations" element={<Donations />} />
+        <Route path="/dashboard/donations/settings" element={<Settings />} />
         <Route path="/dashboard/explore" element={<Donations />} />
         <Route path="/dashboard/posts" element={<Posts />} />
         <Route path="/dashboard/scheduled" element={<Scheduled />} />

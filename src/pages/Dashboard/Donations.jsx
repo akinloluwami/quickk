@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { fetchData, postData } from "../../utils/Request";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { NavLink } from "react-router-dom";
 
 const Donations = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -76,6 +77,12 @@ const Donations = () => {
             >
               Settings
             </Button>
+
+            <NavLink to='/dashboard/donations/settings'>
+             <Text>View </Text>
+            </NavLink>
+
+
           </Flex>
           <>
             {isSettingsOpen ? (
