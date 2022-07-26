@@ -9,6 +9,8 @@ router.post("/user/update", dashboardController.updateProfile);
 router.post("/user/update/dp", dashboardController.updateProfilePicture);
 router.delete("/user/delete/dp", dashboardController.deleteProfilePicture);
 router.post("/links/add", dashboardController.addLink);
+router.delete("/links/delete/:id", dashboardController.deleteLink);
+router.get("/links/get", dashboardController.getLinks);
 
 module.exports = router;
 
