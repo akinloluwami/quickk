@@ -6,20 +6,42 @@ import { fetchData, postData, deleteData } from "../../utils/Request";
 
 const Links = () => {
   const [linkInputs, setlinkInputs] = useState([]);
-  const [linkTitle, setLinkTitle] = useState("");
-  const [linkAddress, setLinkAddress] = useState("");
   const [updating, setUpdating] = useState(false);
+
+  useEffect(() => {
+    fetchData("/dashboard/links/get", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((res) => {
+      console.log(res);
+    });
+  }, []);
 
   const handleAddLink = () => {
     const newLinkInputs = [...linkInputs];
     const input = {
-      title: linkTitle,
-      link: linkAddress,
-      deleting: false,
+      title: "",
+      url: "",
     };
     newLinkInputs.push(input);
     setlinkInputs(newLinkInputs);
   };
+
+  const addNewLink = (title, url) => {
+    const data = {
+      title,
+      url,
+    };
+    postData("/dashboard/links/add", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <>
       <Helmet>
@@ -40,12 +62,23 @@ const Links = () => {
               >
                 <Input
                   value={link.title}
-                  onChange={(e) => setLinkTitle(e.target.value)}
+                  onChange={(e) => {
+                    const newLinkInputs = [...linkInputs];
+                    newLinkInputs[linkInputs.indexOf(link)].title =
+                      e.target.value;
+                    setlinkInputs(newLinkInputs);
+                  }}
                 />
                 <Input
                   value={link.link}
-                  onChange={(e) => setLinkAddress(e.target.value)}
+                  onChange={(e) => {
+                    const newLinkInputs = [...linkInputs];
+                    newLinkInputs[linkInputs.indexOf(link)].link =
+                      e.target.value;
+                    setlinkInputs(newLinkInputs);
+                  }}
                 />
+
                 <Button
                   onClick={() => {
                     const newLinkInputs = [...linkInputs];
@@ -59,6 +92,13 @@ const Links = () => {
                   }}
                 >
                   {link.deleting ? "Deleting..." : "Delete"}
+                </Button>
+                <Button
+                  onClick={() => {
+                    addNewLink(link.title, link.link);
+                  }}
+                >
+                  Add
                 </Button>
               </Box>
             ))}
