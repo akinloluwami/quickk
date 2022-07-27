@@ -81,6 +81,18 @@ const Links = () => {
       });
   };
 
+  const updateLink = (id, title, url) => {
+    const data = {
+      title,
+      url,
+    };
+    postData(`/dashboard/links/update/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  };
+
   return (
     <>
       <Helmet>
@@ -170,18 +182,30 @@ const Links = () => {
                   height={"150px"}
                   width={"100%"}
                 >
-                  <Input value={link.title} />
-                  <Input value={link.url} />
-                  <Flex>
-                    <Button>Update</Button>
-                    <Button
-                      onClick={() => {
-                        handleDeleteLink(link.id);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </Flex>
+                  <Input
+                    value={link.title}
+                    onChange={(e) => {
+                      /***It is rendering as read-only, please fix it*/
+                      userLinks[userLinks.indexOf(link)].title = e.target.value;
+                      // updateLink(link.id, link.title, link.url);
+                    }}
+                  />
+                  <Input
+                    value={link.url}
+                    onChange={(e) => {
+                      /***It is rendering as read-only, please fix it*/
+                      userLinks[userLinks.indexOf(link)].url = e.target.value;
+                      // updateLink(link.id, link.title, link.url);
+                    }}
+                  />
+
+                  <Button
+                    onClick={() => {
+                      handleDeleteLink(link.id);
+                    }}
+                  >
+                    Delete
+                  </Button>
                 </Box>
               ))
             )}
