@@ -90,6 +90,7 @@ module.exports = {
       followers: user.followers,
       following: user.following,
       notifications: user.notifications,
+      accountBalance: user.accountBalance,
     });
   },
   getPageViews: async (req, res) => {
