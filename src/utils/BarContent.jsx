@@ -62,7 +62,7 @@ const BarItems = [
     name: "Scheduled",
     link: "/dashboard/scheduled",
     icon: <IoIosTimer />,
-    mobileView: true,
+    mobileView: false,
 
     styles: {
       padding: "0.6em 0.6em",
@@ -82,7 +82,11 @@ const BarItems = [
     name: "Links",
     link: "/dashboard/links",
     icon: <GoLink />,
-    mobileView: false,
+    mobileView: true,
+    styles: {
+      padding: "0.6em 0.6em",
+    }
+    
   },
   {
     name: "Analytics",
