@@ -187,12 +187,14 @@ const Links = () => {
               reversedUserLinks.map((link) => (
                 <>
                   <Box
+                  
                     key={link.id}
                     my={4}
                     bg={"#fff"}
                     boxShadow="md"
                     width={"100%"}
-                    p={3}
+                    p={['1em','2em']}
+
                   >
                   <Input
                     my={'0.5em'}
