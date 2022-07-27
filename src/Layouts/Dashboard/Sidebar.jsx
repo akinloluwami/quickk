@@ -16,7 +16,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <Box px={"4em"} py="6em"  >
+      <Box px={"4em"} py="3em"  >
         {/* Loop through items of bar contents  */}
         <UnorderedList
           listStyleType={"none"}
