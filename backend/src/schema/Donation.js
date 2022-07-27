@@ -21,7 +21,7 @@ const Donation = sequelize.define("Donation", {
   },
   donationMessage: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
 });
 
