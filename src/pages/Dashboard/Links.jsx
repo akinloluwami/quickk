@@ -265,7 +265,7 @@ const Links = () => {
                   
                   
                       
-                  <Flex alignItems={'center'} >
+                  <Flex alignItems={'center'}  >
                   <Input
                     my={'0.5em'}
                     value={link.url}
@@ -282,7 +282,9 @@ const Links = () => {
                       // updateLink(link.id, link.title, link.url);
                     }}
                   />
-                  <Text cursor={'pointer'}
+                  <Text 
+                  
+                   cursor={'pointer'}
                     onClick = {() => {
                       setDisable(false)
                       editUrl.current.focus()
