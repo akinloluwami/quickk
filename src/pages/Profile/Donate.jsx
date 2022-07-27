@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import { fetchData, postData } from "../../utils/Request";
 import DonationBox from "./Components/DonationBox";
 import { useLazerpay } from "lazerpay-react";
+import DonationForm from "./Components/DonationForm";
 
 function Donate() {
   const username = window.location.pathname.split("/")[1];
@@ -17,6 +18,7 @@ function Donate() {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [uniqueIdentifier, setUniqueIdentifier] = useState("");
+
   useEffect(() => {
     const response = fetchData(`/user/profile/${username}`);
     response.then((data) => {
@@ -68,7 +70,7 @@ function Donate() {
       <ContainerLayout>
         <ProfileLayout>
           <Box>
-            <DonationBox />
+            <DonationForm />
           </Box>
         </ProfileLayout>
       </ContainerLayout>
