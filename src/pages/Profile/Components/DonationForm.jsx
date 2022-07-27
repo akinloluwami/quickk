@@ -1,29 +1,23 @@
 import { Box, Button, Input, Text, Textarea } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
-import ProfileLayout from "../../Layouts/Profile/ProfileLayout";
-import { Helmet } from "react-helmet";
-import { fetchData, postData } from "../../utils/Request";
-import DonationBox from "./Components/DonationBox";
 import { useLazerpay } from "lazerpay-react";
-import DonationForm from "./Components/DonationForm";
+import { fetchData, postData } from "../../../utils/Request";
 
-function Donate() {
+function DonationForm() {
   const username = window.location.pathname.split("/")[1];
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [displayName, setDisplayName] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
+  const [displayName, setDisplayName] = useState("");
   const [uniqueIdentifier, setUniqueIdentifier] = useState("");
-
+  const [minimumDonationAmount, setMinimumDonationAmount] = useState(0);
   useEffect(() => {
     const response = fetchData(`/user/profile/${username}`);
     response.then((data) => {
       if (data.status === 200) {
         setDisplayName(data.data.user.displayName);
+        setMinimumDonationAmount(data.data.user.minimumDonationAmount);
+
         setLoading(false);
       } else {
         setError(true);
@@ -61,21 +55,45 @@ function Donate() {
   };
 
   const initializePayment = useLazerpay(config);
-
   return (
     <>
-      <Helmet>
-        <title>{displayName} | Donate</title>
-      </Helmet>
-      <ContainerLayout>
-        <ProfileLayout>
-          <Box>
-            <DonationForm />
-          </Box>
-        </ProfileLayout>
-      </ContainerLayout>
+      <Box width={"400px"}>
+        <Text
+          fontSize="22px"
+          fontWeight="bold"
+          color="black"
+          textAlign="center"
+          marginBottom="1rem"
+        >
+          How much do you want to donate?
+        </Text>
+        <Input
+          type="number"
+          placeholder={`Enter amount in USD: Minimum ${minimumDonationAmount} USD`}
+          marginBottom={"1rem"}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <Textarea
+          placeholder={`Enter a message for ${displayName} (optional)`}
+          marginBottom={"1rem"}
+        />
+        <Button
+          width={"100%"}
+          color={"white"}
+          borderRadius={"20px"}
+          bg={"#0031af"}
+          _hover={{ bg: "#19315f" }}
+          marginBottom={"1rem"}
+          onClick={() => {
+            initializePayment();
+          }}
+          disabled={amount === 0 || amount < minimumDonationAmount}
+        >
+          Donate
+        </Button>
+      </Box>
     </>
   );
 }
 
-export default Donate;
+export default DonationForm;
