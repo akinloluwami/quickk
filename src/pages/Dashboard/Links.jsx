@@ -100,6 +100,13 @@ const Links = () => {
       </Helmet>
       <DashboardLayout>
         <ToastContainer />
+       
+
+        <Box my={'2em'} w={['100%','60%']} 
+          p={'1em'} mx={'auto'}
+          borderRadius={'3em'}
+        >
+
         <Box>
           <Button onClick={handleAddLink}>Add New Link</Button>
           <Box>
@@ -109,11 +116,14 @@ const Links = () => {
                 my={4}
                 bg={"#fff"}
                 boxShadow="md"
-                height={"150px"}
+                
                 width={"100%"}
+                p={3}
+                
               >
                 <Input
                   value={link.title}
+                  my={'0.5em'}
                   onChange={(e) => {
                     const newLinkInputs = [...linkInputs];
                     newLinkInputs[linkInputs.indexOf(link)].title =
@@ -132,6 +142,7 @@ const Links = () => {
                 />
 
                 <Button
+                  my={'0.5em'}
                   onClick={() => {
                     const newLinkInputs = [...linkInputs];
                     newLinkInputs[linkInputs.indexOf(link)].deleting = true;
@@ -174,15 +185,17 @@ const Links = () => {
               <Text>No Links</Text>
             ) : (
               reversedUserLinks.map((link) => (
-                <Box
-                  key={link.id}
-                  my={4}
-                  bg={"#fff"}
-                  boxShadow="md"
-                  height={"150px"}
-                  width={"100%"}
-                >
+                <>
+                  <Box
+                    key={link.id}
+                    my={4}
+                    bg={"#fff"}
+                    boxShadow="md"
+                    width={"100%"}
+                    p={3}
+                  >
                   <Input
+                    my={'0.5em'}
                     value={link.title}
                     onChange={(e) => {
                       /***It is rendering as read-only, please fix it*/
@@ -191,6 +204,7 @@ const Links = () => {
                     }}
                   />
                   <Input
+                    my={'0.5em'}
                     value={link.url}
                     onChange={(e) => {
                       /***It is rendering as read-only, please fix it*/
@@ -207,10 +221,17 @@ const Links = () => {
                     Delete
                   </Button>
                 </Box>
+
+                
+                </>
               ))
             )}
           </Box>
         </Box>
+
+
+        </Box>
+
       </DashboardLayout>
     </>
   );
