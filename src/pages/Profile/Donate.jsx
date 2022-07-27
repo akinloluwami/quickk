@@ -4,7 +4,8 @@ import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import ProfileLayout from "../../Layouts/Profile/ProfileLayout";
 import { Helmet } from "react-helmet";
 import { fetchData, postData } from "../../utils/Request";
-import DonationBox from './Components/DonationBox';
+import DonationBox from "./Components/DonationBox";
+import { useLazerpay } from "lazerpay-react";
 
 function Donate() {
   const username = window.location.pathname.split("/")[1];
@@ -65,11 +66,11 @@ function Donate() {
         <title>{displayName} | Donate</title>
       </Helmet>
       <ContainerLayout>
-      <ProfileLayout>
-        <Box>
-           <DonationBox/>
-        </Box>
-      </ProfileLayout>
+        <ProfileLayout>
+          <Box>
+            <DonationBox />
+          </Box>
+        </ProfileLayout>
       </ContainerLayout>
     </>
   );
