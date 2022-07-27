@@ -1,3 +1,4 @@
+const { getUserLinksFromUsername } = require("../controllers/userController");
 const userController = require("../controllers/userController");
 const router = require("express").Router();
 
@@ -11,5 +12,6 @@ router.post("/add-wallet-info", userController.addWalletInfo);
 router.get("/get-wallet-info", userController.getWalletInfo);
 router.get("/username/:uuid", userController.getUsernameFromUuid);
 router.get("/uuid", userController.getUuidFromJwt);
+router.get("/get-links/:username", getUserLinksFromUsername);
 
 module.exports = router;
