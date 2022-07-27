@@ -444,4 +444,67 @@ module.exports = {
       message: "Link deleted successfully",
     });
   },
+  updateLink: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await User.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const { id } = req.params;
+    const { title, url } = req.body;
+    if (!title) {
+      return res.status(400).json({
+        message: "Title is required",
+      });
+    }
+    if (!url) {
+      return res.status(400).json({
+        message: "URL is required",
+      });
+    }
+    if (!url.startsWith("http")) {
+      return res.status(400).json({
+        message: "URL must start with http",
+      });
+    }
+    const link = await Link.findOne({
+      where: {
+        id,
+        userUuid: user.uuid,
+      },
+    });
+    if (!link) {
+      return res.status(400).json({
+        message: "Link not found",
+      });
+    }
+    await Link.update(
+      {
+        title,
+        url,
+      },
+      {
+        where: {
+          id,
+          userUuid: user.uuid,
+        },
+      }
+    );
+    return res.status(200).json({
+      message: "Link updated successfully",
+    });
+  },
 };
