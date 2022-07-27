@@ -202,6 +202,7 @@ module.exports = {
       tiktok,
       website,
       profilePicture,
+      minimumDonationAmount,
     } = user;
     return res.status(200).json({
       message: "User profile retrieved successfully",
@@ -220,6 +221,7 @@ module.exports = {
         tiktok,
         website,
         profilePicture,
+        minimumDonationAmount,
       },
     });
   },
