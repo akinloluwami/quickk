@@ -117,7 +117,7 @@ const DonationSettings = () => {
                   your identity.
                 </Text>
 
-                <Text fontSize="3xl" textAlign="center" fontWeight={500}>
+                <Text fontSize="xl" my={'1em'} textAlign="center" fontWeight={500}>
                   Minimum Donation Amount
                 </Text>
                 <Input

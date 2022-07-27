@@ -44,7 +44,10 @@ const Private = () => {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/:username/donate" element={<Donate />} />
         <Route path="/:username/profile" element={<UserProfile />} />
+        {/* this is the default present route that shows on donation page  */}
         <Route path="/dashboard/donations" element={<DonateRoute />} />
+        {/* display when donation route is clicked  */}
+        <Route path="/dashboard/donation" element={<DonateRoute />} />
         <Route path="/dashboard/donations/settings" element={<WalletSettings />} />
 
       </Routes>

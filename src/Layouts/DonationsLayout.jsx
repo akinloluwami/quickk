@@ -8,7 +8,7 @@ const DonationsLayout = ({ children }) => {
         {
 
             name : 'Donations ', 
-            path : '/dashboard/donations'
+            path : '/dashboard/donation'
 
 
         } , 
@@ -22,6 +22,23 @@ const DonationsLayout = ({ children }) => {
 
     ]
 
+    //set active styles 
+    const activeStyle = {
+        backgroundColor: 'rgb(215 238 255 / 34%)',
+        color: 'blue',
+        padding: '0.5em',
+        borderRadius: '0.25em',
+        
+    }
+
+    //set default style 
+    const defaultStyle = {
+        backgroundColor: 'none',
+        
+        padding: '0.4em',
+        borderRadius: '0.25em',
+        
+        }
     return (
 
         <>
@@ -32,7 +49,11 @@ const DonationsLayout = ({ children }) => {
                     tabs.map( items => {
                         return (
                             <>
-                                <NavLink to={items.path}>{items.name}</NavLink>
+                                <NavLink to={items.path}
+                                    style = {
+                                        ({isActive }) => isActive ? activeStyle : defaultStyle
+                                    }
+                                >{items.name}</NavLink>
                             </>
                         )
                     })
