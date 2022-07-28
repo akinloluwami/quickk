@@ -2,72 +2,54 @@ import { Box } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
 const DonationsLayout = ({ children }) => {
+  const tabs = [
+    {
+      name: "Donations ",
+      path: "/dashboard/donation",
+    },
+    {
+      name: "Settings ",
+      path: "/dashboard/donations/settings",
+    },
+  ];
 
-    const tabs = [
+  //set active styles
+  const activeStyle = {
+    backgroundColor: "rgb(215 238 255 / 34%)",
+    color: "blue",
+    padding: "0.5em",
+    borderRadius: "0.25em",
+  };
 
-        {
+  //set default style
+  const defaultStyle = {
+    backgroundColor: "none",
 
-            name : 'Donations ', 
-            path : '/dashboard/donation'
-
-
-        } , 
-        {
-
-            name : 'Settings ', 
-            path : '/dashboard/donations/settings'
-
-
-        }
-
-    ]
-
-    //set active styles 
-    const activeStyle = {
-        backgroundColor: 'rgb(215 238 255 / 34%)',
-        color: 'blue',
-        padding: '0.5em',
-        borderRadius: '0.25em',
-        
-    }
-
-    //set default style 
-    const defaultStyle = {
-        backgroundColor: 'none',
-        
-        padding: '0.4em',
-        borderRadius: '0.25em',
-        
-        }
-    return (
-
-        <>
-
-            <Box display={'flex'} gap={'2em'} justifyContent={'center'}>
-               
-                {
-                    tabs.map( items => {
-                        return (
-                            <>
-                                <NavLink to={items.path}
-                                    style = {
-                                        ({isActive }) => isActive ? activeStyle : defaultStyle
-                                    }
-                                >{items.name}</NavLink>
-                            </>
-                        )
-                    })
+    padding: "0.4em",
+    borderRadius: "0.25em",
+  };
+  return (
+    <>
+      <Box display={"flex"} gap={"2em"} justifyContent={"center"}>
+        {tabs.map((items) => {
+          return (
+            <>
+              <NavLink
+                to={items.path}
+                style={({ isActive }) =>
+                  isActive ? activeStyle : defaultStyle
                 }
-                
-            </Box>
-        
-            <Box>
-                { children }  
-            </Box>
-            
-        </>
-    )
-}
+              >
+                {items.name}
+              </NavLink>
+            </>
+          );
+        })}
+      </Box>
 
+      <Box>{children}</Box>
+    </>
+  );
+};
 
 export default DonationsLayout;
