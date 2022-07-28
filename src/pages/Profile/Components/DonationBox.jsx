@@ -1,11 +1,8 @@
-import { Box, Flex, Text, Image, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { BiTime } from "react-icons/bi";
-import { FaEye } from "react-icons/fa";
 import ModalLayout from "../../../Layouts/ModalLayout";
 import moment from "moment";
 const DonationBox = ({ amount, date, message }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const openModal = () => onOpen();
   return (
     <>
       <Box
@@ -13,7 +10,6 @@ const DonationBox = ({ amount, date, message }) => {
         p={["1em", "2em"]}
         borderRadius={"0.5em"}
         cursor={"pointer"}
-        onClick={onOpen}
       >
         <Box my={"1em"}>
           <Text>${amount}</Text>
