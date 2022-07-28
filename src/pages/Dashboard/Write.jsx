@@ -11,6 +11,8 @@ import { Helmet } from "react-helmet";
 import Editor from "react-medium-editor";
 import "medium-editor/dist/css/medium-editor.css";
 import "medium-editor/dist/css/themes/default.css";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const Write = () => {
   const navigate = useNavigate();
@@ -74,7 +76,6 @@ const Write = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    setPublishing(false);
     toast.success("Post created successfully");
     setTimeout(() => {
       navigate("/dashboard/posts");
@@ -156,10 +157,6 @@ const Write = () => {
                 postContent.length < 50 ||
                 publishing
               }
-              position="fixed"
-              right={0}
-              top={"120px"}
-              zIndex={1}
             >
               {publishing ? "Publishing..." : "Publish"}
             </Button>
@@ -196,7 +193,7 @@ const Write = () => {
           )}
           <Input
             placeholder={"Article Title..."}
-            fontSize={"2em"}
+            fontSize={"1.5em"}
             height={"1em"}
             fontWeight={"500"}
             py={"1em"}
@@ -244,13 +241,47 @@ const Write = () => {
             style={{
               borderRadius: "10px",
               border: "1px solid #0031af",
+              marginTop: "30px",
+              padding: "20px",
+              height: "350px",
+              fontSize: "1.5em",
+              fontWeight: "400",
+              overflowY: "scroll",
+            }}
+          />
+          {/* <CKEditor
+            editor={ClassicEditor}
+            data={postContent}
+            onChange={(value, editor, event) => {
+              setPostContent(value);
+              const data = editor.getData();
+              console.log({ data, event, editor });
+            }}
+            placeholder={"Write your article..."}
+            toolbar={{
+              options: [
+                "heading",
+                "|",
+                "bold",
+                "italic",
+                "link",
+                "bulletedList",
+                "numberedList",
+                "blockQuote",
+                "undo",
+                "redo",
+              ],
+            }}
+            style={{
+              borderRadius: "10px",
+              border: "1px solid #0031af",
               marginTop: "10px",
               padding: "10px",
               height: "fit-content",
               fontSize: "1.5em",
               fontWeight: "500",
             }}
-          />
+          /> */}
         </Flex>
       </DashboardLayout>
     </>
