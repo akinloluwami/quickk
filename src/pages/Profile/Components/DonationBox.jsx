@@ -10,9 +10,14 @@ const DonationBox = ({ amount, date, message }) => {
         p={["1em", "2em"]}
         borderRadius={"0.5em"}
         cursor={"pointer"}
+        margin={"1em"}
+        width="fit-content"
+        boxShadow={"md"}
       >
         <Box my={"1em"}>
-          <Text>${amount}</Text>
+          <Text fontSize="40px" fontWeight={500} color={"green.500"}>
+            ${amount}
+          </Text>
         </Box>
 
         <Flex color={"grey"} justifyContent={"space-between"}>
