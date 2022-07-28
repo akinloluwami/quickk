@@ -1,5 +1,5 @@
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
-import { Box, Input, Button, Flex, Text, Textarea } from "@chakra-ui/react";
+import { Box, Input, Button, Flex, Text, Textarea, Container } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
 import { postData } from "../../utils/Request";
@@ -92,6 +92,7 @@ const Write = () => {
       </Helmet>
       <DashboardLayout>
         <ToastContainer />
+        <Container maxW={['100%' , '80%']}>
         <Flex justifyContent={"center"} flexDirection={"column"}>
           <Flex
             margin={"10px"}
@@ -196,7 +197,7 @@ const Write = () => {
             fontSize={"1.5em"}
             height={"1em"}
             fontWeight={"500"}
-            py={"1em"}
+            py={"1em"} my={'1em'}
             onChange={(e) => {
               setPostTitle(e.target.value);
             }}
@@ -283,6 +284,7 @@ const Write = () => {
             }}
           /> */}
         </Flex>
+        </Container>
       </DashboardLayout>
     </>
   );

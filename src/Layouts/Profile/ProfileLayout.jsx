@@ -84,11 +84,13 @@ const ProfileLayout = ({ children }) => {
   };
 
   const activeStyle = {
-    backgroundColor: "rgb(66 153 225 / 8%)",
+    // backgroundColor: "rgb(66 153 225 / 8%)",
     padding: "0.5rem",
     color: 'blue',
     fontWeight: 'bold',
-    borderRadius: "0.5rem",
+  
+    borderBottom: "4px solid blue",
+    
   }
 
   return (
@@ -142,26 +144,36 @@ const ProfileLayout = ({ children }) => {
           </Link> 
         </Flex>
       </Flex>
-      <Flex
+      
+
+      {/* Box to hold user details at the top */}
+
+          <Box>
+          <Flex
         padding={"1em"}
         alignItems={"center"}
         justifyContent={"space-between"}
       >
-        <Flex alignItems={"center"}>
-          {profilePicture.length > 0 ? (
-            <Avatar size="md" src={profilePicture} />
-          ) : (
-            <Avatar
-              size="md"
-              src={`https://avatars.dicebear.com/api/initials/${displayName}.svg`}
-            />
-          )}
-          <Link to={`/${username}`}>
-            <Text fontSize="2xl" fontWeight="bold" marginLeft={"0.5em"}>
-              {displayName}
-            </Text>
-          </Link>
-        </Flex>
+        
+
+        <Box >
+          <Flex alignItems={"center"} >
+            {profilePicture.length > 0 ? (
+              <Avatar size="md" src={profilePicture} />
+            ) : (
+              <Avatar
+                size="md"
+                src={`https://avatars.dicebear.com/api/initials/${displayName}.svg`}
+              />
+            )}
+            <Link to={`/${username}`}>
+              <Text fontSize="2xl" fontWeight="bold" marginLeft={"0.5em"}>
+                {displayName}
+              </Text>
+            </Link>
+          </Flex>
+        </Box>
+
         {!isLoggedIn ? (
           <Button
             onClick={() => {
@@ -180,6 +192,8 @@ const ProfileLayout = ({ children }) => {
           <Button onClick={followUser}>Follow</Button>
         )}
       </Flex>
+
+      {/* Box ends here  */}
       
       <Flex
         // bg={"#e2e8f0"}
@@ -217,6 +231,11 @@ const ProfileLayout = ({ children }) => {
          
         </NavLink>
       </Flex>
+          </Box>
+
+      {/* Box to hold user details at the top */}
+
+
       <Box my={"1em"} mx={['' , '2em']}>{children}</Box>
     </Box>
     
