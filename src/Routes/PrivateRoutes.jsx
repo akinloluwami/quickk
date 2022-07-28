@@ -5,6 +5,7 @@ import DashboardIndex from "../pages/Dashboard/Dashboard";
 import Donations from "../pages/Dashboard/Donations";
 import Draft from "../pages/Dashboard/Draaft";
 import Write from "../pages/Dashboard/Write";
+import EditPost from "../pages/Dashboard/Edit";
 import Scheduled from "../pages/Dashboard/Scheduled";
 import Newslatter from "../pages/Dashboard/Newslatter";
 import Analytics from "../pages/Dashboard/Analytics";
@@ -17,10 +18,9 @@ import EditProfile from "../pages/Dashboard/EditProfile";
 import Donate from "../pages/Profile/Donate";
 import UserProfile from "../pages/Profile/UserProfile";
 import Links from "../pages/Dashboard/Links";
-import Settings from '../pages/Dashboard/Settings';
+import Settings from "../pages/Dashboard/Settings";
 import DonateRoute from "../pages/Donations/Donation";
-import WalletSettings from '../pages/Donations/WalletSettings';
-
+import WalletSettings from "../pages/Donations/WalletSettings";
 
 const Private = () => {
   return (
@@ -32,7 +32,7 @@ const Private = () => {
         <Route path="/dashboard/draft" element={<Draft />} />
         <Route path="/dashboard/write" element={<Write />} />
         {/* <Route path="/dashboard/donations" element={<Donations />} /> */}
-      
+
         <Route path="/dashboard/explore" element={<Donations />} />
         <Route path="/dashboard/posts" element={<Posts />} />
         <Route path="/dashboard/scheduled" element={<Scheduled />} />
@@ -48,8 +48,14 @@ const Private = () => {
         <Route path="/dashboard/donations" element={<DonateRoute />} />
         {/* display when donation route is clicked  */}
         <Route path="/dashboard/donation" element={<DonateRoute />} />
-        <Route path="/dashboard/donations/settings" element={<WalletSettings />} />
-
+        <Route
+          path="/dashboard/donations/settings"
+          element={<WalletSettings />}
+        />
+        <Route
+          path="/dashboard/post/:username/:slug/edit"
+          element={<EditPost />}
+        />
       </Routes>
     </>
   );
