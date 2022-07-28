@@ -1,6 +1,8 @@
+require("dotenv").config();
 const Users = require("../schema/User");
 const Donation = require("../schema/Donation");
 const jwt = require("jsonwebtoken");
+const { donationEmail } = require("../utils/email");
 
 module.exports = {
   updateWalletAddressAndMinimumDonationAmount: async (req, res) => {
@@ -101,6 +103,14 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+    donationEmail(
+      user.email,
+      `You have received a donation of $${amount}`,
+      `Quickk <${process.env.SMTP_EMAIL}>`,
+      `Hi, ${user.displayName} $${amount} has been donated to you.
+      Thank you for using Quickk.
+      `
+    );
     return res.status(200).json({
       message: "Donation created",
       donation,
