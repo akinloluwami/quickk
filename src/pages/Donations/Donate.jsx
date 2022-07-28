@@ -39,7 +39,7 @@ const Donate = () => {
           <Text>Loading...</Text>
         ) : donations.length > 0 ? (
           <Flex flexWrap={"wrap"} justifyContent={"space-evenly"}>
-            {reversed.map((donation) => (
+            {reversed?.map((donation) => (
               <DonationBox
                 key={donation.id}
                 amount={donation.amount}
