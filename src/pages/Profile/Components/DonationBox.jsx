@@ -28,8 +28,6 @@ const DonationBox = ({ amount, date, message }) => {
         </Flex>
         {message && <Text>{message}</Text>}
       </Box>
-
-      <ModalLayout isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
