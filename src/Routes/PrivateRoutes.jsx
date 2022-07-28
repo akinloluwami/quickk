@@ -52,10 +52,7 @@ const Private = () => {
           path="/dashboard/donations/settings"
           element={<WalletSettings />}
         />
-        <Route
-          path="/dashboard/post/:username/:slug/edit"
-          element={<EditPost />}
-        />
+        <Route path="/dashboard/post/:slug/edit" element={<EditPost />} />
       </Routes>
     </>
   );
