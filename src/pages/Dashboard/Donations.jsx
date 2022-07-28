@@ -62,97 +62,95 @@ const DonationSettings = () => {
       <Helmet>
         <title>Donations | Quickk Dashboard</title>
       </Helmet>
-      
-      <Box my={'2em'}>
-          
-      <Box>
-          
-          
 
-
+      <Box my={"2em"}>
+        <Box>
           <Box>
-          <Box w={['100%' , '80%']} margin={"0 auto"} p={'1.5em'}>
-                <Text
-                  fontSize="3xl"
-                  my={"1em"}
-                  textAlign="center"
-                  fontWeight={500}
-                >
-                  Payout wallet
-                  <Text
-                    fontSize="sm"
-                    color={"grey"}
-                    fontWeight={"bold"}
-                    my={"0.5em"}
-                  >
-                    You can only paste your wallet address here, you are not
-                    allowed to type.
-                  </Text>
-                </Text>
-                <Input
-                  placeholder="USDT Wallet Address"
-                  marginBottom="2px"
-                  value={walletAddress}
-                  variant={'filled'}
-                  p={'1.3em'}
-                  onKeyPress={(e) => {
-                    e.preventDefault();
-                  }}
-                  onChange={(e) => setWalletAddress(e.target.value)}
-                />
+            <Box w={["100%", "80%"]} margin={"0 auto"} p={"1.5em"}>
+              <Text
+                fontSize="3xl"
+                my={"1em"}
+                textAlign="center"
+                fontWeight={500}
+              >
+                Payout wallet
                 <Text
                   fontSize="sm"
-                  color="#000"
-                  fontWeight="400"
-                  backgroundColor="#fef0ef"
-                  width={"fit-content"}
-                  px={"1em"}
-                  borderRadius={"0.5em"}
+                  color={"grey"}
+                  fontWeight={"bold"}
                   my={"0.5em"}
-                  py={"1em"}
-                  textAlign="center"
                 >
-                  Please make sure you submit a valid USDT wallet address to
-                  prevent cases of lost funds as we will not be able to verify
-                  your identity.
+                  You can only paste your wallet address here, you are not
+                  allowed to type.
                 </Text>
+              </Text>
+              <Input
+                placeholder="USDT Wallet Address"
+                marginBottom="2px"
+                value={walletAddress}
+                variant={"filled"}
+                p={"1.3em"}
+                onKeyPress={(e) => {
+                  e.preventDefault();
+                }}
+                onChange={(e) => setWalletAddress(e.target.value)}
+              />
+              <Text
+                fontSize="sm"
+                color="#000"
+                fontWeight="400"
+                backgroundColor="#fef0ef"
+                width={"fit-content"}
+                px={"1em"}
+                borderRadius={"0.5em"}
+                my={"0.5em"}
+                py={"1em"}
+                textAlign="center"
+              >
+                Please make sure you submit a valid USDT wallet address to
+                prevent cases of lost funds as we will not be able to verify
+                your identity.
+              </Text>
 
-                <Text fontSize="xl" my={'1em'} textAlign="center" fontWeight={500}>
-                  Minimum Donation Amount
-                </Text>
-                <Input
-                  placeholder="
+              <Text
+                fontSize="xl"
+                my={"1em"}
+                textAlign="center"
+                fontWeight={500}
+              >
+                Minimum Donation Amount
+              </Text>
+              <Input
+                placeholder="
                   Default: $1
                   "
-                  type={"number"}
-                  margin="2px"
-                  value={amount}
-                  variant={'filled'}
-                  p={'1.3em'}
-                  onChange={(e) => setAmount(e.target.value)}
-                />
-                <Button
-                  width={"100%"}
-                  color={"white"}
-                  borderRadius={"5"}
-                  bg={"#0031af"}
-                  py={'1.5em'}
-                  _hover={{ bg: "#19315f" }}
-                  mt={'1em'}
-                  mb={'3em'}
-                  onClick={() => {
-                    handleUpdate();
-                  }}
-                  disabled={amount < 1 || walletAddress === ""}
-                >
-                  {updating ? "Updating..." : "Update"}
-                </Button>
-              </Box>
+                type={"number"}
+                margin="2px"
+                value={amount}
+                variant={"filled"}
+                p={"1.3em"}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+              <Button
+                width={"100%"}
+                color={"white"}
+                borderRadius={"5"}
+                bg={"#0031af"}
+                py={"1.5em"}
+                _hover={{ bg: "#19315f" }}
+                mt={"1em"}
+                mb={"3em"}
+                onClick={() => {
+                  handleUpdate();
+                }}
+                disabled={amount < 1 || walletAddress === ""}
+              >
+                {updating ? "Updating..." : "Update"}
+              </Button>
+            </Box>
           </Box>
         </Box>
-
       </Box>
-
     </>
   );
 };
