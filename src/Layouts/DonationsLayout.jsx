@@ -33,7 +33,7 @@ const DonationsLayout = ({ children }) => {
       <Box display={"flex"} gap={"2em"} justifyContent={"center"}>
         {tabs.map((items) => {
           return (
-            <>
+            <Fragment>
               <NavLink
                 to={items.path}
                 style={({ isActive }) =>
@@ -42,7 +42,7 @@ const DonationsLayout = ({ children }) => {
               >
                 {items.name}
               </NavLink>
-            </>
+            </Fragment>
           );
         })}
       </Box>
