@@ -30,7 +30,14 @@ const Donate = () => {
         {isLoading ? (
           <Text>Loading...</Text>
         ) : donations.length > 0 ? (
-          donations.map((donation) => <DonationBox key={donation.id} />)
+          donations.map((donation) => (
+            <DonationBox
+              key={donation.id}
+              amount={donation.amount}
+              date={donation.donatedAt}
+              message={donation.donationMessage}
+            />
+          ))
         ) : (
           <Text>No donations yet</Text>
         )}
