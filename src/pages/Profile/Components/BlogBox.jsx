@@ -19,13 +19,15 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
   return (
     <>
       <Box
-        boxShadow="lg"
+        boxShadow="md"
         bg={"#fff"}
         my={"1em"}
         p="1em"
         borderRadius={"1em"}
-        width="300px"
-        mx={"3em"}
+        width={["300px"]}
+        
+        h={'90%'}
+
       >
         {coverImage && (
           <Img
@@ -38,7 +40,10 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
           />
         )}
         <Box>
-          <Flex flexDir={["column"]} alignItems={"center"}>
+          <Flex flexDir={["column"]}
+           alignItems={"center"}
+           
+           >
             <Box my={"1em"}>
               <Text fontWeight={"bold"} fontSize={["1.2em", "1.5em"]}>
                 {title}
@@ -49,16 +54,18 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
                   : removeTags(content)}
               </Text>
 
-              <Box display={"flex"} gap={"1em"} alignItems="center">
-                <BsCalendarDate />{" "}
-                <Text fontWeight={"bold"}>{moment(date).fromNow()}</Text>
-              </Box>
-              <Box display={"flex"} gap={"1em"} alignItems="center">
-                <AiFillHeart /> <Text fontWeight={"bold"}>{likes}</Text>
-              </Box>
-              <Box display={"flex"} gap={"1em"} alignItems="center">
-                <AiFillEye /> <Text fontWeight={"bold"}>{views}</Text>
-              </Box>
+              <Flex justifyContent={'space-between'} >
+                <Box display={"flex"}  gap={"0.5em"} alignItems={'center'} >
+                  <BsCalendarDate /> {" "}
+                  <Text fontWeight={"medium"}>{moment(date).fromNow()}</Text>
+                </Box>
+                <Box display={"flex"} gap={"1em"} alignItems="center">
+                  <AiFillHeart fill="red"/> <Text fontWeight={"medium"}>{likes}</Text>
+                </Box>
+                <Box display={"flex"} gap={"1em"} alignItems="center">
+                  <AiFillEye /> <Text fontWeight={"medium"}>{views}</Text>
+                </Box>
+              </Flex>
             </Box>
           </Flex>
           <Box></Box>
