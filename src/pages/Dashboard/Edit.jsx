@@ -93,10 +93,17 @@ const EditPost = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    toast.success("Post updated successfully");
-    setInterval(() => {
-      navigate("/dashboard/posts");
-    }, 1000);
+
+    if (res.status === 200) {
+      toast.success("Post updated successfully");
+      setTimeout(() => {
+        navigate("/dashboard/posts");
+      }, 1500);
+    } else {
+      setError(true);
+      setErrorMessage(res.response.data.error);
+      toast.error(res.response.data.error);
+    }
   };
   /*Select text to change formatting, add headers, or create links.*/
   return (
