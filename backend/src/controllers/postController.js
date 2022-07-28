@@ -93,6 +93,7 @@ module.exports = {
     const slugExists = await Post.findOne({
       where: {
         slug,
+        userUuid: user.uuid,
       },
     });
     if (slugExists) {
@@ -112,9 +113,9 @@ module.exports = {
       post,
     });
   },
-  /******************************************************/
+
   editPost: async (req, res) => {
-    const { title, content, userUuid, slug } = req.body;
+    const { title, content, coverImageUrl } = req.body;
     const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
@@ -130,9 +131,14 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "Cannot find user2",
+        message: "Cannot find user",
       });
     }
+    const slug = title
+      .replace(/\s/g, "-")
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, "");
+
     if (!title || !content) {
       return res.status(400).json({
         message: "Title and content are required",
@@ -143,28 +149,39 @@ module.exports = {
         message: "Title must be less than 100 characters",
       });
     }
-    if (content.length < 100) {
+    if (content.length < 50) {
       return res.status(400).json({
-        message: "Content must be at least 100 characters",
+        message: "Content must be at least 50 characters",
       });
     }
-    const post = await Post.findOne({
+    const slugExists = await Post.findOne({
       where: {
-        userUuid,
         slug,
+        userUuid: user.uuid,
       },
     });
-    if (!post) {
+    if (slugExists) {
       return res.status(400).json({
-        message: "Post not found",
+        message: "Post with this title already exists",
       });
     }
-    post.title = title;
-    post.content = content;
-    post.updatedAt = new Date();
-    await post.save();
-    res.status(200).json({
-      message: "Post updated successfully",
+    const post = await Post.update(
+      {
+        title,
+        content,
+        userUuid: user.uuid,
+        slug,
+        coverImageUrl,
+      },
+      {
+        where: {
+          uuid: user.uuid,
+        },
+      }
+    );
+    return res.status(201).json({
+      message: "Post created successfully",
+      post,
     });
   },
   /******************************************************/
