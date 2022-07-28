@@ -59,10 +59,6 @@ const DonationSettings = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Donations | Quickk Dashboard</title>
-      </Helmet>
-
       <Box my={"2em"}>
         <Box>
           <Box>

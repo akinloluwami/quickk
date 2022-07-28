@@ -25,7 +25,7 @@ const EditPost = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [domImage, setDomImage] = useState("");
   const username = localStorage.getItem("username");
-  const slug = window.location.pathname.split("/")[4];
+  const slug = window.location.pathname.split("/")[3];
 
   useEffect(() => {
     const response = fetchData(`/post/${username}/${slug}`);
@@ -93,7 +93,17 @@ const EditPost = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    console.log(res);
+
+    if (res.status === 200) {
+      toast.success("Post updated successfully");
+      setTimeout(() => {
+        navigate("/dashboard/posts");
+      }, 1500);
+    } else {
+      setError(true);
+      setErrorMessage(res.response.data.error);
+      toast.error(res.response.data.error);
+    }
   };
   /*Select text to change formatting, add headers, or create links.*/
   return (
@@ -115,7 +125,7 @@ const EditPost = () => {
               onChange={handleImageInput}
               display={"none"}
             />
-            {!image ? (
+            {!domImage ? (
               <Button
                 variantcolor={"teal"}
                 onClick={() => {
@@ -148,7 +158,7 @@ const EditPost = () => {
                       </Text>
                     ) : (
                       <Button>
-                        <Text color={"teal"}>Image uploaded successfully</Text>
+                        <Text color={"teal"}>Cover Image Selected</Text>
                       </Button>
                     )}
                   </>

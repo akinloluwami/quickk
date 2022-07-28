@@ -209,242 +209,249 @@ function BlogPost() {
 
   return (
     <>
-    
       <ContainerLayout>
-      <Fragment>
-      <Helmet>
-        <title>
-          {postTitle} | {ownerDisplayName}
-        </title>
-      </Helmet>
-      <Box
-        px={["0", "4em"]}
-        position={"fixed"}
-        left={0}
-        right={0}
-        top={0}
-        zIndex={999}
-      >
-        <Flex
-          alignItems={"center"}
-          justifyContent={"space-between"}
-          backgroundColor={"#fff"}
-          py={"1em"}
-        >
-          <Link href={`/${username}`} display={"flex"} alignItems={"center"}>
-            <Avatar src={ownerProfileImage} />
-            <Text ml={"0.5em"} fontSize={"1.5em"} fontWeight={"bold"}>
-              {ownerDisplayName}
-            </Text>
-          </Link>
-          {localStorage.getItem("token") && !isOwner ? (
-            <Menu>
-              <MenuButton>
-                <Flex alignItems={"center"} gap={"1em"}>
-                  {viewerProfilePicture ? (
-                    <Avatar my={"1em"} src={viewerProfilePicture} size={"md"} />
-                  ) : (
-                    <Avatar
-                      src={`https://avatars.dicebear.com/api/initials/${viewerDisplayName}.svg`}
-                      size={"md"}
+        <Fragment>
+          <Helmet>
+            <title>
+              {postTitle} | {ownerDisplayName}
+            </title>
+          </Helmet>
+          <Box
+            px={["0", "4em"]}
+            position={"fixed"}
+            left={0}
+            right={0}
+            top={0}
+            zIndex={999}
+          >
+            <Flex
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              backgroundColor={"#fff"}
+              py={"1em"}
+            >
+              <Link
+                href={`/${username}`}
+                display={"flex"}
+                alignItems={"center"}
+              >
+                <Avatar src={ownerProfileImage} />
+                <Text ml={"0.5em"} fontSize={"1.5em"} fontWeight={"bold"}>
+                  {ownerDisplayName}
+                </Text>
+              </Link>
+              {localStorage.getItem("token") && !isOwner ? (
+                <Menu>
+                  <MenuButton>
+                    <Flex alignItems={"center"} gap={"1em"}>
+                      {viewerProfilePicture ? (
+                        <Avatar
+                          my={"1em"}
+                          src={viewerProfilePicture}
+                          size={"md"}
+                        />
+                      ) : (
+                        <Avatar
+                          src={`https://avatars.dicebear.com/api/initials/${viewerDisplayName}.svg`}
+                          size={"md"}
+                          my={"1em"}
+                        />
+                      )}
+
+                      <Text fontWeight={"bold"} display={["none", "block"]}>
+                        {viewerDisplayName}
+                      </Text>
+                      <Text>
+                        <BiChevronDown />
+                      </Text>
+                    </Flex>
+                  </MenuButton>
+
+                  <MenuList>
+                    <Link href={`/${viewerUserName}`}>
+                      <MenuItem>
+                        <Text mr="1em">
+                          <BiUserCircle />
+                        </Text>{" "}
+                        Profile.
+                      </MenuItem>
+                    </Link>
+                    <Link href="/edit-profile">
+                      <MenuItem>
+                        <Text mr="1em">
+                          <FaUserEdit />
+                        </Text>{" "}
+                        Edit Profile
+                      </MenuItem>
+                    </Link>
+
+                    <MenuItem
+                      onClick={() => {
+                        handleLogout();
+                      }}
+                    >
+                      <Text mr="1em">
+                        <FiLogOut />
+                      </Text>
+                      logout
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              ) : isOwner ? (
+                <Link href={`/dashboard/post/${slug}/edit`}>
+                  <Button
+                    gap={"0.5em"}
+                    color={"#fff"}
+                    bg={"#0031af"}
+                    _hover={{ bg: "#0031af" }}
+                  >
+                    <FaEdit />
+                    Edit
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/">
+                  <Button>Login</Button>
+                </Link>
+              )}
+            </Flex>
+          </Box>
+          <ContainerLayout>
+            <Box my={"8em"}>
+              {loading ? (
+                <>
+                  <ContentLoader />
+                </>
+              ) : error ? (
+                <Text>{errorMessage}</Text>
+              ) : (
+                <Box px={["", "5em"]}>
+                  <Text
+                    fontSize={["2em", "5xl"]}
+                    fontWeight={"bold"}
+                    my={"1em"}
+                    textAlign={"center"}
+                  >
+                    {postTitle}
+                  </Text>
+
+                  <Flex gap={"2em"} my={"1em"} justifyContent="center">
+                    <Flex alignItems={"center"}>
+                      <Text mr={"0.5em"}>
+                        <AiFillEye />{" "}
+                      </Text>
+                      <Text>
+                        {postViews}
+                        {postViews === 1 ? " view" : " views"}
+                      </Text>
+                    </Flex>
+
+                    <Flex gap={"0.5em"} alignItems={"center"}>
+                      <AiFillHeart />
+                      <Text>
+                        {postLikesCount}{" "}
+                        {postLikesCount === 1 ? "like" : "likes"}
+                      </Text>
+                    </Flex>
+
+                    <Flex alignItems={"center"} gap={"0.5em"}>
+                      <AiOutlineComment />
+                      {postComments.length > 0 ? (
+                        <>
+                          <Text>{postComments.length} comment</Text>
+                        </>
+                      ) : (
+                        <Text>No comments</Text>
+                      )}
+                    </Flex>
+                  </Flex>
+
+                  {coverImage && (
+                    <Box
+                      width={"100%"}
+                      height={"400px"}
+                      backgroundImage={`url(${coverImage})`}
+                      backgroundSize={"cover"}
+                      backgroundPosition={"center"}
+                      borderRadius={"0.2em"}
                       my={"1em"}
                     />
                   )}
+                  {ReactHtmlParser(postContent)}
 
-                  <Text fontWeight={"bold"} display={["none", "block"]}>
-                    {viewerDisplayName}
-                  </Text>
-                  <Text>
-                    <BiChevronDown />
-                  </Text>
-                </Flex>
-              </MenuButton>
+                  {/* Make views and others flex  */}
+                  <Box my={"1em"}>
+                    {/* section to display comments  */}
 
-              <MenuList>
-                <Link href={`/${viewerUserName}`}>
-                  <MenuItem>
-                    <Text mr="1em">
-                      <BiUserCircle />
-                    </Text>{" "}
-                    Profile.
-                  </MenuItem>
-                </Link>
-                <Link href="/edit-profile">
-                  <MenuItem>
-                    <Text mr="1em">
-                      <FaUserEdit />
-                    </Text>{" "}
-                    Edit Profile
-                  </MenuItem>
-                </Link>
+                    <Box my={"1em"}>
+                      {postComments.length > 0 ? (
+                        <>
+                          <Text mt={"3em"} fontWeight={"bold"}>
+                            Comments
+                          </Text>
+                          <Box>{displayComments()}</Box>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </Box>
 
-                <MenuItem
-                  onClick={() => {
-                    handleLogout();
-                  }}
-                >
-                  <Text mr="1em">
-                    <FiLogOut />
-                  </Text>
-                  logout
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          ) : isOwner ? (
-            <Link href={`/dashboard/post/${username}/${slug}/edit`}>
-              <Button
-                gap={"0.5em"}
-                color={"#fff"}
-                bg={"#0031af"}
-                _hover={{ bg: "#0031af" }}
-              >
-                <FaEdit />
-                Edit
-              </Button>
-            </Link>
-          ) : (
-            <Link href="/">
-              <Button>Login</Button>
-            </Link>
-          )}
-        </Flex>
-      </Box>
-      <ContainerLayout>
-        <Box my={"8em"}>
-          {loading ? (
-            <>
-              <ContentLoader />
-            </>
-          ) : error ? (
-            <Text>{errorMessage}</Text>
-          ) : (
-            <Box px={["", "5em"]}>
-              <Text
-                fontSize={["2em","5xl"]}
-                fontWeight={"bold"}
-                my={"1em"}
-                textAlign={"center"}
-              >
-                {postTitle}
-              </Text>
-              
-              <Flex gap={"2em"} my={'1em'} justifyContent="center">
-                <Flex alignItems={"center"}>
-                  <Text mr={"0.5em"}>
-                    <AiFillEye />{" "}
-                  </Text>
-                  <Text>
-                    {postViews}
-                    {postViews === 1 ? " view" : " views"}
-                  </Text>
-                </Flex>
-
-                <Flex gap={"0.5em"} alignItems={"center"}>
-                  <AiFillHeart />
-                  <Text>
-                    {postLikesCount} {postLikesCount === 1 ? "like" : "likes"}
-                  </Text>
-                </Flex>
-
-                <Flex alignItems={"center"} gap={"0.5em"}>
-                  <AiOutlineComment />
-                  {postComments.length > 0 ? (
-                    <>
-                      <Text>{postComments.length} comment</Text>
-                    </>
-                  ) : (
-                    <Text>No comments</Text>
-                  )}
-                </Flex>
-              </Flex>
-
-              {coverImage && (
-                <Box
-                  width={"100%"}
-                  height={"400px"}
-                  backgroundImage={`url(${coverImage})`}
-                  backgroundSize={"cover"}
-                  backgroundPosition={"center"}
-                  borderRadius={"0.2em"}
-                  my={"1em"}
-                />
-              )}
-              {ReactHtmlParser(postContent)}
-
-              {/* Make views and others flex  */}
-              <Box my={"1em"}>
-                {/* section to display comments  */}
-
-                <Box my={"1em"}>
-                  {postComments.length > 0 ? (
-                    <>
-                      <Text mt={"3em"} fontWeight={"bold"}>
-                        Comments
-                      </Text>
-                      <Box>{displayComments()}</Box>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </Box>
-
-                {/* Display comment end here */}
-              </Box>
-
-              {isOwner ? (
-                <Link href={`/dashboard/post/${username}/${slug}/edit`}>
-                  <Button>Edit</Button>
-                </Link>
-              ) : !localStorage.getItem("token") ? (
-                <>
-                  <Text>
-                    <Link href="/login">
-                      <Button>Login</Button>
-                    </Link>{" "}
-                    to like and comment
-                  </Text>
-                </>
-              ) : (
-                <Box>
-                  {hasLiked ? (
-                    <RiHeart3Fill
-                      color="red"
-                      onClick={unlikePost}
-                      style={{
-                        fontSize: "40px",
-                      }}
-                    />
-                  ) : (
-                    <RiHeart3Fill
-                      onClick={likePost}
-                      style={{
-                        fontSize: "40px",
-                        color: "rgba(0,0,0,0.3)",
-                      }}
-                    />
-                  )}
-                  <Box>
-                    <Text>Add a comment</Text>
-                    <Textarea
-                      onChange={(e) => setNewComment(e.target.value)}
-                      ref={commentTextareaRef}
-                    />
-                    <Button
-                      disabled={commenting || newComment.length === 0}
-                      onClick={commentOnPost}
-                    >
-                      {commenting ? "Commenting..." : "Comment"}
-                    </Button>
+                    {/* Display comment end here */}
                   </Box>
+
+                  {isOwner ? (
+                    <Link href={`/dashboard/post/${slug}/edit`}>
+                      <Button>Edit</Button>
+                    </Link>
+                  ) : !localStorage.getItem("token") ? (
+                    <>
+                      <Text>
+                        <Link href="/login">
+                          <Button>Login</Button>
+                        </Link>{" "}
+                        to like and comment
+                      </Text>
+                    </>
+                  ) : (
+                    <Box>
+                      {hasLiked ? (
+                        <RiHeart3Fill
+                          color="red"
+                          onClick={unlikePost}
+                          style={{
+                            fontSize: "40px",
+                          }}
+                        />
+                      ) : (
+                        <RiHeart3Fill
+                          onClick={likePost}
+                          style={{
+                            fontSize: "40px",
+                            color: "rgba(0,0,0,0.3)",
+                          }}
+                        />
+                      )}
+                      <Box>
+                        <Text>Add a comment</Text>
+                        <Textarea
+                          onChange={(e) => setNewComment(e.target.value)}
+                          ref={commentTextareaRef}
+                        />
+                        <Button
+                          disabled={commenting || newComment.length === 0}
+                          onClick={commentOnPost}
+                        >
+                          {commenting ? "Commenting..." : "Comment"}
+                        </Button>
+                      </Box>
+                    </Box>
+                  )}
                 </Box>
               )}
             </Box>
-          )}
-        </Box>
+          </ContainerLayout>
+        </Fragment>
       </ContainerLayout>
-    </Fragment>
-      </ContainerLayout>
-    
     </>
   );
 }

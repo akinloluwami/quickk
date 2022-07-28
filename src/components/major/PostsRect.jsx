@@ -144,16 +144,18 @@ function PostsRect({
               </Button>
             </Link>
 
-            <Button variantColor="teal" size="sm" mx={"10px"}>
-              <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
-                <FiEdit
-                  style={{
-                    marginRight: "5px",
-                  }}
-                />
-                Edit
-              </Text>
-            </Button>
+            <Link to={`/dashboard/post/${slug}/edit`}>
+              <Button variantColor="teal" size="sm" mx={"10px"}>
+                <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
+                  <FiEdit
+                    style={{
+                      marginRight: "5px",
+                    }}
+                  />
+                  Edit
+                </Text>
+              </Button>
+            </Link>
 
             <Button
               variantColor="red"
