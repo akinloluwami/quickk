@@ -33,7 +33,7 @@ const DonationsLayout = ({ children }) => {
       <Box display={"flex"} gap={"2em"} justifyContent={"center"}>
         {tabs.map((items) => {
           return (
-            <Fragment>
+            <Fragment key={tabs.indexOf(items)}>
               <NavLink
                 to={items.path}
                 style={({ isActive }) =>
