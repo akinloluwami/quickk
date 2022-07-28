@@ -45,10 +45,10 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
            
            >
             <Box my={"1em"}>
-              <Text fontWeight={"bold"} fontSize={["1.2em", "1.5em"]}>
+              <Text fontWeight={"bold"} fontSize={["1.2em", "1.4em"]}>
                 {title}
               </Text>
-              <Text my={"1em"}>
+              <Text my={"1em"} color={"gray.700"}>
                 {removeTags(content).length > 100
                   ? content.substring(0, 100) + "..."
                   : removeTags(content)}

@@ -17,10 +17,10 @@ function Links() {
 
   return (
     <>
-      <Box display={"flex"} flexDirection="column">
+      <Box display={"flex"}  flexDirection="column">
         {userLinks.map((link) => (
           <Link key={link.id} href={link.url} target="_blank">
-            <Button width={"400px"} my={4} p={4} borderRadius="10px">
+            <Button width={["100%","400px"]}  my={4} p={4} borderRadius="10px">
               {link.title}
             </Button>
           </Link>

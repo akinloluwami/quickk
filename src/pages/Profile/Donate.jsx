@@ -69,7 +69,12 @@ function Donate() {
       </Helmet>
       <ContainerLayout>
         <ProfileLayout>
-          <Box>
+          <Box display={'flex'} 
+          justifyContent={'center'}
+          bg={'#fff'}
+          >
+            
+          
             <DonationForm />
           </Box>
         </ProfileLayout>

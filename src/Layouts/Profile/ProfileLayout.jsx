@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
 import DashboardTop from "../Dashboard/DashboardTop";
 import { NavLink } from "react-router-dom";
+import ProfileFooter from "../../pages/Profile/Components/ProfileFooter";
 
 const ProfileLayout = ({ children }) => {
 
@@ -179,14 +180,17 @@ const ProfileLayout = ({ children }) => {
           <Button onClick={followUser}>Follow</Button>
         )}
       </Flex>
+      
       <Flex
         // bg={"#e2e8f0"}
         
         w={"100%"}
         px={"2em"}
         py={"1.5em"}
-        justifyContent={["space-between" , " left "]}
+        justifyContent={["space-between" , " center "]}
         gap={['' , '5em']}
+        alignItems={'center'}
+
       >
         {/* <ProfileBlock /> */}
         <NavLink to={`/${username}`} boxShadow={"sm"} 
@@ -216,6 +220,8 @@ const ProfileLayout = ({ children }) => {
       <Box my={"1em"} mx={['' , '2em']}>{children}</Box>
     </Box>
     
+
+    <ProfileFooter />
     </>
   );
 };
