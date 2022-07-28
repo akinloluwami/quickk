@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import DonationBox from "../Profile/Components/DonationBox";
 import { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
@@ -30,14 +30,16 @@ const Donate = () => {
         {isLoading ? (
           <Text>Loading...</Text>
         ) : donations.length > 0 ? (
-          donations.map((donation) => (
-            <DonationBox
-              key={donation.id}
-              amount={donation.amount}
-              date={donation.donatedAt}
-              message={donation.donationMessage}
-            />
-          ))
+          <Flex flexWrap={"wrap"} justifyContent={"space-evenly"}>
+            {donations.map((donation) => (
+              <DonationBox
+                key={donation.id}
+                amount={donation.amount}
+                date={donation.donatedAt}
+                message={donation.donationMessage}
+              />
+            ))}
+          </Flex>
         ) : (
           <Text>No donations yet</Text>
         )}
