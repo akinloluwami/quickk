@@ -93,6 +93,7 @@ const EditPost = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
+    toast.success("Post updated successfully");
     setInterval(() => {
       navigate("/dashboard/posts");
     }, 1000);
