@@ -2,6 +2,9 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { BiTime } from "react-icons/bi";
 import moment from "moment";
 const DonationBox = ({ amount, date, message }) => {
+  const formatWithCommas = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
   return (
     <>
       <Box
@@ -12,10 +15,12 @@ const DonationBox = ({ amount, date, message }) => {
         margin={"1em"}
         width="fit-content"
         boxShadow={"md"}
+        position={"relative"}
+        minWidth={"20em"}
       >
         <Box my={"1em"}>
-          <Text fontSize="40px" fontWeight={500} color={"green.500"}>
-            ${amount}
+          <Text fontSize="50px" fontWeight={500} color={"green.500"}>
+            ${formatWithCommas(amount)}
           </Text>
         </Box>
 
@@ -25,12 +30,24 @@ const DonationBox = ({ amount, date, message }) => {
             gap={"0.5em"}
             alignItems={"center"}
             color={"gray"}
+            position="absolute"
+            top={"0"}
+            right={"0"}
+            bg="rgba(0,255,0,0.3)"
+            borderRadius={"0 0.5em 0 0.5em"}
+            px={"0.5em"}
           >
             <BiTime />
-            <Text>{moment(date).fromNow()}</Text>
+            <Text fontSize="sm" color={"grey"} my="10px">
+              {moment(date).fromNow()}
+            </Text>
           </Box>
         </Flex>
-        {message && <Text>{message}</Text>}
+        {message && (
+          <Text fontWeight={500} fontSize="md" color={"grey"}>
+            {message}
+          </Text>
+        )}
       </Box>
     </>
   );
