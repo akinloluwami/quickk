@@ -2,7 +2,7 @@ import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import { Box, Input, Button, Flex, Text, Textarea } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
-import { postData } from "../../utils/Request";
+import { fetchData, postData } from "../../utils/Request";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,10 +24,29 @@ const EditPost = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [domImage, setDomImage] = useState("");
+  const username = localStorage.getItem("username");
+  const slug = window.location.pathname.split("/")[4];
+
+  useEffect(() => {
+    const response = fetchData(`/post/${username}/${slug}`);
+    response.then((data) => {
+      if (data.status === 200) {
+        console.log(data);
+        setPostTitle(data.data.post.title);
+        setPostContent(data.data.post.content);
+        setDomImage(data.data.post.coverImageUrl);
+        setCoverImageUrl(data.data.post.coverImageUrl);
+      } else {
+        setError(true);
+        setErrorMessage(data.response.data.error);
+      }
+    });
+  }, []);
 
   const handleClick = () => {
     inputRef.current.click();
   };
+
   const uploadCoverImage = async () => {
     setUploading(true);
     const formData = new FormData();
@@ -68,17 +87,13 @@ const EditPost = () => {
       content: postContent,
       coverImageUrl: coverImageUrl,
     };
-    const res = await postData("/post/edit", data, {
+    const res = await postData(`/post/edit?slug=${slug}`, data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    toast.success("Post updated successfully");
-    setTimeout(() => {
-      navigate("/dashboard/posts");
-    }, 2000);
-    console.log(res.data.post);
+    console.log(res);
   };
   /*Select text to change formatting, add headers, or create links.*/
   return (
@@ -157,7 +172,7 @@ const EditPost = () => {
               {publishing ? "Updating..." : "Update"}
             </Button>
           </Flex>
-          {image && !error && (
+          {domImage && !error && (
             <Box
               display={"flex"}
               justifyContent={"center"}
@@ -192,6 +207,7 @@ const EditPost = () => {
             fontSize={"1.5em"}
             height={"1em"}
             fontWeight={"500"}
+            value={postTitle}
             py={"1em"}
             onChange={(e) => {
               setPostTitle(e.target.value);
@@ -199,6 +215,7 @@ const EditPost = () => {
           />
 
           <Editor
+            text={postContent}
             options={{
               toolbar: {
                 buttons: [
@@ -212,14 +229,12 @@ const EditPost = () => {
                 ],
               },
               placeholder: {
-                text: "Write your article...",
+                text: "",
                 hideOnClick: true,
               },
             }}
-            placeholder={"Write your article..."}
             onChange={(value) => {
               setPostContent(value);
-              console.log(value);
             }}
             style={{
               borderRadius: "10px",
