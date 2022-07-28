@@ -44,61 +44,61 @@ const Profile = () => {
 
   return (
     <>
-      <Box >
-
-      <ContainerLayout>
-      <Helmet>
-        <title>
-          {displayName} | @{username}
-        </title>
-      </Helmet>
-      {loading ? (
-        <Center>
-          <Box>
-            <LoadingProfile />
-          </Box>
-        </Center>
-      ) : error ? (
-        <Center>
-          <Box>
-            <NoUser message={errorMessage} />
-          </Box>
-        </Center>
-      ) : (
-        <ProfileLayout>
-          <Box>
-            {posts.length < 1 ? (
+      <Box>
+        <ContainerLayout>
+          <Helmet>
+            <title>
+              {displayName} | @{username}
+            </title>
+          </Helmet>
+          {loading ? (
+            <Center>
               <Box>
-                <Text>No posts from this user yet.</Text>
+                <LoadingProfile />
               </Box>
-            ) : (
-              <Flex flexWrap={"wrap"} justifyContent={["center" , 'left']}
-              gap={['1em','2em']}
-              >
-                {posts.map((post) => (
-                  <Link
-                    href={`/${username}/${post.slug}`}
-                    key={post.id}
-                    width="fit-content"
+            </Center>
+          ) : error ? (
+            <Center>
+              <Box>
+                <NoUser message={errorMessage} />
+              </Box>
+            </Center>
+          ) : (
+            <ProfileLayout>
+              <Box>
+                {posts.length < 1 ? (
+                  <Box>
+                    <Text>No posts from this user yet.</Text>
+                  </Box>
+                ) : (
+                  <Flex
+                    flexWrap={"wrap"}
+                    justifyContent={["center", "left"]}
+                    gap={["1em", "2em"]}
                   >
-                    <BlogBox
-                      title={post.title}
-                      slug={post.slug}
-                      content={post.content}
-                      date={post.createdAt}
-                      likes={post.likes.length}
-                      coverImage={post.coverImageUrl}
-                      views={post.views.length}
-                    />
-                  </Link>
-                ))}
-              </Flex>
-            )}
-          </Box>
-        </ProfileLayout>
-      )}
-      </ContainerLayout>
-
+                    {posts.map((post) => (
+                      <Link
+                        href={`/${username}/${post.slug}`}
+                        key={post.id}
+                        width="fit-content"
+                      >
+                        <BlogBox
+                          title={post.title}
+                          slug={post.slug}
+                          content={post.content}
+                          date={post.createdAt}
+                          likes={post.likes.length}
+                          coverImage={post.coverImageUrl}
+                          views={post.views.length}
+                        />
+                      </Link>
+                    ))}
+                  </Flex>
+                )}
+              </Box>
+            </ProfileLayout>
+          )}
+        </ContainerLayout>
       </Box>
     </>
   );

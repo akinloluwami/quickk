@@ -2,7 +2,7 @@ import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import { Box, Input, Button, Flex, Text, Textarea } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
 import { useRef, useState } from "react";
-import { postData } from "../../utils/Request";
+import { fetchData, postData } from "../../utils/Request";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,10 +11,8 @@ import { Helmet } from "react-helmet";
 import Editor from "react-medium-editor";
 import "medium-editor/dist/css/medium-editor.css";
 import "medium-editor/dist/css/themes/default.css";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-const Write = () => {
+const EditPost = () => {
   const navigate = useNavigate();
   const inputRef = useRef();
   const [image, setImage] = useState(null);
@@ -26,10 +24,29 @@ const Write = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [domImage, setDomImage] = useState("");
+  const username = localStorage.getItem("username");
+  const slug = window.location.pathname.split("/")[4];
+
+  useEffect(() => {
+    const response = fetchData(`/post/${username}/${slug}`);
+    response.then((data) => {
+      if (data.status === 200) {
+        console.log(data);
+        setPostTitle(data.data.post.title);
+        setPostContent(data.data.post.content);
+        setDomImage(data.data.post.coverImageUrl);
+        setCoverImageUrl(data.data.post.coverImageUrl);
+      } else {
+        setError(true);
+        setErrorMessage(data.response.data.error);
+      }
+    });
+  }, []);
 
   const handleClick = () => {
     inputRef.current.click();
   };
+
   const uploadCoverImage = async () => {
     setUploading(true);
     const formData = new FormData();
@@ -63,32 +80,26 @@ const Write = () => {
     setCoverImageUrl("");
   };
 
-  const handlePublish = async () => {
+  const handleUpdate = async () => {
     setPublishing(true);
     const data = {
       title: postTitle,
       content: postContent,
       coverImageUrl: coverImageUrl,
     };
-    const res = await postData("/post/create", data, {
+    const res = await postData(`/post/edit?slug=${slug}`, data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    toast.success("Post created successfully");
-    setTimeout(() => {
-      navigate("/dashboard/posts");
-    }, 2000);
-    console.log(res.data.post);
+    console.log(res);
   };
   /*Select text to change formatting, add headers, or create links.*/
   return (
     <>
       <Helmet>
-        <title>
-          {postTitle ? `Editing "${postTitle}"` : "Create New Post"}
-        </title>
+        <title>{postTitle ? `Editing "${postTitle}"` : "Edit Post"}</title>
       </Helmet>
       <DashboardLayout>
         <ToastContainer />
@@ -147,7 +158,7 @@ const Write = () => {
             <Button
               backgroundColor={"#0031af"}
               color={"#fff"}
-              onClick={handlePublish}
+              onClick={handleUpdate}
               _hover={{ backgroundColor: "#0031af" }}
               disabled={
                 !postTitle ||
@@ -158,10 +169,10 @@ const Write = () => {
                 publishing
               }
             >
-              {publishing ? "Publishing..." : "Publish"}
+              {publishing ? "Updating..." : "Update"}
             </Button>
           </Flex>
-          {image && !error && (
+          {domImage && !error && (
             <Box
               display={"flex"}
               justifyContent={"center"}
@@ -196,26 +207,15 @@ const Write = () => {
             fontSize={"1.5em"}
             height={"1em"}
             fontWeight={"500"}
+            value={postTitle}
             py={"1em"}
             onChange={(e) => {
               setPostTitle(e.target.value);
             }}
           />
-          {/* <Textarea
-            placeholder={"Write your article..."}
-            fontSize={"1.5em"}
-            height={"100%"}
-            fontWeight={"500"}
-            py={"1em"}
-            px={"1em"}
-            borderRadius={"10px"}
-            border={"1px solid #0031af"}
-            marginTop={"10px"}
-            onChange={(e) => {
-              setPostContent(e.target.value);
-            }}
-          /> */}
+
           <Editor
+            text={postContent}
             options={{
               toolbar: {
                 buttons: [
@@ -229,14 +229,12 @@ const Write = () => {
                 ],
               },
               placeholder: {
-                text: "Write your article...",
+                text: "",
                 hideOnClick: true,
               },
             }}
-            placeholder={"Write your article..."}
             onChange={(value) => {
               setPostContent(value);
-              console.log(value);
             }}
             style={{
               borderRadius: "10px",
@@ -249,43 +247,10 @@ const Write = () => {
               overflowY: "scroll",
             }}
           />
-          {/* <CKEditor
-            editor={ClassicEditor}
-            data={postContent}
-            onChange={(value, editor, event) => {
-              setPostContent(value);
-              const data = editor.getData();
-              console.log({ data, event, editor });
-            }}
-            placeholder={"Write your article..."}
-            toolbar={{
-              options: [
-                "heading",
-                "|",
-                "bold",
-                "italic",
-                "link",
-                "bulletedList",
-                "numberedList",
-                "blockQuote",
-                "undo",
-                "redo",
-              ],
-            }}
-            style={{
-              borderRadius: "10px",
-              border: "1px solid #0031af",
-              marginTop: "10px",
-              padding: "10px",
-              height: "fit-content",
-              fontSize: "1.5em",
-              fontWeight: "500",
-            }}
-          /> */}
         </Flex>
       </DashboardLayout>
     </>
   );
 };
 
-export default Write;
+export default EditPost;

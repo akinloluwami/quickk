@@ -25,9 +25,7 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
         p="1em"
         borderRadius={"1em"}
         width={["300px"]}
-        
-        h={'90%'}
-
+        h={"90%"}
       >
         {coverImage && (
           <Img
@@ -40,10 +38,7 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
           />
         )}
         <Box>
-          <Flex flexDir={["column"]}
-           alignItems={"center"}
-           
-           >
+          <Flex flexDir={["column"]} alignItems={"center"}>
             <Box my={"1em"}>
               <Text fontWeight={"bold"} fontSize={["1.2em", "1.4em"]}>
                 {title}
@@ -54,13 +49,14 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
                   : removeTags(content)}
               </Text>
 
-              <Flex justifyContent={'space-between'} >
-                <Box display={"flex"}  gap={"0.5em"} alignItems={'center'} >
-                  <BsCalendarDate /> {" "}
+              <Flex justifyContent={"space-between"}>
+                <Box display={"flex"} gap={"0.5em"} alignItems={"center"}>
+                  <BsCalendarDate />{" "}
                   <Text fontWeight={"medium"}>{moment(date).fromNow()}</Text>
                 </Box>
                 <Box display={"flex"} gap={"1em"} alignItems="center">
-                  <AiFillHeart fill="red"/> <Text fontWeight={"medium"}>{likes}</Text>
+                  <AiFillHeart fill="red" />{" "}
+                  <Text fontWeight={"medium"}>{likes}</Text>
                 </Box>
                 <Box display={"flex"} gap={"1em"} alignItems="center">
                   <AiFillEye /> <Text fontWeight={"medium"}>{views}</Text>

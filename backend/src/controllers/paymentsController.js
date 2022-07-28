@@ -1,6 +1,8 @@
+require("dotenv").config();
 const Users = require("../schema/User");
 const Donation = require("../schema/Donation");
 const jwt = require("jsonwebtoken");
+const { donationEmail } = require("../utils/email");
 
 module.exports = {
   updateWalletAddressAndMinimumDonationAmount: async (req, res) => {
@@ -101,9 +103,45 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+    donationEmail(
+      user.email,
+      `You have received a donation of $${amount}`,
+      `Quickk <${process.env.SMTP_EMAIL}>`,
+      `Hi, ${user.displayName} $${amount} has been donated to you.
+      Thank you for using Quickk.
+      `
+    );
     return res.status(200).json({
       message: "Donation created",
       donation,
+    });
+  },
+  getDonations: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await Users.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const donations = await Donation.findAll({
+      where: {
+        userUuid: user.uuid,
+      },
+    });
+    return res.status(200).json({
+      donations,
     });
   },
 };
