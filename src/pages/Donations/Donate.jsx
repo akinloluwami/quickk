@@ -6,6 +6,7 @@ import { fetchData, postData } from "../../utils/Request";
 const Donate = () => {
   const [donations, setDonations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [reversed, setReversed] = useState();
 
   useEffect(() => {
     const response = fetchData("/payment/get-donations", {
@@ -23,6 +24,13 @@ const Donate = () => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    if (donations.length > 0) {
+      setReversed(donations.reverse());
+    }
+  }, [donations]);
+
   return (
     <>
       <Box maxW={["100%", "70%"]} mx={"auto"} py={"2em"}>
@@ -31,7 +39,7 @@ const Donate = () => {
           <Text>Loading...</Text>
         ) : donations.length > 0 ? (
           <Flex flexWrap={"wrap"} justifyContent={"space-evenly"}>
-            {donations.map((donation) => (
+            {reversed.map((donation) => (
               <DonationBox
                 key={donation.id}
                 amount={donation.amount}
