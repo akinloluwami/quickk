@@ -208,7 +208,10 @@ function BlogPost() {
   };
 
   return (
-    <Fragment>
+    <>
+    
+      <ContainerLayout>
+      <Fragment>
       <Helmet>
         <title>
           {postTitle} | {ownerDisplayName}
@@ -317,14 +320,15 @@ function BlogPost() {
           ) : (
             <Box px={["", "5em"]}>
               <Text
-                fontSize={"5xl"}
+                fontSize={["2em","5xl"]}
                 fontWeight={"bold"}
                 my={"1em"}
                 textAlign={"center"}
               >
                 {postTitle}
               </Text>
-              <Flex gap={"2em"} justifyContent="center">
+              
+              <Flex gap={"2em"} my={'1em'} justifyContent="center">
                 <Flex alignItems={"center"}>
                   <Text mr={"0.5em"}>
                     <AiFillEye />{" "}
@@ -353,6 +357,7 @@ function BlogPost() {
                   )}
                 </Flex>
               </Flex>
+
               {coverImage && (
                 <Box
                   width={"100%"}
@@ -438,6 +443,9 @@ function BlogPost() {
         </Box>
       </ContainerLayout>
     </Fragment>
+      </ContainerLayout>
+    
+    </>
   );
 }
 

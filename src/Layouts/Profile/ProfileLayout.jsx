@@ -94,9 +94,9 @@ const ProfileLayout = ({ children }) => {
     
     <>
 
-    <DashboardTop/>
+ 
     
-    <Box position={"relative"} mx={['' , '4em']}>
+    <Box position={"relative"} mx={['' , '4em']} >
       
       <Flex
         position={"absolute"}

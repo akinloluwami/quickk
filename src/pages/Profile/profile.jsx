@@ -44,7 +44,9 @@ const Profile = () => {
 
   return (
     <>
-    <ContainerLayout>
+      <Box >
+
+      <ContainerLayout>
       <Helmet>
         <title>
           {displayName} | @{username}
@@ -70,7 +72,9 @@ const Profile = () => {
                 <Text>No posts from this user yet.</Text>
               </Box>
             ) : (
-              <Flex flexWrap={"wrap"} justifyContent={"center"}>
+              <Flex flexWrap={"wrap"} justifyContent={["center" , 'left']}
+              gap={['1em','2em']}
+              >
                 {posts.map((post) => (
                   <Link
                     href={`/${username}/${post.slug}`}
@@ -94,6 +98,8 @@ const Profile = () => {
         </ProfileLayout>
       )}
       </ContainerLayout>
+
+      </Box>
     </>
   );
 };
