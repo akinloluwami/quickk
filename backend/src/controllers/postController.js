@@ -134,57 +134,42 @@ module.exports = {
         message: "Cannot find user",
       });
     }
-    const slug = title
+    const newSlug = title
       .replace(/\s/g, "-")
       .toLowerCase()
       .replace(/[^a-z0-9-]/g, "");
-
-    if (!title || !content) {
-      return res.status(400).json({
-        message: "Title and content are required",
-      });
-    }
-    if (title.length > 100) {
-      return res.status(400).json({
-        message: "Title must be less than 100 characters",
-      });
-    }
-    if (content.length < 50) {
-      return res.status(400).json({
-        message: "Content must be at least 50 characters",
-      });
-    }
-    const slugExists = await Post.findOne({
+    const post = await Post.findOne({
       where: {
-        slug,
+        slug: req.query.slug,
         userUuid: user.uuid,
       },
     });
-    if (slugExists) {
+    if (!post) {
       return res.status(400).json({
-        message: "Post with this title already exists",
+        message: "Cannot find post",
       });
     }
-    const post = await Post.update(
+    await Post.update(
       {
         title,
         content,
-        userUuid: user.uuid,
-        slug,
         coverImageUrl,
+        slug: newSlug,
+        updatedAt: new Date(),
       },
       {
         where: {
-          uuid: user.uuid,
+          slug: req.query.slug,
+          userUuid: user.uuid,
         },
       }
     );
-    return res.status(201).json({
-      message: "Post created successfully",
+    return res.status(200).json({
+      message: "Post updated successfully",
       post,
     });
+    console.log("Updated!!!");
   },
-  /******************************************************/
   getSinglePostFromUser: async (req, res) => {
     const { username, slug } = req.params;
     const user = await User.findOne({
