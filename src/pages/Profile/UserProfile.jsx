@@ -55,7 +55,7 @@ function Donate() {
             <Flex justifyContent={'center'}>
               <Box >
                 <ProfileBlock />
-                <Box my={'1.5em'}>
+                <Box my={'1.5em'}> 
                  <Links />
                 </Box>
               </Box>

@@ -1,4 +1,4 @@
-import { Box, Flex, Img, Text, Link } from "@chakra-ui/react";
+import { Box, Flex, Img, Image, Text, Link } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import {
   AiOutlineComment,
@@ -18,23 +18,28 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
 
   return (
     <>
+    
       <Box
         boxShadow="md"
         bg={"#fff"}
         my={"1em"}
         p="1em"
         borderRadius={"1em"}
-        width={["300px"]}
-        h={"90%"}
+        px={['3em']}
+        py={['2em']}
+        display={['column','flex']}
+        
+        gap={'2em'}
+
       >
         {coverImage && (
-          <Img
+          <Image
             src={coverImage}
             alt=""
-            width={["100%", "400px"]}
-            height="200px"
+            width={["100%", "25vw"]}
+            height="30vh"
             objectFit={"cover"}
-            borderRadius={"10px"}
+            borderRadius={"0.2em"}
           />
         )}
         <Box>
@@ -49,22 +54,26 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
                   : removeTags(content)}
               </Text>
 
-              <Flex justifyContent={"space-between"}>
-                <Box display={"flex"} gap={"0.5em"} alignItems={"center"}>
-                  <BsCalendarDate />{" "}
+              <Flex  gap={'2em'} bg={'rgb(253 230 138 / 34%)'} 
+              width={'fit-content'}
+              p={'1em'} 
+              borderRadius={'0.5em'}
+              >
+                <Box display={"flex"}  gap={"0.5em"} alignItems={'center'} >
+                  <BsCalendarDate /> {" "}
                   <Text fontWeight={"medium"}>{moment(date).fromNow()}</Text>
                 </Box>
                 <Box display={"flex"} gap={"1em"} alignItems="center">
                   <AiFillHeart fill="red" />{" "}
                   <Text fontWeight={"medium"}>{likes}</Text>
                 </Box>
-                <Box display={"flex"} gap={"1em"} alignItems="center">
+                <Flex display={"flex"} gap={"1em"} alignItems="center">
                   <AiFillEye /> <Text fontWeight={"medium"}>{views}</Text>
-                </Box>
+                </Flex>
               </Flex>
             </Box>
           </Flex>
-          <Box></Box>
+          {/* <Box></Box> */}
         </Box>
       </Box>
     </>

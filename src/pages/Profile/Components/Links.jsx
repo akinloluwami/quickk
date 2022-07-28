@@ -20,7 +20,17 @@ function Links() {
       <Box display={"flex"}  flexDirection="column">
         {userLinks.map((link) => (
           <Link key={link.id} href={link.url} target="_blank">
-            <Button width={["100%","400px"]}  my={4} p={4} borderRadius="10px">
+            <Button width={["100%","400px"]}  my={4} p={'1.8em'} bg={'black'} 
+            color={"#fff"}
+            boxShadow={'xl'}
+            borderRadius="5px"
+            _hover = {{
+
+              boxShadow: 'xl',
+              bg: '#525252',
+
+            }}
+            >
               {link.title}
             </Button>
           </Link>
