@@ -137,7 +137,7 @@ module.exports = {
     }
     const donations = await Donation.findAll({
       where: {
-        userUuid,
+        userUuid: user.uuid,
       },
     });
     return res.status(200).json({
