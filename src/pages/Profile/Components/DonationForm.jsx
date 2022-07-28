@@ -57,7 +57,7 @@ function DonationForm() {
   const initializePayment = useLazerpay(config);
   return (
     <>
-      <Box width={"400px"}>
+      <Box width={["100%","400px"]}>
         <Text
           fontSize="22px"
           fontWeight="bold"
@@ -71,6 +71,7 @@ function DonationForm() {
           type="number"
           placeholder={`Enter amount in USD: Minimum ${minimumDonationAmount} USD`}
           marginBottom={"1rem"}
+          py={'1.5em'}
           onChange={(e) => setAmount(e.target.value)}
         />
         <Textarea
@@ -80,8 +81,9 @@ function DonationForm() {
         <Button
           width={"100%"}
           color={"white"}
-          borderRadius={"20px"}
-          bg={"#0031af"}
+          borderRadius={"0.5em"}
+          py={'1.5em'}
+          bg={"blue.500"}
           _hover={{ bg: "#19315f" }}
           marginBottom={"1rem"}
           onClick={() => {

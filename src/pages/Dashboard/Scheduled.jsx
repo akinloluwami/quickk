@@ -1,6 +1,7 @@
 import { Center, Box } from "@chakra-ui/react";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import { Helmet } from "react-helmet";
+import CommingSoon from '../../components/major/CommingSoon';
 
 const Scheduled = () => {
   return (
@@ -10,7 +11,7 @@ const Scheduled = () => {
       </Helmet>
       <DashboardLayout>
         <Box>
-          <center>No Scheduled yet !</center>
+          <CommingSoon/>
         </Box>
       </DashboardLayout>
     </>

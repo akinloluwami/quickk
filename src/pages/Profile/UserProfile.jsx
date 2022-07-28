@@ -52,10 +52,14 @@ function Donate() {
           </Center>
         ) : (
           <ProfileLayout>
-            <Box>
-              <ProfileBlock />
-              <Links />
-            </Box>
+            <Flex justifyContent={'center'}>
+              <Box >
+                <ProfileBlock />
+                <Box my={'1.5em'}>
+                 <Links />
+                </Box>
+              </Box>
+            </Flex>
           </ProfileLayout>
         )}
       </ContainerLayout>

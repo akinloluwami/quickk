@@ -1,6 +1,7 @@
 import { Center, Box } from "@chakra-ui/react";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import { Helmet } from "react-helmet";
+import CommingSoon from "../../components/major/CommingSoon";
 
 const Analytics = () => {
   return (
@@ -10,7 +11,7 @@ const Analytics = () => {
       </Helmet>
       <DashboardLayout>
         <Box>
-          <center>Working on Analytics</center>
+           <CommingSoon/>
         </Box>
       </DashboardLayout>
     </>
