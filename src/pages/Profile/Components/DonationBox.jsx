@@ -1,6 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { BiTime } from "react-icons/bi";
-import ModalLayout from "../../../Layouts/ModalLayout";
 import moment from "moment";
 const DonationBox = ({ amount, date, message }) => {
   return (
