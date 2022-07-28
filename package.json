@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.2.1",
+    "@ckeditor/ckeditor5-build-classic": "^34.2.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "axios": "^0.27.2",
@@ -38,6 +40,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^1.3.0",
-    "vite": "^2.9.9"
+    "vite": "^2.9.9",
+    "vite-plugin-react": "^4.0.1"
   }
 }
