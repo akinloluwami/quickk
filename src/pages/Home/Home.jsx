@@ -8,7 +8,7 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>Quickk - Setup your blog in 2 minutes</title>
+        <title>Quickk - Setup your blog in 5 minutes</title>
       </Helmet>
       <Hero />
     </>
