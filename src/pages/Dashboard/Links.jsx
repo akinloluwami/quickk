@@ -104,6 +104,10 @@ const Links = () => {
     });
   };
 
+  useEffect(() => {
+    document.title = "Links | Quickk Dashboard";
+  }, []);
+
   return (
     <>
       {/* <Helmet>
