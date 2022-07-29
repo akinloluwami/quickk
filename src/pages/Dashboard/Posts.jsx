@@ -29,6 +29,10 @@ const Posts = () => {
     });
   }, [username]);
 
+  useEffect(() => {
+    document.title = "Posts | Quickk Dashboard";
+  }, []);
+
   return (
     <>
       {/* <Helmet>
