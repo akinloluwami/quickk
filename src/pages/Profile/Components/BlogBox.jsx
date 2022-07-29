@@ -18,19 +18,16 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
 
   return (
     <>
-    
       <Box
-        boxShadow="md"
+        box-shadow="md"
         bg={"#fff"}
         my={"1em"}
         p="1em"
         borderRadius={"1em"}
-        px={['3em']}
-        py={['2em']}
-        display={['column','flex']}
-        
-        gap={'2em'}
-
+        px={["3em"]}
+        py={["2em"]}
+        display={["column", "flex"]}
+        gap={"2em"}
       >
         {coverImage && (
           <Image
@@ -54,13 +51,15 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
                   : removeTags(content)}
               </Text>
 
-              <Flex  gap={'2em'} bg={'rgb(253 230 138 / 34%)'} 
-              width={'fit-content'}
-              p={'1em'} 
-              borderRadius={'0.5em'}
+              <Flex
+                gap={"2em"}
+                bg={"rgb(253 230 138 / 34%)"}
+                width={"fit-content"}
+                p={"1em"}
+                borderRadius={"0.5em"}
               >
-                <Box display={"flex"}  gap={"0.5em"} alignItems={'center'} >
-                  <BsCalendarDate /> {" "}
+                <Box display={"flex"} gap={"0.5em"} alignItems={"center"}>
+                  <BsCalendarDate />{" "}
                   <Text fontWeight={"medium"}>{moment(date).fromNow()}</Text>
                 </Box>
                 <Box display={"flex"} gap={"1em"} alignItems="center">
