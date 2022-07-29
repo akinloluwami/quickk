@@ -206,6 +206,10 @@ function BlogPost() {
     window.location.reload();
   };
 
+  useEffect(() => {
+    document.title = `${postTitle} | ${ownerDisplayName}`;
+  }, [postTitle, ownerDisplayName]);
+
   return (
     <>
       <ContainerLayout>
