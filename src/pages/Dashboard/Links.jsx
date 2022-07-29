@@ -1,23 +1,21 @@
-import { useState, useEffect , useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import { Helmet } from "react-helmet";
 import { Text, Box, Button, Input, Flex, Switch } from "@chakra-ui/react";
 import { fetchData, postData, deleteData } from "../../utils/Request";
 import { toast, ToastContainer } from "react-toastify";
 import { TbTrash } from "react-icons/tb";
-import {BiPencil} from 'react-icons/bi'
+import { BiPencil } from "react-icons/bi";
 
 const Links = () => {
-
-
   const [linkInputs, setlinkInputs] = useState([]);
   const [userLinks, setUserLinks] = useState([]);
   const [reversedUserLinks, setReversedUserLinks] = useState([]);
   const [success, setSuccess] = useState(false);
-  const [loading , setLoading] = useState( false  )
-  const [disable , setDisable ] = useState(true)
+  const [loading, setLoading] = useState(false);
+  const [disable, setDisable] = useState(true);
 
-  //initilize Ref 
+  //initilize Ref
 
   const editTitle = useRef(null);
   const editUrl = useRef(null);
@@ -75,7 +73,7 @@ const Links = () => {
   };
 
   const handleDeleteLink = (id) => {
-    setLoading(true)
+    setLoading(true);
     deleteData(`/dashboard/links/delete/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -112,225 +110,196 @@ const Links = () => {
       </Helmet>
       <DashboardLayout>
         <ToastContainer />
-       
 
-        <Box my={'2em'} w={['100%','60%']} 
-          p={'1em'} mx={'auto'}
-          borderRadius={'3em'}
+        <Box
+          my={"2em"}
+          w={["100%", "60%"]}
+          p={"1em"}
+          mx={"auto"}
+          borderRadius={"3em"}
         >
-
-        <Box>
-          <Button onClick={handleAddLink}>Add New Link</Button>
           <Box>
-            {linkInputs.map((link) => (
-              <Box
-                key={linkInputs.indexOf(link)}
-                my={4}
-                bg={"#fff"}
-                boxShadow="md"
-                borderRadius={'1em'}
-                
-                
-                width={"100%"}
-                px={'1.5em'}
-                py={'2em'}
-                
-              >
-                <Input
-                  value={link.title}
-                  my={'0.5em'}
-                  variant={'filled'}
-                  placeholder={"Link Name"}
-                  py={'1.5em'}
-                  fontWeight={'500'}
-                  onChange={(e) => {
-                    const newLinkInputs = [...linkInputs];
-                    newLinkInputs[linkInputs.indexOf(link)].title =
-                      e.target.value;
-                    setlinkInputs(newLinkInputs);
-                  }}
-                />
-                <Input
-                  value={link.link}
-                  my={'0.5em'}
-                  variant={'filled'}
-                  placeholder={"https://www.platform.com/username"}
-                  py={'1.5em'}
-                  fontWeight={'500'}
-                  onChange={(e) => {
-                    const newLinkInputs = [...linkInputs];
-                    newLinkInputs[linkInputs.indexOf(link)].link =
-                      e.target.value;
-                    setlinkInputs(newLinkInputs);
-                  }}
-                />
-
-                <Flex gap={'2em'} alignItems={'center'} my={'1em'}>
-                <Button
-                  my={'0.5em'}
-                  bg={'red.500'}
-                  color={'#fff'}
-                  onClick={() => {
-                    const newLinkInputs = [...linkInputs];
-                    newLinkInputs[linkInputs.indexOf(link)].deleting = true;
-                    setlinkInputs(newLinkInputs);
-                    setTimeout(() => {
-                      const newLinkInputs = [...linkInputs];
-                      newLinkInputs.splice(linkInputs.indexOf(link), 1);
-                      setlinkInputs(newLinkInputs);
-                    }, 1000);
-                  }}
+            <Button onClick={handleAddLink}>Add New Link</Button>
+            <Box>
+              {linkInputs.map((link) => (
+                <Box
+                  key={linkInputs.indexOf(link)}
+                  my={4}
+                  bg={"#fff"}
+                  boxShadow="md"
+                  borderRadius={"1em"}
+                  width={"100%"}
+                  px={"1.5em"}
+                  py={"2em"}
                 >
-                  {link.deleting ? "Deleting..." : "Delete"}
-                </Button>
-                <Button
-                  bg={'blue.500'}
-                  color={'white'}
-                  onClick={() => {
-                    addNewLink(link.title, link.link);
-                    const newLinkInputs = [...linkInputs];
-                    newLinkInputs[linkInputs.indexOf(link)].adding = true;
-                    setlinkInputs(newLinkInputs);
-                    setTimeout(() => {
-                      const newLinkInputs = [...linkInputs];
-                      newLinkInputs.splice(linkInputs.indexOf(link), 1);
-                      setlinkInputs(newLinkInputs);
-                    }, 1000);
-                  }}
-                  disabled={
-                    !link.title ||
-                    !link.link ||
-                    !validURL(link.link) ||
-                    link.adding
-                  }
-                >
-                  {link.adding ? "Adding..." : "Add"}
-                </Button>
-
-                </Flex>
-              </Box>
-            ))}
-          </Box>
-          <Box>
-            {userLinks.length < 1 ? (
-              <Text>No Links</Text>
-            ) : (
-              reversedUserLinks.map((link) => (
-                <>
-                  <Box
-
-                    key={link.id}
-                    my={4}
-                    bg={"#fff"}
-                    
-                    width={"100%"}
-                    p={['1em','2em']}
-                    borderRadius={'1.5em'}
-
-                  >
-                  <Box textAlign={'right'}>
-                   <Switch/>
-                  </Box>
-                  <Box display={'flex'}  gap={'2em'}
-                   alignItems={'center'}
-                   justifyContent={''}
-                   >
-                    
                   <Input
-                    my={'0.5em'}
                     value={link.title}
-                    width={['60%']}
-                    fontWeight={'bold'}
-                    border='none'
-                   
-                    ref={editTitle}
+                    my={"0.5em"}
+                    variant={"filled"}
+                    placeholder={"Link Name"}
+                    py={"1.5em"}
+                    fontWeight={"500"}
                     onChange={(e) => {
-
-                      /***It is rendering as read-only, please fix it*/
-                      userLinks[userLinks.indexOf(link)].title = e.target.value ;
-                      // updateLink(link.id, link.title, link.url);
+                      const newLinkInputs = [...linkInputs];
+                      newLinkInputs[linkInputs.indexOf(link)].title =
+                        e.target.value;
+                      setlinkInputs(newLinkInputs);
                     }}
                   />
-
-                  
-                  <Text cursor={'pointer'} 
-                    onClick={() => {
-                        //edit ref
-                        editTitle.current.focus();
-                    }}
-                  ><BiPencil/></Text>
-
-                
-                  </Box>
-                  
-                  
-                      
-                  <Flex alignItems={'center'}  >
                   <Input
-                    my={'0.5em'}
-                    value={link.url}
-                    border={'none'}
-                    outline={'none'}
-                    fontWeight={'bold'}
-                    isDisabled = {disable}
-                    ref={editUrl}
-                    width={['80%']}
+                    value={link.link}
+                    my={"0.5em"}
+                    variant={"filled"}
+                    placeholder={"https://www.platform.com/username"}
+                    py={"1.5em"}
+                    fontWeight={"500"}
                     onChange={(e) => {
-                      /***It is rendering as read-only, please fix it*/
-                      userLinks[userLinks.indexOf(link)].url = e.target.value;
-                    
-                      // updateLink(link.id, link.title, link.url);
+                      const newLinkInputs = [...linkInputs];
+                      newLinkInputs[linkInputs.indexOf(link)].link =
+                        e.target.value;
+                      setlinkInputs(newLinkInputs);
                     }}
                   />
-                  <Text 
-                  
-                   cursor={'pointer'}
-                    onClick = {() => {
-                      setDisable(false)
-                      editUrl.current.focus()
-                      
-                    }
-                    }
-                  >
-                    <BiPencil/>
-                  </Text>
 
-                  
+                  <Flex gap={"2em"} alignItems={"center"} my={"1em"}>
+                    <Button
+                      my={"0.5em"}
+                      bg={"red.500"}
+                      color={"#fff"}
+                      onClick={() => {
+                        const newLinkInputs = [...linkInputs];
+                        newLinkInputs[linkInputs.indexOf(link)].deleting = true;
+                        setlinkInputs(newLinkInputs);
+                        setTimeout(() => {
+                          const newLinkInputs = [...linkInputs];
+                          newLinkInputs.splice(linkInputs.indexOf(link), 1);
+                          setlinkInputs(newLinkInputs);
+                        }, 1000);
+                      }}
+                    >
+                      {link.deleting ? "Deleting..." : "Delete"}
+                    </Button>
+                    <Button
+                      bg={"blue.500"}
+                      color={"white"}
+                      onClick={() => {
+                        addNewLink(link.title, link.link);
+                        const newLinkInputs = [...linkInputs];
+                        newLinkInputs[linkInputs.indexOf(link)].adding = true;
+                        setlinkInputs(newLinkInputs);
+                        setTimeout(() => {
+                          const newLinkInputs = [...linkInputs];
+                          newLinkInputs.splice(linkInputs.indexOf(link), 1);
+                          setlinkInputs(newLinkInputs);
+                        }, 1000);
+                      }}
+                      disabled={
+                        !link.title ||
+                        !link.link ||
+                        !validURL(link.link) ||
+                        link.adding
+                      }
+                    >
+                      {link.adding ? "Adding..." : "Add"}
+                    </Button>
                   </Flex>
-                  
-
-                
-                <Button
-                   
-                   
-                   onClick={() => {
-                    handleDeleteLink(link.id);
-
-                  }}
-                >
-
-                <Text
-                    my={'0.5em'}
-                    fontSize={'1.2em'}
-                   
-                  >
-                    <TbTrash/>
-                  </Text>
-
-                </Button>
-
                 </Box>
+              ))}
+            </Box>
+            <Box>
+              {userLinks.length < 1 ? (
+                <Text>No Links</Text>
+              ) : (
+                reversedUserLinks.map((link) => (
+                  <>
+                    <Box
+                      key={link.id}
+                      my={4}
+                      bg={"#fff"}
+                      width={"100%"}
+                      p={["1em", "2em"]}
+                      borderRadius={"1.5em"}
+                    >
+                      <Box textAlign={"right"}>
+                        <Switch />
+                      </Box>
+                      <Box
+                        display={"flex"}
+                        gap={"2em"}
+                        alignItems={"center"}
+                        justifyContent={""}
+                      >
+                        <Input
+                          my={"0.5em"}
+                          value={link.title}
+                          width={["60%"]}
+                          fontWeight={"bold"}
+                          border="none"
+                          ref={editTitle}
+                          onChange={(e) => {
+                            /***It is rendering as read-only, please fix it*/
+                            userLinks[userLinks.indexOf(link)].title =
+                              e.target.value;
+                            // updateLink(link.id, link.title, link.url);
+                          }}
+                        />
 
-                
-                </>
-              ))
-            )}
+                        <Text
+                          cursor={"pointer"}
+                          onClick={() => {
+                            //edit ref
+                            editTitle.current.focus();
+                          }}
+                        >
+                          <BiPencil />
+                        </Text>
+                      </Box>
+
+                      <Flex alignItems={"center"}>
+                        <Input
+                          my={"0.5em"}
+                          value={link.url}
+                          border={"none"}
+                          outline={"none"}
+                          fontWeight={"bold"}
+                          isDisabled={disable}
+                          ref={editUrl}
+                          width={["80%"]}
+                          onChange={(e) => {
+                            /***It is rendering as read-only, please fix it*/
+                            userLinks[userLinks.indexOf(link)].url =
+                              e.target.value;
+
+                            // updateLink(link.id, link.title, link.url);
+                          }}
+                        />
+                        <Text
+                          cursor={"pointer"}
+                          onClick={() => {
+                            setDisable(false);
+                            editUrl.current.focus();
+                          }}
+                        >
+                          <BiPencil />
+                        </Text>
+                      </Flex>
+
+                      <Button
+                        onClick={() => {
+                          handleDeleteLink(link.id);
+                        }}
+                      >
+                        <Text my={"0.5em"} fontSize={"1.2em"}>
+                          <TbTrash />
+                        </Text>
+                      </Button>
+                    </Box>
+                  </>
+                ))
+              )}
+            </Box>
           </Box>
         </Box>
-
-
-        </Box>
-
       </DashboardLayout>
     </>
   );
