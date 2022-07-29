@@ -30,6 +30,7 @@ const EditPost = () => {
   useEffect(() => {
     const response = fetchData(`/post/${username}/${slug}`);
     response.then((data) => {
+      console.log(data);
       if (data.status === 200) {
         console.log(data);
         setPostTitle(data.data.post.title);
@@ -106,6 +107,11 @@ const EditPost = () => {
     }
   };
   /*Select text to change formatting, add headers, or create links.*/
+
+  useEffect(() => {
+    document.title = postTitle ? `Editing "${postTitle}"` : "Edit Post";
+  }, [postTitle]);
+
   return (
     <>
       {/* <Helmet>
