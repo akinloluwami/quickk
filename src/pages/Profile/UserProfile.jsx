@@ -32,6 +32,10 @@ function Donate() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    document.title = `${displayName} | Profile`;
+  }, [displayName]);
   return (
     <>
       {/* <Helmet>

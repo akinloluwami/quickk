@@ -62,6 +62,10 @@ function Donate() {
 
   const initializePayment = useLazerpay(config);
 
+  useEffect(() => {
+    document.title = `${displayName} | Donate`;
+  }, [displayName]);
+
   return (
     <>
       {/* <Helmet>

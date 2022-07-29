@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
@@ -42,7 +42,9 @@ function Signup() {
       setLoading(false);
     }
   };
-
+  useEffect(() => {
+    document.title = "Sign up | Quickk";
+  }, []);
   return (
     <>
       {/* <Helmet>

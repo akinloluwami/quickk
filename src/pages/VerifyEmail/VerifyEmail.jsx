@@ -61,6 +61,10 @@ function VerifyEmail() {
     }
   };
 
+  useEffect(() => {
+    document.title = "Verify Email | Quickk";
+  }, []);
+
   return (
     <AuthLayout>
       {/* <Helmet>

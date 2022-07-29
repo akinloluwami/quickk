@@ -4,6 +4,9 @@ import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 import CommingSoon from "../../components/major/CommingSoon";
 
 const Scheduled = () => {
+  useEffect(() => {
+    document.title = "Scheduled | Quickk Dashboard";
+  }, []);
   return (
     <>
       {/* <Helmet>

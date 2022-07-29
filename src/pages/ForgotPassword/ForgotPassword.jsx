@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Box, Center, Flex, Text } from "@chakra-ui/react";
@@ -32,6 +32,11 @@ function ForgotPassword() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    document.title = "Forgot Password | Quickk";
+  }, []);
+
   return (
     <>
       {/* <Helmet>
