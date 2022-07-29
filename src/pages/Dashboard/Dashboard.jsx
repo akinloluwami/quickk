@@ -72,6 +72,10 @@ const DashboardIndex = () => {
     },
   ];
 
+  useEffect(() => {
+    document.title = "Overview | Quickk Dashboard";
+  }, []);
+
   return (
     <>
       {/* <Helmet>
