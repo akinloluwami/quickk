@@ -42,6 +42,10 @@ const Profile = () => {
     });
   }, []);
 
+  useEffect(() => {
+    document.title = `${displayName} | @${username}`;
+  }, [displayName]);
+
   return (
     <>
       <Box>
