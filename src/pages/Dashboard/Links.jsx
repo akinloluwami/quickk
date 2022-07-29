@@ -14,6 +14,7 @@ const Links = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(true);
+  const [deleting, setDeleting] = useState(0);
 
   //initilize Ref
 
@@ -22,6 +23,7 @@ const Links = () => {
 
   useEffect(() => {
     setReversedUserLinks(userLinks.reverse());
+   
   }, [userLinks]);
 
   const linkRegex =
@@ -220,9 +222,6 @@ const Links = () => {
                       p={["1em", "2em"]}
                       borderRadius={"1.5em"}
                     >
-                      <Box textAlign={"right"}>
-                        <Switch />
-                      </Box>
                       <Box
                         display={"flex"}
                         gap={"2em"}
@@ -232,7 +231,7 @@ const Links = () => {
                         <Input
                           my={"0.5em"}
                           value={link.title}
-                          width={["60%"]}
+                          width={["fit-content"]}
                           fontWeight={"bold"}
                           border="none"
                           ref={editTitle}
@@ -264,7 +263,7 @@ const Links = () => {
                           fontWeight={"bold"}
                           isDisabled={disable}
                           ref={editUrl}
-                          width={["80%"]}
+                          width={["fit-content"]}
                           onChange={(e) => {
                             /***It is rendering as read-only, please fix it*/
                             userLinks[userLinks.indexOf(link)].url =
@@ -286,11 +285,13 @@ const Links = () => {
 
                       <Button
                         onClick={() => {
+                          setDeleting(link.id)
                           handleDeleteLink(link.id);
+                        
                         }}
                       >
                         <Text my={"0.5em"} fontSize={"1.2em"}>
-                          <TbTrash />
+                          {deleting === link.id ? "Deleting..." : <TbTrash />}
                         </Text>
                       </Button>
                     </Box>
