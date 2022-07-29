@@ -4,10 +4,12 @@ import "react-toastify/dist/ReactToastify.css";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useEffect } from "react";
 import ProtectedRoutes from "./Routes/ProtectedRoute";
+import Loading from "./components/HomeKits/Loading";
 
 function App() {
   return (
     <>
+     
       <ToastContainer />
 
       <Router>
