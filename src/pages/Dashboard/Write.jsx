@@ -91,6 +91,11 @@ const Write = () => {
     console.log(res.data.post);
   };
   /*Select text to change formatting, add headers, or create links.*/
+
+  useEffect(() => {
+    document.title = postTitle ? `Editing ${postTitle}` : "Create New Post";
+  }, [postTitle]);
+
   return (
     <>
       {/* <Helmet>
