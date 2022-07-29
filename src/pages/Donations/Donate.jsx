@@ -32,6 +32,10 @@ const Donate = () => {
     }
   }, [donations]);
 
+  useEffect(() => {
+    document.title = "Donations | Quickk Dashboard";
+  }, []);
+
   return (
     <>
       {/* <Helmet>
