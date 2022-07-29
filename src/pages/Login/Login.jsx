@@ -117,12 +117,12 @@ function Login() {
                 New to Quickk?{" "}
                 <Link to="/signup">
                   {" "}
-                  <b>Create an account</b>
+                  <Text fontWeight={"bold"}>Create an account</Text>
                 </Link>{" "}
               </Text>
               <Text textAlign={"center"} my="1em">
                 <Link to="/forgot-password">
-                  <p>Forgot password?</p>
+                  <Text>Forgot password?</Text>
                 </Link>{" "}
               </Text>
             </form>
