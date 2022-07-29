@@ -1,11 +1,11 @@
 import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
 
-const ModalContainer = ({ children }) => {
+const ModalContainer = ({ children , isOpen , onClose }) => {
 
     return (
         <>
         
-            <Modal>
+            <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay/>
                 <ModalContent>
                     {children}
