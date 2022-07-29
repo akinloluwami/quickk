@@ -14,7 +14,7 @@ const DonationBox = ({ amount, date, message }) => {
         cursor={"pointer"}
         margin={"1em"}
         width="fit-content"
-        boxShadow={"md"}
+        boxshadow={"md"}
         position={"relative"}
         minWidth={"20em"}
       >
