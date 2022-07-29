@@ -10,11 +10,13 @@ import NotFound from "../pages/NotFound/NotFound";
 import BlogPost from "../pages/BlogPost";
 import Donate from "../pages/Profile/Donate";
 import UserProfile from "../pages/Profile/UserProfile";
+import Homepage from '../pages/Home/Homepage';
 const PublicRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/homepage" element = {<Homepage/>} />
         <Route path="/:username" element={<User />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
