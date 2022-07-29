@@ -9,7 +9,7 @@ import NoUser from "../../components/minor/NoUser";
 import ProfileBlock from "./ProfileBlock";
 import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import Links from "./Components/Links";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 
 function Donate() {
   const username = window.location.pathname.split("/")[1];
@@ -34,9 +34,9 @@ function Donate() {
   }, []);
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>{displayName} | Profile</title>
-      </Helmet>
+      </Helmet> */}
       <ContainerLayout>
         {loading ? (
           <Center>
@@ -52,11 +52,11 @@ function Donate() {
           </Center>
         ) : (
           <ProfileLayout>
-            <Flex justifyContent={'center'}>
-              <Box >
+            <Flex justifyContent={"center"}>
+              <Box>
                 <ProfileBlock />
-                <Box my={'1.5em'}> 
-                 <Links />
+                <Box my={"1.5em"}>
+                  <Links />
                 </Box>
               </Box>
             </Flex>

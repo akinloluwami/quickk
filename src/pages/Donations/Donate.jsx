@@ -2,7 +2,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import DonationBox from "../Profile/Components/DonationBox";
 import { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 
 const Donate = () => {
   const [donations, setDonations] = useState([]);
@@ -34,9 +34,9 @@ const Donate = () => {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Donations | Quickk Dashboard</title>
-      </Helmet>
+      </Helmet> */}
       <Box maxW={["100%", "70%"]} mx={"auto"} py={"2em"}>
         <Text></Text>
         {isLoading ? (

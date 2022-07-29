@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import { Text, Box, Button, Input, Flex, Switch } from "@chakra-ui/react";
 import { fetchData, postData, deleteData } from "../../utils/Request";
 import { toast, ToastContainer } from "react-toastify";
@@ -23,7 +23,6 @@ const Links = () => {
 
   useEffect(() => {
     setReversedUserLinks(userLinks.reverse());
-   
   }, [userLinks]);
 
   const linkRegex =
@@ -107,9 +106,9 @@ const Links = () => {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Links | Quickk Dashboard</title>
-      </Helmet>
+      </Helmet> */}
       <DashboardLayout>
         <ToastContainer />
 
@@ -285,9 +284,8 @@ const Links = () => {
 
                       <Button
                         onClick={() => {
-                          setDeleting(link.id)
+                          setDeleting(link.id);
                           handleDeleteLink(link.id);
-                        
                         }}
                       >
                         <Text my={"0.5em"} fontSize={"1.2em"}>

@@ -6,7 +6,7 @@ import { fetchData } from "../../utils/Request";
 import { useState, useEffect } from "react";
 import LoadingProfile from "../../components/minor/LoadingProfile";
 import NoUser from "../../components/minor/NoUser";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 
 const Profile = () => {
@@ -46,11 +46,11 @@ const Profile = () => {
     <>
       <Box>
         <ContainerLayout>
-          <Helmet>
+          {/* <Helmet>
             <title>
               {displayName} | @{username}
             </title>
-          </Helmet>
+          </Helmet> */}
           {loading ? (
             <Center>
               <Box>

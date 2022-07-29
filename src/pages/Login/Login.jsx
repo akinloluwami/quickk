@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
 import DarkLogo from "../../components/DarkLogo";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -45,9 +45,9 @@ function Login() {
   };
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Login | Quickk</title>
-      </Helmet>
+      </Helmet> */}
       <AuthLayout>
         <Flex justifyContent={"center"} alignItems="center" py="2em" h="80%">
           <Box my="1em" bg={"#fff"} width={["90%", "60%"]} py="2em" px={"1em"}>

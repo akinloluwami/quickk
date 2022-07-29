@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import Editor from "react-medium-editor";
 import "medium-editor/dist/css/medium-editor.css";
 import "medium-editor/dist/css/themes/default.css";
@@ -108,9 +108,9 @@ const EditPost = () => {
   /*Select text to change formatting, add headers, or create links.*/
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>{postTitle ? `Editing "${postTitle}"` : "Edit Post"}</title>
-      </Helmet>
+      </Helmet> */}
       <DashboardLayout>
         <ToastContainer />
         <Flex justifyContent={"center"} flexDirection={"column"}>

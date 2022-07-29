@@ -2,7 +2,7 @@ import { Box, Button, Input, Text, Textarea } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import ProfileLayout from "../../Layouts/Profile/ProfileLayout";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import { fetchData, postData } from "../../utils/Request";
 import DonationBox from "./Components/DonationBox";
 import { useLazerpay } from "lazerpay-react";
@@ -64,17 +64,12 @@ function Donate() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>{displayName} | Donate</title>
-      </Helmet>
+      </Helmet> */}
       <ContainerLayout>
         <ProfileLayout>
-          <Box display={'flex'} 
-          justifyContent={'center'}
-          bg={'#fff'}
-          >
-            
-          
+          <Box display={"flex"} justifyContent={"center"} bg={"#fff"}>
             <DonationForm />
           </Box>
         </ProfileLayout>
