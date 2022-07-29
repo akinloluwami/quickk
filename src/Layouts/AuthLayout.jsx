@@ -38,7 +38,7 @@ const AuthLayout = ({ children }) => {
                   Let Your Imagination Run Wild .
                 </Text>
                 <Text pr="2em" my={"1em"} color={"#fff"}>
-                  Setup your microblog in less than 2 minutes, start wrting and
+                  Setup your blog in less than 2 minutes, start writing and
                   accepting donations in no time.
                 </Text>
               </Box>

@@ -18,6 +18,7 @@ function PostsRect({
   slug,
   username,
   id,
+  coverImage,
 }) {
   const [deleting, setDeleting] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
@@ -37,25 +38,52 @@ function PostsRect({
 
   return (
     <Fragment>
-      <Flex
+      <Box
         boxShadow={"sm"}
-        height={"100px"}
+        bg={"#fff"}
         justifyContent={"space-between"}
         alignItems={"center"}
-        padding={"10px"}
+        px={"2em"}
+        py={["1em", "4em"]}
         borderRadius={"10px"}
         margin={"20px"}
         _hover={{
           boxShadow: "md",
           cursor: "pointer",
+          backgroundColor: "sand",
         }}
         display={isDeleted ? "none" : "block"}
       >
-        <Flex flexDirection={"column"}>
-          <Text fontSize={"2xl"} fontWeight={"400"} marginBottom={"10px"}>
+        <Box>
+          {coverImage && (
+            <img
+              src={coverImage}
+              alt=""
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "cover",
+                borderRadius: "10px",
+              }}
+            />
+          )}
+          <Text
+            fontSize={["xl", "2xl"]}
+            fontWeight={"400"}
+            marginBottom={"10px"}
+          >
             {title}
           </Text>
-          <Flex>
+        </Box>
+
+        {/* handle engagement in post  */}
+
+        <Flex
+          alignItems={["left", "center"]}
+          justifyContent={"space-between"}
+          flexDir={["column", "row"]}
+        >
+          <Box display={"flex"} my={["1.5em", "2em"]}>
             <Box
               fontSize={"sm"}
               mx="5px"
@@ -79,7 +107,6 @@ function PostsRect({
                 {views}
               </Text>
             </Box>
-
             <Box
               fontSize={"sm"}
               mx="5px"
@@ -87,9 +114,7 @@ function PostsRect({
               alignItems={"center"}
             >
               <RiHeart3Fill />
-              <Text fontWeight={"bold"} marginLeft={"5px"}>
-                {likes}
-              </Text>
+              <Text marginLeft={"5px"}>{likes}</Text>
             </Box>
 
             <Box
@@ -103,7 +128,8 @@ function PostsRect({
                 {comments}
               </Text>
             </Box>
-          </Flex>
+          </Box>
+
           <Box>
             <Link to={`/${username}/${slug}`} target="_blank">
               <Button variantColor="teal" size="sm" mx={"10px"}>
@@ -118,16 +144,18 @@ function PostsRect({
               </Button>
             </Link>
 
-            <Button variantColor="teal" size="sm" mx={"10px"}>
-              <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
-                <FiEdit
-                  style={{
-                    marginRight: "5px",
-                  }}
-                />
-                Edit
-              </Text>
-            </Button>
+            <Link to={`/dashboard/post/${slug}/edit`}>
+              <Button variantColor="teal" size="sm" mx={"10px"}>
+                <Text fontSize={"1xl"} display={"flex"} alignItems={"center"}>
+                  <FiEdit
+                    style={{
+                      marginRight: "5px",
+                    }}
+                  />
+                  Edit
+                </Text>
+              </Button>
+            </Link>
 
             <Button
               variantColor="red"
@@ -151,7 +179,7 @@ function PostsRect({
             </Button>
           </Box>
         </Flex>
-      </Flex>
+      </Box>
     </Fragment>
   );
 }

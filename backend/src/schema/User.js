@@ -25,8 +25,7 @@ const User = sequelize.define("User", {
   profilePicture: {
     type: DataTypes.STRING,
     allowNull: true,
-    defaultValue:
-      "https://res.cloudinary.com/dzqbzqgqw/image/upload/v1599098981/default-profile-picture_qjqjqj.png",
+    defaultValue: "",
   },
   country: {
     type: DataTypes.STRING,
@@ -133,6 +132,19 @@ const User = sequelize.define("User", {
   website: {
     type: DataTypes.STRING,
     defaultValue: "",
+  },
+  walletAddress: {
+    type: DataTypes.STRING,
+    defaultValue: "",
+  },
+  minimumDonationAmount: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 1,
+  },
+  links: {
+    type: DataTypes.JSON,
+    defaultValue: [],
   },
 });
 

@@ -6,8 +6,9 @@ import {
 } from "react-icons/md";
 import { BiDonateHeart, BiPencil } from "react-icons/bi";
 import { IoIosTimer } from "react-icons/io";
-import { RiAddLine } from 'react-icons/ri'
-import {FaPencilAlt} from 'react-icons/fa'
+import { RiAddLine } from "react-icons/ri";
+import { FaPencilAlt } from "react-icons/fa";
+import { GoLink } from "react-icons/go";
 
 const BarItems = [
   {
@@ -16,42 +17,31 @@ const BarItems = [
     link: "/dashboard/write",
     icon: <FaPencilAlt />,
     mobileView: false,
-    styles : {
-      
-      color : 'white',
-      padding : '0.7em',
-      borderRadius: '010em',
-      backgroundColor : 'var(--primary-color)',
-    }
-    
+    styles: {
+      color: "white",
+      padding: "0.7em",
+      borderRadius: "010em",
+      backgroundColor: "var(--primary-color)",
+    },
   },
   {
     name: "Overview",
-    link: "/dashboard",
+    link: "/dashboard/overview",
     icon: <MdOutlineDashboard />,
     mobileView: true,
-    styles : {
-     
-      padding : '0.6em 0.6em',
-      
-    }
+    styles: {
+      padding: "0.6em 0.6em",
+    },
   },
-
-
-  
-
-
 
   {
     name: "Posts",
     link: "/dashboard/posts",
     icon: <MdOutlineArticle />,
     mobileView: true,
-    styles : {
-     
-      padding : '0.6em 0.6em',
-      
-    }
+    styles: {
+      padding: "0.6em 0.6em",
+    },
   },
 
   {
@@ -60,26 +50,23 @@ const BarItems = [
     icon: <BiPencil />,
     mobileView: true,
     hideDesktop: true,
-    bg: 'blue.500',
-    styles : {
-      
-      color : 'white',
-      padding : '0.6em 0.6em',
-      borderRadius: '1em',
-    }
+    bg: "blue.500",
+    styles: {
+      color: "white",
+      padding: "0.6em 0.6em",
+      borderRadius: "1em",
+    },
   },
 
   {
     name: "Scheduled",
     link: "/dashboard/scheduled",
     icon: <IoIosTimer />,
-    mobileView: true,
-    
-    styles : {
-     
-      padding : '0.6em 0.6em',
-      
-    }
+    mobileView: false,
+
+    styles: {
+      padding: "0.6em 0.6em",
+    },
   },
 
   {
@@ -87,18 +74,25 @@ const BarItems = [
     link: "/dashboard/donations",
     icon: <BiDonateHeart />,
     mobileView: true,
-    styles : {
-     
-      padding : '0.6em 0.6em',
-      
+    styles: {
+      padding: "0.6em 0.6em",
+    },
+  },
+  {
+    name: "Links",
+    link: "/dashboard/links",
+    icon: <GoLink />,
+    mobileView: true,
+    styles: {
+      padding: "0.6em 0.6em",
     }
+    
   },
   {
     name: "Analytics",
     link: "/dashboard/analytics",
     icon: <MdOutlineAutoGraph />,
     mobileView: false,
-    
   },
   {
     name: "Newsletter",

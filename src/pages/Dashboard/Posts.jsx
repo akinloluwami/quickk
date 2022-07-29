@@ -12,6 +12,8 @@ import {
 import { FaTimes } from "react-icons/fa";
 import { fetchData } from "../../utils/Request";
 import PostsRect from "../../components/major/PostsRect";
+import { Helmet } from "react-helmet";
+
 const Posts = () => {
   const username = localStorage.getItem("userName");
   const [posts, setPosts] = useState([]);
@@ -29,11 +31,14 @@ const Posts = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Posts | Quickk Dashboard</title>
+      </Helmet>
       <DashboardLayout>
         {posts.length > 0 ? (
-          <Box>
+          <Box w={["100%", "70%"]} mx={"auto"}>
             <Text>
-              <Text fontSize={"2xl"}>
+              <Text fontSize={"xl"} fontWeight={"bold"}>
                 {" "}
                 {posts.length}
                 {posts.length > 1 ? " Posts" : " Post"}
@@ -51,12 +56,12 @@ const Posts = () => {
                   slug={post.slug}
                   username={username}
                   id={post.id}
+                  coverImage={post.coverImageUrl}
                 />
               ))}
             </>
           </Box>
-        ) : 
-        (
+        ) : (
           <Flex
             width={"100%"}
             height={"50vh"}
@@ -71,7 +76,6 @@ const Posts = () => {
             </Text>
           </Flex>
         )}
-        
       </DashboardLayout>
     </>
   );

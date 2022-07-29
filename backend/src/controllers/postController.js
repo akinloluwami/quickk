@@ -18,10 +18,22 @@ module.exports = {
         message: "Please upload an image",
       });
     }
+    //if file is not image
+    if (!file.mimetype.startsWith("image")) {
+      return res.status(400).json({
+        message: "Only image files are allowed",
+      });
+    }
+    //if file is too big
+    if (file.size > 2000000) {
+      return res.status(400).json({
+        message: "Please upload an image less than 2mb",
+      });
+    }
     cloudinary.uploader
       .upload(file.tempFilePath, {
         folder: "quickk",
-        public_id: "quickk" + "_" + Date.now() + "_" + file.originalname,
+        public_id: "quickk" + "_" + Date.now(),
         resource_type: "auto",
       })
       .then((result) => {
@@ -81,6 +93,7 @@ module.exports = {
     const slugExists = await Post.findOne({
       where: {
         slug,
+        userUuid: user.uuid,
       },
     });
     if (slugExists) {
@@ -100,9 +113,9 @@ module.exports = {
       post,
     });
   },
-  /******************************************************/
+
   editPost: async (req, res) => {
-    const { title, content, userUuid, slug } = req.body;
+    const { title, content, coverImageUrl } = req.body;
     const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
@@ -118,44 +131,45 @@ module.exports = {
     });
     if (!user) {
       return res.status(400).json({
-        message: "Cannot find user2",
+        message: "Cannot find user",
       });
     }
-    if (!title || !content) {
-      return res.status(400).json({
-        message: "Title and content are required",
-      });
-    }
-    if (title.length > 100) {
-      return res.status(400).json({
-        message: "Title must be less than 100 characters",
-      });
-    }
-    if (content.length < 100) {
-      return res.status(400).json({
-        message: "Content must be at least 100 characters",
-      });
-    }
+    const newSlug = title
+      .replace(/\s/g, "-")
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, "");
     const post = await Post.findOne({
       where: {
-        userUuid,
-        slug,
+        slug: req.query.slug,
+        userUuid: user.uuid,
       },
     });
     if (!post) {
       return res.status(400).json({
-        message: "Post not found",
+        message: "Cannot find post",
       });
     }
-    post.title = title;
-    post.content = content;
-    post.updatedAt = new Date();
-    await post.save();
-    res.status(200).json({
+    await Post.update(
+      {
+        title,
+        content,
+        coverImageUrl,
+        slug: newSlug,
+        updatedAt: new Date(),
+      },
+      {
+        where: {
+          slug: req.query.slug,
+          userUuid: user.uuid,
+        },
+      }
+    );
+    return res.status(200).json({
       message: "Post updated successfully",
+      post,
     });
+    console.log("Updated!!!");
   },
-  /******************************************************/
   getSinglePostFromUser: async (req, res) => {
     const { username, slug } = req.params;
     const user = await User.findOne({
@@ -382,6 +396,8 @@ module.exports = {
       message: "User retrieved successfully",
       username: user.username,
       uuid: user.uuid,
+      displayName: user.displayName,
+      profilePicture: user.profilePicture,
     });
   },
   viewPost: async (req, res) => {

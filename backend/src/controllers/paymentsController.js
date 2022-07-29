@@ -1,8 +1,12 @@
+require("dotenv").config();
 const Users = require("../schema/User");
+const Donation = require("../schema/Donation");
+const jwt = require("jsonwebtoken");
+const { donationEmail } = require("../utils/email");
 
 module.exports = {
-  donateToUser: async (req, res) => {
-    const { amount, username } = req.body;
+  updateWalletAddressAndMinimumDonationAmount: async (req, res) => {
+    const { walletAddress, minimumDonationAmount } = req.body;
     const token = req.headers.authorization;
     if (!token) {
       return res.status(400).json({
@@ -16,60 +20,128 @@ module.exports = {
         uuid: decoded.uuid,
       },
     });
-    const userReceiveingDonation = await Users.findOne({
-      where: {
-        username,
-      },
-    });
-
     if (!user) {
       return res.status(400).json({
         message: "User not found",
       });
     }
-    if (!amount) {
+    if (!walletAddress) {
       return res.status(400).json({
-        message: "Amount is required",
+        message: "Wallet address is required",
       });
     }
-    if (amount < 1) {
+    if (!minimumDonationAmount) {
       return res.status(400).json({
-        message: "Amount must be greater than 0",
+        message: "Minimum donation is required",
       });
     }
-    if (!userReceiveingDonation) {
+    if (minimumDonationAmount < 1) {
+      return res.status(400).json({
+        message: "Minimum donation must be greater than 0",
+      });
+    }
+    user.update({
+      walletAddress,
+      minimumDonationAmount,
+    });
+    return res.status(200).json({
+      message: "Wallet address and minimum donation updated",
+    });
+  },
+  getWalletAddressAndMinimumDonationAmount: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await Users.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
       return res.status(400).json({
         message: "User not found",
       });
     }
-    userReceiveingDonation.update({
-      balance: userReceiveingDonation.balance + amount,
-      isNewNotification: true,
-      notifications: [
-        ...userReceiveingDonation.notifications,
-        {
-          userUuid: user.uuid,
-          date: new Date(),
-          message: `${user.username} donated ${amount} to you`,
-          link: `/${user.username}`,
-        },
-      ],
+    return res.status(200).json({
+      walletAddress: user.walletAddress,
+      minimumDonationAmount: user.minimumDonationAmount,
     });
-    await userReceiveingDonation.save();
+  },
+
+  donate: async (req, res) => {
+    const { amount, donationMessage, username } = req.body;
+    const user = await Users.findOne({
+      where: {
+        username,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const minimumDonationAmount = user.minimumDonationAmount;
+    const userUuid = user.uuid;
+    const accountBalance = user.accountBalance;
+    if (amount < minimumDonationAmount) {
+      return res.status(400).json({
+        message: `Amount must be at least $${minimumDonationAmount}`,
+      });
+    }
     user.update({
-      isNewNotification: true,
-      notifications: [
-        ...user.notifications,
-        {
-          userUuid: user.uuid,
-          date: new Date(),
-          message: `You donated ${amount} to ${userReceiveingDonation.username}`,
-          link: `/${userReceiveingDonation.username}`,
-        },
-      ],
+      accountBalance: parseInt(accountBalance) + parseInt(amount),
+    });
+    const donation = await Donation.create({
+      amount,
+      userUuid,
+      donationMessage,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    donationEmail(
+      user.email,
+      `You have received a donation of $${amount}`,
+      `Quickk <${process.env.SMTP_EMAIL}>`,
+      `Hi, ${user.displayName} $${amount} has been donated to you.
+      Thank you for using Quickk.
+      `
+    );
+    return res.status(200).json({
+      message: "Donation created",
+      donation,
+    });
+  },
+  getDonations: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await Users.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const donations = await Donation.findAll({
+      where: {
+        userUuid: user.uuid,
+      },
     });
     return res.status(200).json({
-      message: "Donation successful",
+      donations,
     });
   },
 };

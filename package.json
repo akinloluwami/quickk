@@ -9,18 +9,27 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.2.1",
+    "@ckeditor/ckeditor5-build-classic": "^34.2.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "axios": "^0.27.2",
     "draft-js": "^0.11.7",
     "framer-motion": "^6",
+    "html-parser": "^0.11.0",
+    "lazerpay-react": "^1.2.5",
     "moment": "^2.29.4",
+    "payercoins-react": "^0.0.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-draft-wysiwyg": "^1.15.0",
+    "react-helmet": "^6.1.0",
+    "react-html-parser": "^2.0.2",
     "react-icons": "^4.4.0",
     "react-loading": "^2.0.3",
     "react-loading-skeleton": "^3.1.0",
+    "react-medium-editor": "^1.8.1",
+    "react-medium-editor-zdraganov": "^1.8.1-patch2",
     "react-otp-input": "^2.4.0",
     "react-quill": "^1.3.5",
     "react-router-dom": "^6.3.0",
@@ -31,6 +40,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^1.3.0",
-    "vite": "^2.9.9"
+    "vite": "^2.9.9",
+    "vite-plugin-react": "^4.0.1"
   }
 }

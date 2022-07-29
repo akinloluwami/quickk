@@ -13,6 +13,7 @@ import { postData } from "../../utils/Request";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
+import { Helmet } from "react-helmet";
 
 function Signup() {
   const [displayName, setDisplayName] = useState("");
@@ -44,17 +45,23 @@ function Signup() {
 
   return (
     <>
+      <Helmet>
+        <title>Signup | Quickk</title>
+      </Helmet>
       <ToastContainer autoClose={2000} />
       <AuthLayout>
         <Flex justifyContent={"center"} alignItems="center" py="2em" h="80%">
           <Box my="1em" bg={"#fff"} width={["90%", "60%"]} py="2em" px={"1em"}>
-
-          <center>
-                <Link to={'/'} >
-                  <Box my={'3em'} display={['block' , 'none']}>
-                    <Image src={'https://res.cloudinary.com/dhkccnvyn/image/upload/v1658534732/quick/dashboard_zosbzh.svg'} />
-                  </Box>
-                </Link>
+            <center>
+              <Link to={"/"}>
+                <Box my={"3em"} display={["block", "none"]}>
+                  <Image
+                    src={
+                      "https://res.cloudinary.com/dhkccnvyn/image/upload/v1658534732/quick/dashboard_zosbzh.svg"
+                    }
+                  />
+                </Box>
+              </Link>
             </center>
 
             <form>

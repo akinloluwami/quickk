@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { Link } from "react-router-dom";
 import { Box, Center, Image, Flex, Text } from "@chakra-ui/react";
 import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
@@ -13,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
 import DarkLogo from "../../components/DarkLogo";
+import { Helmet } from "react-helmet";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -24,19 +24,18 @@ function Login() {
     e.preventDefault();
     setLoading(true);
     const data = { email, password };
-    const response = await postData(`/auth/login`, data , {
+    const response = await postData(`/auth/login`, data, {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Credentials": true,
-      "mode": "cors",
-
+      mode: "cors",
     });
     if (response.status === 200) {
       localStorage.setItem("token", response.data.token);
       toast.success("Login sucessful");
       setLoading(false);
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/dashboard/overview");
         window.location.reload();
       }, 1500);
     } else {
@@ -46,16 +45,22 @@ function Login() {
   };
   return (
     <>
+      <Helmet>
+        <title>Login | Quickk</title>
+      </Helmet>
       <AuthLayout>
         <Flex justifyContent={"center"} alignItems="center" py="2em" h="80%">
-          
           <Box my="1em" bg={"#fff"} width={["90%", "60%"]} py="2em" px={"1em"}>
             <center>
-                <Link to={'/'} >
-                  <Box my={'3em'} display={['block' , 'none']}>
-                    <Image src={'https://res.cloudinary.com/dhkccnvyn/image/upload/v1658534732/quick/dashboard_zosbzh.svg'} />
-                  </Box>
-                </Link>
+              <Link to={"/"}>
+                <Box my={"3em"} display={["block", "none"]}>
+                  <Image
+                    src={
+                      "https://res.cloudinary.com/dhkccnvyn/image/upload/v1658534732/quick/dashboard_zosbzh.svg"
+                    }
+                  />
+                </Box>
+              </Link>
             </center>
             <form>
               <Box my="1em">
@@ -84,7 +89,7 @@ function Login() {
                 icon={<MdOutlinePassword />}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Center> 
+              <Center>
                 <Buttons
                   onClick={(e) => {
                     handleSubmit(e);
@@ -112,12 +117,12 @@ function Login() {
                 New to Quickk?{" "}
                 <Link to="/signup">
                   {" "}
-                  <b>Create an account</b>
+                  <Text fontWeight={"bold"}>Create an account</Text>
                 </Link>{" "}
               </Text>
               <Text textAlign={"center"} my="1em">
                 <Link to="/forgot-password">
-                  <p>Forgot password?</p>
+                  <Text>Forgot password?</Text>
                 </Link>{" "}
               </Text>
             </form>

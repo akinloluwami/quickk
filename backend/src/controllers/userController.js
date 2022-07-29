@@ -1,6 +1,7 @@
 const User = require("../schema/User");
 const jwt = require("jsonwebtoken");
 const Posts = require("../schema/Post");
+const Link = require("../schema/Link");
 
 module.exports = {
   followUser: async (req, res) => {
@@ -201,6 +202,8 @@ module.exports = {
       youtube,
       tiktok,
       website,
+      profilePicture,
+      minimumDonationAmount,
     } = user;
     return res.status(200).json({
       message: "User profile retrieved successfully",
@@ -218,6 +221,8 @@ module.exports = {
         youtube,
         tiktok,
         website,
+        profilePicture,
+        minimumDonationAmount,
       },
     });
   },
@@ -390,6 +395,29 @@ module.exports = {
       message: "Username retrieved successfully",
       uuid,
       username,
+    });
+  },
+  getUserLinksFromUsername: async (req, res) => {
+    const { username } = req.params;
+    const user = await User.findOne({
+      where: {
+        username: username,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const uuid = user.uuid;
+    const links = await Link.findAll({
+      where: {
+        userUuid: uuid,
+      },
+    });
+    return res.status(200).json({
+      message: "Links retrieved successfully",
+      links,
     });
   },
 };

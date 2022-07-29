@@ -1,21 +1,21 @@
 import { Center, Box } from "@chakra-ui/react";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
+import { Helmet } from "react-helmet";
+import CommingSoon from '../../components/major/CommingSoon';
 
 const Newslatter = () => {
-    return (
-        <>
-        
-            <DashboardLayout>
-            <Box>
-
-                <center>
-                    News latter is comming soon !
-                </center>
-                </Box>
-            </DashboardLayout>
-
-        </>
-    )
-}
+  return (
+    <>
+      <Helmet>
+        <title>Newsletter | Quickk Dashboard</title>
+      </Helmet>
+      <DashboardLayout>
+        <Box>
+          <CommingSoon/>
+        </Box>
+      </DashboardLayout>
+    </>
+  );
+};
 
 export default Newslatter;

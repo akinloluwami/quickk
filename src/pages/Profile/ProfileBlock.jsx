@@ -15,6 +15,7 @@ const ProfileBlock = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [popupActive, setPopupActive] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("");
   const [followersCount, setFollowersCount] = useState(0);
   useEffect(() => {
     const response = fetchData(`/user/profile/${username}`);
@@ -31,6 +32,7 @@ const ProfileBlock = () => {
         setFollowers(user.followers);
         setFollowing(user.following);
         setFollowersCount(user.followers.length);
+        setProfilePicture(user.profilePicture);
       }
     });
   }, []);
@@ -71,9 +73,7 @@ const ProfileBlock = () => {
         },
       }
     );
-    response.then((data) => {
-      console.log(data);
-    });
+    response.then((data) => {});
   };
 
   const unfollowUser = () => {
@@ -108,7 +108,7 @@ const ProfileBlock = () => {
         boxShadow={"0px 0px 10px rgba(0,0,0,0.1)"}
         flexDirection={"column"}
         transition={"all 0.3s ease-in-out"}
-        transform={popupActive ? "translateY(0)" : "translateY(-150%)"}
+        transform={popupActive ? "translateY(0)" : "translateY(-200%)"}
       >
         <Button
           position={"absolute"}
@@ -140,7 +140,14 @@ const ProfileBlock = () => {
       <Box p="1em">
         <Flex gap={"2em"} alignItems={"center"} flexDir={["column", "row"]}>
           <Box justifyContent={["left"]}>
-            <Avatar size={["lg", "xl"]} />
+            {profilePicture.length > 0 ? (
+              <Avatar size={["lg", "xl"]} src={profilePicture} />
+            ) : (
+              <Avatar
+                size={["lg", "xl"]}
+                src={`https://avatars.dicebear.com/api/initials/${displayName}.svg`}
+              />
+            )}
           </Box>
           <Box textAlign={["center", "left"]}>
             <Text fontWeight={"bold"}>{displayName}</Text>
@@ -165,7 +172,9 @@ const ProfileBlock = () => {
             ) : isFollowing ? (
               <Button onClick={unfollowUser}>Unfollow</Button>
             ) : isOwner ? (
-              <Button>Edit Profile</Button>
+              <Link href="/edit-profile">
+                <Button>Edit Profile</Button>
+              </Link>
             ) : (
               <Button onClick={followUser}>Follow</Button>
             )}
