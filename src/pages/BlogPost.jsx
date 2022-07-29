@@ -23,7 +23,6 @@ import moment from "moment";
 import { BiChevronDown, BiTimeFive, BiUserCircle } from "react-icons/bi";
 import { FaEdit, FaUserEdit } from "react-icons/fa";
 import { Helmet } from "react-helmet";
-import ReactHtmlParser from "react-html-parser";
 
 function BlogPost() {
   const username = window.location.pathname.split("/")[1];
@@ -334,7 +333,6 @@ function BlogPost() {
                   >
                     {postTitle}
                   </Text>
-
                   <Flex gap={"2em"} my={"1em"} justifyContent="center">
                     <Flex alignItems={"center"}>
                       <Text mr={"0.5em"}>
@@ -365,7 +363,6 @@ function BlogPost() {
                       )}
                     </Flex>
                   </Flex>
-
                   {coverImage && (
                     <Box
                       width={"100%"}
@@ -377,8 +374,7 @@ function BlogPost() {
                       my={"1em"}
                     />
                   )}
-                  {ReactHtmlParser(postContent)}
-
+                  (postContent)
                   {/* Make views and others flex  */}
                   <Box my={"1em"}>
                     {/* section to display comments  */}
@@ -398,7 +394,6 @@ function BlogPost() {
 
                     {/* Display comment end here */}
                   </Box>
-
                   {isOwner ? (
                     <Link href={`/dashboard/post/${slug}/edit`}>
                       <Button>Edit</Button>
