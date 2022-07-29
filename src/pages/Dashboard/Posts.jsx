@@ -12,7 +12,7 @@ import {
 import { FaTimes } from "react-icons/fa";
 import { fetchData } from "../../utils/Request";
 import PostsRect from "../../components/major/PostsRect";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 
 const Posts = () => {
   const username = localStorage.getItem("userName");
@@ -31,16 +31,14 @@ const Posts = () => {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Posts | Quickk Dashboard</title>
-      </Helmet>
+      </Helmet> */}
       <DashboardLayout>
         {posts.length > 0 ? (
-          <Box w={['100%' , '70%']} 
-            mx={'auto'}
-          >
+          <Box w={["100%", "70%"]} mx={"auto"}>
             <Text>
-              <Text fontSize={"xl"} fontWeight={'bold'}>
+              <Text fontSize={"xl"} fontWeight={"bold"}>
                 {" "}
                 {posts.length}
                 {posts.length > 1 ? " Posts" : " Post"}

@@ -13,7 +13,7 @@ import { postData } from "../../utils/Request";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 
 function Signup() {
   const [displayName, setDisplayName] = useState("");
@@ -45,9 +45,9 @@ function Signup() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Signup | Quickk</title>
-      </Helmet>
+      </Helmet> */}
       <ToastContainer autoClose={2000} />
       <AuthLayout>
         <Flex justifyContent={"center"} alignItems="center" py="2em" h="80%">

@@ -1,17 +1,17 @@
 import { Center, Box } from "@chakra-ui/react";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import CommingSoon from "../../components/major/CommingSoon";
 
 const Analytics = () => {
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Analytics | Quickk Dashboard</title>
-      </Helmet>
+      </Helmet> */}
       <DashboardLayout>
         <Box>
-           <CommingSoon/>
+          <CommingSoon />
         </Box>
       </DashboardLayout>
     </>
