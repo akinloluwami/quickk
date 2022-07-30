@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Image, Center, Flex, Text } from "@chakra-ui/react";
 import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import Inputs from "../../components/major/Inputs";
 import AuthLayout from "../../Layouts/AuthLayout";
@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactLoading from "react-loading";
 // import { Helmet } from "react-helmet";
+import Logo from '../../components/minor/Logo';
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -47,21 +48,57 @@ function ForgotPassword() {
         <Flex justifyContent={"center"} alignItems="center" py="2em" h="80%">
           {sent ? (
             <Box
-              my="1em"
+              my="3em"
               bg={"#fff"}
               width={["90%", "60%"]}
               py="2em"
               px={"1em"}
             >
+
+              <center>
+              <Box >
+                <iframe src="https://embed.lottiefiles.com/animation/94029"></iframe>
+              </Box>
+              </center>
+
               <Text
                 fontSize={"xl"}
-                fontWeight={"bold"}
+                fontWeight={"medium"}
                 fontFamily={"var(--primary-font)"}
+                textAlign={"center"}
+                my={'1em'}
+              >
+                 Hello,  {email},
+              </Text>
+              <Text
+                fontSize={"xl"}
+                fontWeight={"medium"}
+                fontFamily={"var(--primary-font)"}
+                textAlign={"center"}
               >
                 {" "}
                 We have sent you an email with a link to reset your password.
                 Please check your email.
+
+                
               </Text>
+
+              <Box>
+
+              <Box display={'flex'}  my={'5em'} justifyContent={'center'}
+                onClick = { e => window.history.back() }
+              >
+                <Image
+                      src={
+                        "https://res.cloudinary.com/dhkccnvyn/image/upload/v1658534732/quick/dashboard_zosbzh.svg"
+                      }
+                    />
+                </Box>
+              </Box>
+
+              
+
+             
             </Box>
           ) : (
             <Box
@@ -125,9 +162,12 @@ function ForgotPassword() {
                     width={"100%"}
                   />
                 </Center>
+
+              
               </form>
             </Box>
           )}
+          
         </Flex>
       </AuthLayout>
     </>

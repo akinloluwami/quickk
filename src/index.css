@@ -44,3 +44,11 @@
     transform: rotate(360deg);
   }
 } 
+
+
+/* for mobile screen */
+@media screen and (max-width: 768px) {
+  .moment-time {
+    font-size: 0.7rem !important;
+  }
+}

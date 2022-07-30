@@ -60,7 +60,7 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
               >
                 <Box display={"flex"} gap={"0.5em"} alignItems={"center"}>
                   <BsCalendarDate />{" "}
-                  <Text fontWeight={"medium"}>{moment(date).fromNow()}</Text>
+                  <Text fontWeight={"medium"} className={'moment-time'} fontSize={['0.9em', '0.9em']}>{moment(date).fromNow()}</Text>
                 </Box>
                 <Box display={"flex"} gap={"1em"} alignItems="center">
                   <AiFillHeart fill="red" />{" "}
