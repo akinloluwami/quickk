@@ -30,9 +30,9 @@ const EditPost = () => {
   useEffect(() => {
     const response = fetchData(`/post/${username}/${slug}`);
     response.then((data) => {
-      console.log(data);
+      // console.log(data);
       if (data.status === 200) {
-        console.log(data);
+        // console.log(data);
         setPostTitle(data.data.post.title);
         setPostContent(data.data.post.content);
         setDomImage(data.data.post.coverImageUrl);
