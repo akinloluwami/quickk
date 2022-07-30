@@ -24,7 +24,7 @@ const EditPost = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [domImage, setDomImage] = useState("");
-  const username = localStorage.getItem("username");
+  const username = localStorage.getItem("userName");
   const slug = window.location.pathname.split("/")[3];
 
   useEffect(() => {
