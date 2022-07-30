@@ -10,6 +10,7 @@ import {
   MenuButton,
   UnorderedList,
   ListItem,
+  Button
 } from "@chakra-ui/react";
 import Buttons from "../major/Buttons";
 import Logo from "./Logo";
@@ -34,13 +35,23 @@ const Hero = () => {
                   gap={"2em"}
                 >
                   <Link to="/login">
-                    <ListItem> Sign in </ListItem>
+                  <Button
+                  bg={'#191919'}
+                  color={'#fff'}
+
+                   > Login </Button>
                   </Link>
                 </UnorderedList>
               </Box>
 
               <Box display={["block", "none"]}>
-                <FaBars />
+                 <Link to={'/login'}>
+                  <Button
+                  bg={'#191919'}
+                  color={'#fff'}
+
+                   > Login </Button>
+                 </Link>
               </Box>
             </Box>
           </Flex>
