@@ -350,30 +350,77 @@ function BlogPost() {
                       <Text mr={"0.5em"}>
                         <AiFillEye />{" "}
                       </Text>
-                      <Text>
+                    
+                     <Box display={'inline-flex'} gap={'0.5em'}>
+                       <Text  >
                         {postViews}
-                        {postViews === 1 ? " view" : " views"}
-                      </Text>
+                        </Text>
+                        <Text display={['none' , 'block']}>  {postViews === 1 ? " view" : " views"} </Text>
+                    
+                     </Box>
+
+                      {/* display this on mobile */}
+                     
                     </Flex>
 
                     <Flex gap={"0.5em"} alignItems={"center"}>
                       <AiFillHeart />
                       <Text>
                         {postLikesCount}{" "}
-                        {postLikesCount === 1 ? "like" : "likes"}
                       </Text>
+                      <Text display={['none' , 'block']} >
+                         {postLikesCount === 1 ? "like" : "likes"}
+                       </Text>
+                     
                     </Flex>
 
-                    <Flex alignItems={"center"} gap={"0.5em"}>
-                      <AiOutlineComment />
+                    <Flex alignItems={"center"} gap={"0.5em"}
+                      display={['none' , 'block']}
+                    >
+                      
                       {postComments.length > 0 ? (
                         <>
-                          <Text>{postComments.length} comment</Text>
+                          <Flex>
+                            <AiOutlineComment />
+                            <Text>{postComments.length} comment</Text>
+                          </Flex>
                         </>
                       ) : (
-                        <Text>No comments</Text>
+                        <Flex alignItems={'center'} gap={'0.5em'}>
+                            <AiOutlineComment />
+                            <Text>No comments</Text>
+                        </Flex>
                       )}
                     </Flex>
+
+                    {/* display this on mobile phone  */}
+
+                    <Flex alignItems={"center"} gap={"0.5em"}
+                      display={['block' , 'none']}
+                      
+                    >
+                     
+                      {postComments.length > 0 ? (
+                        <>
+                          <Box display={'flex'} alignItems={'center'} gap={'0.5em'}>
+                            <AiOutlineComment />
+                            <Text>{postComments.length} </Text>
+                            {/* <Text>comment</Text> */}
+                          </Box>
+                        </>
+                      ) : (
+                        <Box display={'flex'} alignItems={'center'} 
+                          alignContent={'center'} gap={'0.5em'}>
+                        
+                           <AiOutlineComment />
+                            <Text>0</Text>
+                        </Box>
+                      )}
+                    </Flex>
+
+                    {/* this it on mobile end  */}
+
+
                     <Share link={window.location.href} title={postTitle} />
                   </Flex>
 

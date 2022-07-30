@@ -20,14 +20,14 @@ function Links() {
       <Box display={"flex"}  flexDirection="column">
         {userLinks.map((link) => (
           <Link key={link.id} href={link.url} target="_blank">
-            <Button width={["100%","400px"]}  my={4} p={'1.8em'} bg={'black'} 
+            <Button width={["100%","400px"]}  my={4} p={'1.7em'} bg={'rgb(42, 50, 53);'} 
             color={"#fff"}
             boxShadow={'xl'}
             borderRadius="5px"
             _hover = {{
 
               boxShadow: 'xl',
-              bg: '#525252',
+              bg: '#000',
 
             }}
             >
