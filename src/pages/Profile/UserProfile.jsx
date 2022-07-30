@@ -59,11 +59,15 @@ function Donate() {
             <Flex justifyContent={"center"}>
               <Box>
                 <ProfileBlock />
-                <Box my={"1.5em"}>
-                  <Links />
+                <Box my={"1.5em"} display={['none' , 'block']}>
+                 <Links />
                 </Box>
               </Box>
             </Flex>
+
+            <Box display={['block' , 'none']}>
+              <Links />
+            </Box>
           </ProfileLayout>
         )}
       </ContainerLayout>
