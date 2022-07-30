@@ -218,21 +218,21 @@ const Write = () => {
                 setPostTitle(e.target.value);
               }}
             />
-            {/* <Textarea
-            placeholder={"Write your article..."}
-            fontSize={"1.5em"}
-            height={"100%"}
-            fontWeight={"500"}
-            py={"1em"}
-            px={"1em"}
-            borderRadius={"10px"}
-            border={"1px solid #0031af"}
-            marginTop={"10px"}
-            onChange={(e) => {
-              setPostContent(e.target.value);
-            }}
-          /> */}
-            <Editor
+            <Textarea
+              placeholder={"Write your article..."}
+              fontSize={"1.5em"}
+              height={"100%"}
+              fontWeight={"500"}
+              py={"1em"}
+              px={"1em"}
+              borderRadius={"10px"}
+              border={"1px solid #0031af"}
+              marginTop={"10px"}
+              onChange={(e) => {
+                setPostContent(e.target.value);
+              }}
+            />
+            {/* <Editor
               options={{
                 toolbar: {
                   buttons: [
@@ -265,7 +265,7 @@ const Write = () => {
                 fontWeight: "400",
                 overflowY: "scroll",
               }}
-            />
+            /> */}
             {/* <CKEditor
             editor={ClassicEditor}
             data={postContent}
