@@ -3,8 +3,10 @@ import DonationBox from "../Profile/Components/DonationBox";
 import { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
 // import { Helmet } from "react-helmet";
+import {GrMoney} from 'react-icons/gr'
 
 const Donate = () => {
+
   const [donations, setDonations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [reversed, setReversed] = useState();
@@ -57,7 +59,14 @@ const Donate = () => {
             ))}
           </Flex>
         ) : (
-          <Text>No donations yet</Text>
+          <Box my={'2em'} color={'gray'}>
+
+            <center>
+              <GrMoney size={'2em'} fill={'gray'}/>
+              <Text my={'1em'}> No Donations Yet </Text>
+
+            </center>
+          </Box>
         )}
       </Box>
     </>
