@@ -2,15 +2,18 @@ import { Box, Button, Input, Text, Textarea } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useLazerpay } from "lazerpay-react";
 import { fetchData, postData } from "../../../utils/Request";
+import DonationResultModal from "./DonationResultModal";
 
 function DonationForm() {
   const username = window.location.pathname.split("/")[1];
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
-  const [success, setSuccess] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [uniqueIdentifier, setUniqueIdentifier] = useState("");
   const [minimumDonationAmount, setMinimumDonationAmount] = useState(0);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [closed, setClosed] = useState(false);
   useEffect(() => {
     const response = fetchData(`/user/profile/${username}`);
     response.then((data) => {
@@ -35,6 +38,23 @@ function DonationForm() {
   useEffect(() => {
     uniqueIdentifierGenerator();
   }, []);
+
+  const donateToUser = () => {
+    const data = {
+      amount: amount,
+      donationMessage: message,
+      username: username,
+    };
+    const response = postData("/payment/donate", data);
+    response.then((data) => {
+      if (data.status === 200) {
+        setSuccess(true);
+      } else {
+        setError(true);
+        setErrorMessage(data.message);
+      }
+    });
+  };
   const config = {
     publicKey: import.meta.env.VITE_APP_LAZER_PAY_PUBLIC_KEY,
     currency: "USD",
@@ -43,21 +63,35 @@ function DonationForm() {
       username + "-" + Date.now() + "-" + displayName + uniqueIdentifier,
     acceptPartialPayment: false,
     onSuccess: (response) => {
-      console.log(response);
-      setSuccess(true);
+      donateToUser();
     },
     onClose: () => {
-      console.log("closed");
+      setClosed(true);
     },
     onError: (response) => {
-      console.log(response);
+      setError(true);
     },
   };
 
   const initializePayment = useLazerpay(config);
   return (
     <>
-      <Box width={["100%","400px"]}>
+      {success && (
+        <DonationResultModal
+          message={"Your donation was successful "}
+          emoji={"🎉"}
+        />
+      )}
+
+      {error && (
+        <DonationResultModal message={"Donation failed"} emoji={"😢"} />
+      )}
+
+      {closed && (
+        <DonationResultModal message={"Payment closed"} emoji={"😢"} />
+      )}
+
+      <Box width={["100%", "400px"]}>
         <Text
           fontSize="22px"
           fontWeight="bold"
@@ -71,7 +105,7 @@ function DonationForm() {
           type="number"
           placeholder={`Enter amount in USD: Minimum ${minimumDonationAmount} USD`}
           marginBottom={"1rem"}
-          py={'1.5em'}
+          py={"1.5em"}
           onChange={(e) => setAmount(e.target.value)}
         />
         <Textarea
@@ -82,7 +116,7 @@ function DonationForm() {
           width={"100%"}
           color={"white"}
           borderRadius={"0.5em"}
-          py={'1.5em'}
+          py={"1.5em"}
           bg={"blue.500"}
           _hover={{ bg: "#19315f" }}
           marginBottom={"1rem"}
