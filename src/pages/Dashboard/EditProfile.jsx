@@ -110,6 +110,10 @@ const EditProfile = () => {
     });
   };
 
+  useEffect(() => {
+    document.title = "Edit Profile | Quickk Dashboard";
+  }, []);
+
   return (
     <>
       <DashboardLayout>
