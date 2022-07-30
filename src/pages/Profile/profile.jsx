@@ -8,6 +8,8 @@ import LoadingProfile from "../../components/minor/LoadingProfile";
 import NoUser from "../../components/minor/NoUser";
 // import { Helmet } from "react-helmet";
 import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
+import NOUserPost from "../../components/minor/NoUserPost";
+import NoUserPost from "../../components/minor/NoUserPost";
 
 const Profile = () => {
   const username = window.location.pathname.split("/")[1];
@@ -71,8 +73,12 @@ const Profile = () => {
             <ProfileLayout>
               <Box>
                 {posts.length < 1 ? (
-                  <Box>
-                    <Text>No posts from this user yet.</Text>
+                  <Box display={'flex'}
+                    justifyContent={'center'}
+                    my={'10rem'}
+                  >
+                      <NoUserPost/>
+                      
                   </Box>
                 ) : (
                   <Flex
