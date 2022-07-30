@@ -64,11 +64,7 @@ const EditProfile = () => {
   const handleImageInput = (e) => {
     setProfilePicture(e.target.files[0]);
     setFileSelected(true);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setDomImage(e.target.result);
-    };
-    reader.readAsDataURL(e.target.files[0]);
+    setDomImage(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleUpdate = () => {
@@ -132,11 +128,24 @@ const EditProfile = () => {
           </Text>
           <Box my={"1em"}>
             <center>
-              {profilePicture ? (
+              {/* {profilePicture ? (
                 <Avatar my={"1em"} src={profilePicture} size={["lg", "xl"]} />
               ) : (
                 <Avatar
                   src={`https://avatars.dicebear.com/api/initials/${displayName}.svg`}
+                  size={["lg", "xl"]}
+                  my={"1em"}
+                />
+              )} */}
+              {domImage ? (
+                <Avatar my={"1em"} src={domImage} size={["lg", "xl"]} />
+              ) : (
+                <Avatar
+                  src={
+                    profilePicture
+                      ? profilePicture
+                      : `https://avatars.dicebear.com/api/initials/${displayName}.svg`
+                  }
                   size={["lg", "xl"]}
                   my={"1em"}
                 />
