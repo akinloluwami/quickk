@@ -22,6 +22,7 @@ import { FiEdit, FiLogOut } from "react-icons/fi";
 import moment from "moment";
 import { BiChevronDown, BiTimeFive, BiUserCircle } from "react-icons/bi";
 import { FaEdit, FaUserEdit } from "react-icons/fa";
+import Share from "../components/minor/Share";
 // import { Helmet } from "react-helmet";
 
 function BlogPost() {
@@ -367,6 +368,7 @@ function BlogPost() {
                         <Text>No comments</Text>
                       )}
                     </Flex>
+                    <Share />
                   </Flex>
 
                   {coverImage && (
