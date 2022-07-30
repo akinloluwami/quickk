@@ -8,9 +8,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 // import { Helmet } from "react-helmet";
-import Editor from "react-medium-editor";
-import "medium-editor/dist/css/medium-editor.css";
-import "medium-editor/dist/css/themes/default.css";
+// import Editor from "react-medium-editor";
+// import "medium-editor/dist/css/medium-editor.css";
+// import "medium-editor/dist/css/themes/default.css";
 
 const EditPost = () => {
   const navigate = useNavigate();
