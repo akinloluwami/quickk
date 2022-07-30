@@ -34,7 +34,7 @@ function VerifyEmail() {
       toast.success("Verify email sucessful");
       setLoading(false);
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/dashboard/overview");
       }, 1500);
     } else {
       toast.error(response.response.data.message);
