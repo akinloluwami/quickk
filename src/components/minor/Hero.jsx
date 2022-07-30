@@ -16,6 +16,7 @@ import Logo from "./Logo";
 import { FaBars } from "react-icons/fa";
 import Memojie from "../Avater.svg";
 import { Link } from "react-router-dom";
+import Phrase from "../phrase";
 
 const Hero = () => {
   return (
@@ -60,8 +61,7 @@ const Hero = () => {
                 width={["", "70%"]}
                 mx={"auto"}
               >
-                {" "}
-                Let your imagination run wild{" "}
+                {Phrase()}
               </Text>
 
               <Text my={"2em"} textAlign={"center"}>

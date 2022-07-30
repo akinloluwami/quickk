@@ -4,6 +4,7 @@ import Pattern from "./pattern.svg";
 import { Text } from "@chakra-ui/react";
 import ContainerLayout from "./ContainerLayout.jsx/ContainerLayout";
 import { Link } from "react-router-dom";
+import Phrase from "../components/phrase";
 const AuthLayout = ({ children }) => {
   return (
     <>
@@ -35,7 +36,7 @@ const AuthLayout = ({ children }) => {
                   fontSize="5xl"
                   color={"#fff"}
                 >
-                  Let Your Imagination Run Wild .
+                  {Phrase()}
                 </Text>
                 <Text pr="2em" my={"1em"} color={"#fff"}>
                   Setup your blog in less than 2 minutes, start writing and
