@@ -229,97 +229,101 @@ function BlogPost() {
             zIndex={999}
           >
             <ContainerLayout>
-            <Flex
-              alignItems={"center"}
-              justifyContent={"space-between"}
-              backgroundColor={"#fff"}
-              py={"1em"}
-            >
-              <Link
-                href={`/${username}`}
-                display={"flex"}
+              <Flex
                 alignItems={"center"}
+                justifyContent={"space-between"}
+                backgroundColor={"#fff"}
+                py={"1em"}
               >
-                <Avatar src={ownerProfileImage} size={['sm' , 'md']}/>
-                <Text ml={"0.5em"} fontSize={['',"1.4em"]} fontWeight={"bold"}>
-                  {ownerDisplayName}
-                </Text>
-              </Link>
-              {localStorage.getItem("token") && !isOwner ? (
-                <Menu>
-                  <MenuButton>
-                    <Flex alignItems={"center"} gap={"1em"}>
-                      {viewerProfilePicture ? (
-                        <Avatar
-                          my={"1em"}
-                          src={viewerProfilePicture}
-                          size={"md"}
-                        />
-                      ) : (
-                        <Avatar
-                          src={`https://avatars.dicebear.com/api/initials/${viewerDisplayName}.svg`}
-                          size={"md"}
-                          my={"1em"}
-                        />
-                      )}
-
-                      <Text fontWeight={"bold"} display={["none", "block"]}>
-                        {viewerDisplayName}
-                      </Text>
-                      <Text>
-                        <BiChevronDown />
-                      </Text>
-                    </Flex>
-                  </MenuButton>
-
-                  <MenuList>
-                    <Link href={`/${viewerUserName}`}>
-                      <MenuItem>
-                        <Text mr="1em">
-                          <BiUserCircle />
-                        </Text>{" "}
-                        Profile.
-                      </MenuItem>
-                    </Link>
-                    <Link href="/edit-profile">
-                      <MenuItem>
-                        <Text mr="1em">
-                          <FaUserEdit />
-                        </Text>{" "}
-                        Edit Profile
-                      </MenuItem>
-                    </Link>
-
-                    <MenuItem
-                      onClick={() => {
-                        handleLogout();
-                      }}
-                    >
-                      <Text mr="1em">
-                        <FiLogOut />
-                      </Text>
-                      logout
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
-              ) : isOwner ? (
-                <Link href={`/dashboard/post/${slug}/edit`}>
-                  <Button
-                    gap={"0.5em"}
-                    color={"#fff"}
-                    bg={"#0031af"}
-                    _hover={{ bg: "#0031af" }}
+                <Link
+                  href={`/${username}`}
+                  display={"flex"}
+                  alignItems={"center"}
+                >
+                  <Avatar src={ownerProfileImage} size={["sm", "md"]} />
+                  <Text
+                    ml={"0.5em"}
+                    fontSize={["", "1.4em"]}
+                    fontWeight={"bold"}
                   >
-                    <FaEdit />
-                    Edit
-                  </Button>
+                    {ownerDisplayName}
+                  </Text>
                 </Link>
-              ) : (
-                <Link href="/login">
-                  <Button>Login</Button>
-                </Link>
-              )}
-            </Flex>
+                {localStorage.getItem("token") && !isOwner ? (
+                  <Menu>
+                    <MenuButton>
+                      <Flex alignItems={"center"} gap={"1em"}>
+                        {viewerProfilePicture ? (
+                          <Avatar
+                            my={"1em"}
+                            src={viewerProfilePicture}
+                            size={"md"}
+                          />
+                        ) : (
+                          <Avatar
+                            src={`https://avatars.dicebear.com/api/initials/${viewerDisplayName}.svg`}
+                            size={"md"}
+                            my={"1em"}
+                          />
+                        )}
+
+                        <Text fontWeight={"bold"} display={["none", "block"]}>
+                          {viewerDisplayName}
+                        </Text>
+                        <Text>
+                          <BiChevronDown />
+                        </Text>
+                      </Flex>
+                    </MenuButton>
+
+                    <MenuList>
+                      <Link href={`/${viewerUserName}`}>
+                        <MenuItem>
+                          <Text mr="1em">
+                            <BiUserCircle />
+                          </Text>{" "}
+                          Profile.
+                        </MenuItem>
+                      </Link>
+                      <Link href="/edit-profile">
+                        <MenuItem>
+                          <Text mr="1em">
+                            <FaUserEdit />
+                          </Text>{" "}
+                          Edit Profile
+                        </MenuItem>
+                      </Link>
+
+                      <MenuItem
+                        onClick={() => {
+                          handleLogout();
+                        }}
+                      >
+                        <Text mr="1em">
+                          <FiLogOut />
+                        </Text>
+                        logout
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
+                ) : isOwner ? (
+                  <Link href={`/dashboard/post/${slug}/edit`}>
+                    <Button
+                      gap={"0.5em"}
+                      color={"#fff"}
+                      bg={"#0031af"}
+                      _hover={{ bg: "#0031af" }}
+                    >
+                      <FaEdit />
+                      Edit
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/login">
+                    <Button>Login</Button>
+                  </Link>
+                )}
+              </Flex>
             </ContainerLayout>
           </Box>
           <ContainerLayout>
@@ -360,7 +364,7 @@ function BlogPost() {
                       </Text>
                     </Flex>
 
-                    <Flex alignItems={"center"}  gap={"0.5em"}>
+                    <Flex alignItems={"center"} gap={"0.5em"}>
                       <AiOutlineComment />
                       {postComments.length > 0 ? (
                         <>
@@ -370,7 +374,7 @@ function BlogPost() {
                         <Text>No comments</Text>
                       )}
                     </Flex>
-                    <Share />
+                    <Share link={window.location.href} title={postTitle} />
                   </Flex>
 
                   {coverImage && (
@@ -438,14 +442,14 @@ function BlogPost() {
                           }}
                         />
                       )}
-                      <Box >
-                        <Text my={'0.5em'}>Add a comment</Text>
+                      <Box>
+                        <Text my={"0.5em"}>Add a comment</Text>
                         <Textarea
                           onChange={(e) => setNewComment(e.target.value)}
                           ref={commentTextareaRef}
                         />
-                        <Button 
-                          my={'1em'}
+                        <Button
+                          my={"1em"}
                           disabled={commenting || newComment.length === 0}
                           onClick={commentOnPost}
                         >
