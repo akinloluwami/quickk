@@ -88,12 +88,11 @@ const Write = () => {
     setTimeout(() => {
       navigate("/dashboard/posts");
     }, 2000);
-    console.log(res.data.post);
   };
   /*Select text to change formatting, add headers, or create links.*/
 
   useEffect(() => {
-    document.title = postTitle ? `Editing ${postTitle}` : "Create New Post";
+    document.title = postTitle ? `Editing "${postTitle}"` : "Create New Post";
   }, [postTitle]);
 
   return (
@@ -207,21 +206,65 @@ const Write = () => {
                 <img src={domImage} alt="" />
               </Box>
             )}
+            <Box>
+              {postTitle && postTitle.length < 10 && (
+                <Text>
+                  Title must be at least 10 characters long and cannot be empty.
+                </Text>
+              )}
+              {postTitle && postTitle.length < 10 && (
+                <Box
+                  m={2}
+                  borderRadius={"20px"}
+                  width={`${postTitle.length * 10}%`}
+                  height={"5px"}
+                  backgroundColor={
+                    postTitle.length < 5
+                      ? "red"
+                      : postTitle.length < 10
+                      ? "#fddc01"
+                      : "green"
+                  }
+                ></Box>
+              )}
+            </Box>
             <Input
               placeholder={"Article Title..."}
               fontSize={"1.5em"}
               height={"1em"}
               fontWeight={"500"}
               py={"1em"}
-              my={"1em"}
+              mb={"1em"}
               onChange={(e) => {
-                setPostTitle(e.target.value);
+                setPostTitle(e.target.value.trim());
               }}
             />
+            <Box>
+              {postContent && postContent.length < 50 && (
+                <Text>
+                  Content must be at least 50 characters long and cannot be
+                  empty.
+                </Text>
+              )}
+              {postContent && postContent.length < 50 && (
+                <Box
+                  width={`${postContent.length * 2}%`}
+                  height={"5px"}
+                  borderRadius={"20px"}
+                  backgroundColor={
+                    postContent.length < 25
+                      ? "red"
+                      : postContent.length < 50
+                      ? "#fddc01"
+                      : "green"
+                  }
+                ></Box>
+              )}
+            </Box>
             <Textarea
               placeholder={"Write your article..."}
               fontSize={"1.5em"}
-              height={"100%"}
+              height={"300px"}
               fontWeight={"500"}
               py={"1em"}
               px={"1em"}
@@ -229,7 +272,7 @@ const Write = () => {
               border={"1px solid #0031af"}
               marginTop={"10px"}
               onChange={(e) => {
-                setPostContent(e.target.value);
+                setPostContent(e.target.value.trim());
               }}
             />
             {/* <Editor
