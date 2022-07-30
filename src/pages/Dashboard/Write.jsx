@@ -207,17 +207,59 @@ const Write = () => {
                 <img src={domImage} alt="" />
               </Box>
             )}
+            <Box>
+              {postTitle && postTitle.length < 10 && (
+                <Text>
+                  Title must be at least 10 characters long and cannot be empty.
+                </Text>
+              )}
+              {postTitle && postTitle.length < 10 && (
+                <Box
+                  m={2}
+                  width={`${postTitle.length * 10}%`}
+                  height={"5px"}
+                  backgroundColor={
+                    postTitle.length < 5
+                      ? "red"
+                      : postTitle.length < 10
+                      ? "yellow"
+                      : "green"
+                  }
+                ></Box>
+              )}
+            </Box>
             <Input
               placeholder={"Article Title..."}
               fontSize={"1.5em"}
               height={"1em"}
               fontWeight={"500"}
               py={"1em"}
-              my={"1em"}
+              mb={"1em"}
               onChange={(e) => {
-                setPostTitle(e.target.value);
+                setPostTitle(e.target.value.trim());
               }}
             />
+            <Box>
+              {postContent && postContent.length < 50 && (
+                <Text>
+                  Content must be at least 50 characters long and cannot be
+                  empty.
+                </Text>
+              )}
+              {postContent && postContent.length < 50 && (
+                <Box
+                  width={`${postContent.length * 2}%`}
+                  height={"5px"}
+                  backgroundColor={
+                    postContent.length < 25
+                      ? "red"
+                      : postContent.length < 50
+                      ? "yellow"
+                      : "green"
+                  }
+                ></Box>
+              )}
+            </Box>
             <Textarea
               placeholder={"Write your article..."}
               fontSize={"1.5em"}
@@ -229,7 +271,7 @@ const Write = () => {
               border={"1px solid #0031af"}
               marginTop={"10px"}
               onChange={(e) => {
-                setPostContent(e.target.value);
+                setPostContent(e.target.value.trim());
               }}
             />
             {/* <Editor
