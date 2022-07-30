@@ -313,7 +313,7 @@ function BlogPost() {
                   </Button>
                 </Link>
               ) : (
-                <Link href="/">
+                <Link href="/login">
                   <Button>Login</Button>
                 </Link>
               )}
