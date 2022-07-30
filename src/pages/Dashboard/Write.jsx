@@ -93,7 +93,7 @@ const Write = () => {
   /*Select text to change formatting, add headers, or create links.*/
 
   useEffect(() => {
-    document.title = postTitle ? `Editing ${postTitle}` : "Create New Post";
+    document.title = postTitle ? `Editing "${postTitle}"` : "Create New Post";
   }, [postTitle]);
 
   return (
@@ -216,13 +216,14 @@ const Write = () => {
               {postTitle && postTitle.length < 10 && (
                 <Box
                   m={2}
+                  borderRadius={"20px"}
                   width={`${postTitle.length * 10}%`}
                   height={"5px"}
                   backgroundColor={
                     postTitle.length < 5
                       ? "red"
                       : postTitle.length < 10
-                      ? "yellow"
+                      ? "#fddc01"
                       : "green"
                   }
                 ></Box>
@@ -250,11 +251,12 @@ const Write = () => {
                 <Box
                   width={`${postContent.length * 2}%`}
                   height={"5px"}
+                  borderRadius={"20px"}
                   backgroundColor={
                     postContent.length < 25
                       ? "red"
                       : postContent.length < 50
-                      ? "yellow"
+                      ? "#fddc01"
                       : "green"
                   }
                 ></Box>
@@ -263,7 +265,7 @@ const Write = () => {
             <Textarea
               placeholder={"Write your article..."}
               fontSize={"1.5em"}
-              height={"100%"}
+              height={"300px"}
               fontWeight={"500"}
               py={"1em"}
               px={"1em"}
