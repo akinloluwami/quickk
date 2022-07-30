@@ -88,7 +88,6 @@ const Write = () => {
     setTimeout(() => {
       navigate("/dashboard/posts");
     }, 2000);
-    console.log(res.data.post);
   };
   /*Select text to change formatting, add headers, or create links.*/
 
