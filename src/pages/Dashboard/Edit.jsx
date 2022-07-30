@@ -229,8 +229,22 @@ const EditPost = () => {
               setPostTitle(e.target.value);
             }}
           />
-
-          <Editor
+          <Textarea
+            placeholder={"Write your article..."}
+            fontSize={"1.5em"}
+            height={"100%"}
+            fontWeight={"500"}
+            py={"1em"}
+            px={"1em"}
+            borderRadius={"10px"}
+            border={"1px solid #0031af"}
+            marginTop={"10px"}
+            onChange={(e) => {
+              setPostContent(e.target.value);
+            }}
+            value={postContent}
+          />
+          {/* <Editor
             text={postContent}
             options={{
               toolbar: {
@@ -262,7 +276,7 @@ const EditPost = () => {
               fontWeight: "400",
               overflowY: "scroll",
             }}
-          />
+          /> */}
         </Flex>
       </DashboardLayout>
     </>
