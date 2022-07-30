@@ -310,7 +310,6 @@ const Links = () => {
                           handleDeleteLink(link.id);
                         }}
                         bg={"red.500"}
-                        color={"#fff"}
                       >
                         <Text my={"0.5em"} fontSize={"1.2em"}>
                           {deleting === link.id ? "Deleting..." : <TbTrash />}
