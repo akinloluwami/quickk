@@ -5,13 +5,15 @@ const HeroKit = () => {
     return (
         <>
         
-          <Box bg={'var(--bg)'} height={'100vh'}>
+          <Box bg={'var(--bg)'} height={'100vh'} >
               <ContainerLayout>
-                <Flex justifyContent={'center'}>
+                <Flex justifyContent={'center'} alignItems={'center'} h={'80vh'}>
                     <Box>
-                     <Text fontSize={['3xl' , '5xl']}
+                     <Text fontSize={['3xl' , '4em']}
                       textAlign={'center'}
                         fontWeight={'bold'}
+                        width={['100%','80%']}
+
                       >
                          Let your imagination run wild
                       </Text>

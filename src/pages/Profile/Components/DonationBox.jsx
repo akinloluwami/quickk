@@ -19,7 +19,7 @@ const DonationBox = ({ amount, date, message }) => {
         minWidth={"20em"}
       >
         <Box my={"1em"}>
-          <Text fontSize="50px" fontWeight={500} color={"green.500"}>
+          <Text fontSize="4xl" fontWeight={500} color={"blue.500"}>
             ${formatWithCommas(amount)}
           </Text>
         </Box>
@@ -33,12 +33,12 @@ const DonationBox = ({ amount, date, message }) => {
             position="absolute"
             top={"0"}
             right={"0"}
-            bg="rgba(0,255,0,0.3)"
+            bg="#f3feff"
             borderRadius={"0 0.5em 0 0.5em"}
             px={"0.5em"}
           >
             <BiTime />
-            <Text fontSize="sm" color={"grey"} my="10px">
+            <Text fontSize="sm" color={"blue"} my="10px">
               {moment(date).fromNow()}
             </Text>
           </Box>

@@ -228,6 +228,7 @@ function BlogPost() {
             top={0}
             zIndex={999}
           >
+            <ContainerLayout>
             <Flex
               alignItems={"center"}
               justifyContent={"space-between"}
@@ -239,8 +240,8 @@ function BlogPost() {
                 display={"flex"}
                 alignItems={"center"}
               >
-                <Avatar src={ownerProfileImage} />
-                <Text ml={"0.5em"} fontSize={"1.5em"} fontWeight={"bold"}>
+                <Avatar src={ownerProfileImage} size={['sm' , 'md']}/>
+                <Text ml={"0.5em"} fontSize={['',"1.4em"]} fontWeight={"bold"}>
                   {ownerDisplayName}
                 </Text>
               </Link>
@@ -319,6 +320,7 @@ function BlogPost() {
                 </Link>
               )}
             </Flex>
+            </ContainerLayout>
           </Box>
           <ContainerLayout>
             <Box my={"8em"}>
@@ -358,7 +360,7 @@ function BlogPost() {
                       </Text>
                     </Flex>
 
-                    <Flex alignItems={"center"} gap={"0.5em"}>
+                    <Flex alignItems={"center"}  gap={"0.5em"}>
                       <AiOutlineComment />
                       {postComments.length > 0 ? (
                         <>
@@ -424,25 +426,26 @@ function BlogPost() {
                           color="red"
                           onClick={unlikePost}
                           style={{
-                            fontSize: "40px",
+                            fontSize: "25px",
                           }}
                         />
                       ) : (
                         <RiHeart3Fill
                           onClick={likePost}
                           style={{
-                            fontSize: "40px",
+                            fontSize: "20px",
                             color: "rgba(0,0,0,0.3)",
                           }}
                         />
                       )}
-                      <Box>
-                        <Text>Add a comment</Text>
+                      <Box >
+                        <Text my={'0.5em'}>Add a comment</Text>
                         <Textarea
                           onChange={(e) => setNewComment(e.target.value)}
                           ref={commentTextareaRef}
                         />
-                        <Button
+                        <Button 
+                          my={'1em'}
                           disabled={commenting || newComment.length === 0}
                           onClick={commentOnPost}
                         >
