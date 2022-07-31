@@ -19,7 +19,7 @@ const BlogBox = ({ title, likes, views, content, date, coverImage }) => {
   return (
     <>
       <Box
-        box-shadow="md"
+        boxShadow="md"
         bg={"#fff"}
         my={"1em"}
         p="1em"
