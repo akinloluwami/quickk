@@ -5,5 +5,6 @@ router.post("/donate", payments.donate);
 router.post("/update", payments.updateWalletAddressAndMinimumDonationAmount);
 router.get("/get", payments.getWalletAddressAndMinimumDonationAmount);
 router.get("/get-donations", payments.getDonations);
+router.get("/get-balance", payments.getAccountBalance);
 
 module.exports = router;
