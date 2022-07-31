@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import ContainerLayout from "../../Layouts/ContainerLayout.jsx/ContainerLayout";
 import Hero from "../../components/minor/Hero";
 import Section from './Section';
+import LightBox from "./LightBox";
+import Footer from './Footer';
+import Divider from "./Divider";
 
 function Home() {
   useEffect(() => {
@@ -16,6 +19,10 @@ function Home() {
       </Helmet> */}
       <Hero />
       <Section/>
+      <LightBox/>
+      <Divider/>
+
+      <Footer />
       
     </>
   );
