@@ -35,6 +35,9 @@ const Hero = () => {
                   <Button
                   bg={'#191919'}
                   color={'#fff'}
+                  _hover = {{ 
+                    backdround: ' #191919'
+                  }}
 
                    > Login </Button>
                   </Link>
