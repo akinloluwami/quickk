@@ -53,8 +53,8 @@ function RequestPayout({ isOpen }) {
         setAccountBalance(
           parseInt(data.data.accountBalance) - parseInt(amount)
         );
-        setAmount(0);
         inputRef.current.value = "";
+        setAmount(0);
       })
       .catch((err) => {
         setProcessing(false);
@@ -117,6 +117,33 @@ function RequestPayout({ isOpen }) {
             submit your wallet address
           </Link>{" "}
           before requesting a payout
+        </Text>
+      )}
+      {success && !amount && (
+        <Text
+          fontSize={"15px"}
+          textAlign={"center"}
+          fontWeight={"bold"}
+          my={2}
+          color={"green"}
+          width={"300px"}
+          margin={"auto"}
+          backgroundColor={"green.100"}
+          padding={"1em"}
+          borderRadius={"5px"}
+        >
+          Your request has been sent, your wallet will be credited shortly.
+        </Text>
+      )}
+      {error && !amount && (
+        <Text
+          fontSize={"12px"}
+          textAlign={"center"}
+          fontWeight={"bold"}
+          my={2}
+          color={"red"}
+        >
+          There was an error processing your request. Please try again.
         </Text>
       )}
       <Input
