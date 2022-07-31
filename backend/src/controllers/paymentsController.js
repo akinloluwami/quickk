@@ -3,6 +3,7 @@ const Users = require("../schema/User");
 const Donation = require("../schema/Donation");
 const jwt = require("jsonwebtoken");
 const { donationEmail } = require("../utils/email");
+const nodemailer = require("nodemailer");
 
 module.exports = {
   updateWalletAddressAndMinimumDonationAmount: async (req, res) => {
@@ -142,6 +143,89 @@ module.exports = {
     });
     return res.status(200).json({
       donations,
+    });
+  },
+
+  getAccountBalance: async (req, res) => {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await Users.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    return res.status(200).json({
+      accountBalance: user.accountBalance,
+      walletAddress: user.walletAddress,
+    });
+  },
+  requestPayout: async (req, res) => {
+    const { amount } = req.body;
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+    const tkn = token.split(" ")[1];
+    const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+    const user = await Users.findOne({
+      where: {
+        uuid: decoded.uuid,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    }
+    const accountBalance = user.accountBalance;
+    if (accountBalance < 10) {
+      return res.status(400).json({
+        message:
+          "You must have at least $10 in your account to request a payout",
+      });
+    }
+    user.update({
+      accountBalance: parseInt(accountBalance) - parseInt(amount),
+    });
+    const transporter = nodemailer.createTransport({
+      host: "server53.web-hosting.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
+    const mailOptions = {
+      from: process.env.SMTP_EMAIL,
+      to: process.env.ADMIN_EMAIL,
+      subject: "Payout Request",
+      html: `<p>${user.displayName} has requested a payout of $${amount}</p>
+      to be sent to ${user.walletAddress}
+      `,
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+    return res.status(200).json({
+      message: "Payout request sent",
     });
   },
 };

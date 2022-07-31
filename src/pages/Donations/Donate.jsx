@@ -1,7 +1,8 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Center } from "@chakra-ui/react";
 import DonationBox from "../Profile/Components/DonationBox";
 import { useState, useEffect } from "react";
 import { fetchData, postData } from "../../utils/Request";
+import RequestPayout from "./RequestPayout";
 // import { Helmet } from "react-helmet";
 import {GrMoney} from 'react-icons/gr'
 
@@ -10,6 +11,7 @@ const Donate = () => {
   const [donations, setDonations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [reversed, setReversed] = useState();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const response = fetchData("/payment/get-donations", {
@@ -44,20 +46,25 @@ const Donate = () => {
         <title>Donations | Quickk Dashboard</title>
       </Helmet> */}
       <Box maxW={["100%", "70%"]} mx={"auto"} py={"2em"}>
-        <Text></Text>
         {isLoading ? (
           <Text>Loading...</Text>
         ) : donations.length > 0 ? (
-          <Flex flexWrap={"wrap"} justifyContent={"space-evenly"}>
-            {reversed?.map((donation) => (
-              <DonationBox
-                key={donation.id}
-                amount={donation.amount}
-                date={donation.donatedAt}
-                message={donation.donationMessage}
-              />
-            ))}
-          </Flex>
+          <Box position={"relative"}>
+            <RequestPayout isOpen={isOpen} />
+            <Center my={"2em"}>
+              <Button onClick={() => setIsOpen(true)}>Request Payout</Button>
+            </Center>
+            <Flex flexWrap={"wrap"} justifyContent={"space-evenly"}>
+              {reversed?.map((donation) => (
+                <DonationBox
+                  key={donation.id}
+                  amount={donation.amount}
+                  date={donation.donatedAt}
+                  message={donation.donationMessage}
+                />
+              ))}
+            </Flex>
+          </Box>
         ) : (
           <Box my={'2em'} color={'gray'}>
 
