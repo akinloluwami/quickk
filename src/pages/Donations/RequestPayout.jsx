@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Center, Button, Input, Text, Box, Flex } from "@chakra-ui/react";
+import { Center, Button, Input, Text, Box, Flex, Link } from "@chakra-ui/react";
 import { postData, fetchData } from "../../utils/Request";
 
 function RequestPayout({ isOpen }) {
   const [amount, setAmount] = useState(0);
   const boxRef = useRef();
   const [accountBalance, setAccountBalance] = useState(0);
+  const [walletAddress, setWalletAddress] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const inputRef = useRef();
+  const formatWithComma = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   useEffect(() => {
     const response = fetchData("/payment/get-balance", {
@@ -17,11 +25,43 @@ function RequestPayout({ isOpen }) {
     response
       .then((data) => {
         setAccountBalance(parseInt(data.data.accountBalance));
+        setWalletAddress(data.data.walletAddress);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [accountBalance]);
+
+  const requestPayout = () => {
+    setProcessing(true);
+    setError(false);
+    setSuccess(false);
+    const data = {
+      amount: amount,
+    };
+    const response = postData("/payment/payout", data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    response
+      .then((data) => {
+        console.log(data);
+        setProcessing(false);
+        setSuccess(true);
+        setAccountBalance(
+          parseInt(data.data.accountBalance) - parseInt(amount)
+        );
+        setAmount(0);
+        inputRef.current.value = "";
+      })
+      .catch((err) => {
+        setProcessing(false);
+        setError(true);
+        console.log(err);
+      });
+  };
 
   return (
     <Box
@@ -47,7 +87,7 @@ function RequestPayout({ isOpen }) {
         Request Payout
       </Text>
       <Text fontSize={"1em"} textAlign={"center"} fontWeight={"bold"} my={2}>
-        Your account balance is ${accountBalance}
+        Your account balance is ${formatWithComma(accountBalance)}
       </Text>
       {amount > accountBalance && (
         <Text
@@ -60,22 +100,48 @@ function RequestPayout({ isOpen }) {
           You cannot request more than your account balance
         </Text>
       )}
+      {!walletAddress && (
+        <Text
+          fontSize={"12px"}
+          textAlign={"center"}
+          fontWeight={"bold"}
+          my={2}
+          color={"red"}
+        >
+          You must{" "}
+          <Link
+            href="/dashboard/donations/settings"
+            color={"blue.500"}
+            textDecoration={"underline"}
+          >
+            submit your wallet address
+          </Link>{" "}
+          before requesting a payout
+        </Text>
+      )}
       <Input
         type="number"
         placeholder="Amount, minimum $10"
         onChange={(e) => setAmount(parseInt(e.target.value))}
         my={"1em"}
         fontWeight={"bold"}
+        ref={inputRef}
       />
       <Button
-        disabled={amount < 10 || amount > accountBalance}
+        disabled={
+          amount < 10 || amount > accountBalance || !walletAddress || processing
+        }
         width={"100%"}
         borderRadius={"20px"}
+        bg={"blue.500"}
+        _hover={{ bg: "blue.600" }}
+        color={"white"}
         onClick={() => {
           console.log(amount);
+          requestPayout();
         }}
       >
-        Payout
+        {processing ? "Processing..." : "Request Payout"}
       </Button>
     </Box>
   );
