@@ -44,9 +44,9 @@ const Section = () => {
                             </Text>
                         </Box>
 
-                        <Box>
+                        <Box className='dangle'>
 
-                            <Image src={'https://res.cloudinary.com/dhkccnvyn/image/upload/v1659277029/quick/Rectangle_771_wwfoml.svg'}
+                            <Image src={'https://res.cloudinary.com/dhkccnvyn/image/upload/v1659285481/quick/Group_51_m2yiqe.svg'}
 
                             />
                         </Box>

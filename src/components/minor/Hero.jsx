@@ -4,12 +4,9 @@ import {
   Box,
   Flex,
   Text,
-  Menu,
-  MenuItem,
-  MenuList,
-  MenuButton,
+  Image,
   UnorderedList,
-  ListItem,
+
   Button
 } from "@chakra-ui/react";
 import Buttons from "../major/Buttons";
@@ -22,7 +19,7 @@ import Phrase from "../phrase";
 const Hero = () => {
   return (
     <>
-      <Box py="1em" bg={"#000"} h="100vh" color={"#fff"}>
+      <Box py="1em" position={'relative'} bg={"#000"} h="100vh" color={"#fff"}>
         <ContainerLayout>
           <Flex justifyContent={"space-between"} alignItems={"center"}>
             <Logo />
@@ -82,10 +79,16 @@ const Hero = () => {
               </Text>
             </Box>
             <Link to="/signup">
-              <Buttons value={"Get Started"} bg={"blue.500"} />
+              <Buttons value={"Get Started"} bg={"black"} />
+              
             </Link>
           </Flex>
         </ContainerLayout>
+
+        <Box position={'absolute'} bottom={0} width={['','40%']}>
+         <Image src={'https://res.cloudinary.com/dhkccnvyn/image/upload/v1659283237/quick/Group_44_gor4ho.svg'} />
+        </Box>
+    
       </Box>
     </>
   );

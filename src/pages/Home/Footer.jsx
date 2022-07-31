@@ -10,7 +10,7 @@ const Footer = () => {
             <Box my={'2em'} >
                 <center>
                     <UnorderedList display={'flex'} justifyContent={'center'}  gap={'2em'}>
-                        <List> <AiFillGithub size={'1.7em'}/> </List>
+                        <List cursor={'pointer'} onClick={ e => window.location.href='https://github.com/bossoncode/quickk'}> <AiFillGithub size={'1.7em'}/> </List>
                         <List>  <FaDiscord size={'1.7em'}/> </List>
                     </UnorderedList>
                 </center>

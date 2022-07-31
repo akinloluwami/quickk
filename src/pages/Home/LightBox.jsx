@@ -7,9 +7,9 @@ const LightBox  = () => {
         {
             title : 'Create Microblog',
             description : 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt ad corrupti odio dolor. Nihil itaque, nulla facere neque cum quos quisquam doloremque similique voluptate vel harum sequi dignissimos beatae minima?',
-            icon : 'https://res.cloudinary.com/dhkccnvyn/image/upload/v1657319726/secuWallet/Group_28_zlvsir.svg',
+            icon : 'https://res.cloudinary.com/dhkccnvyn/image/upload/v1659286476/secuWallet/Rectangle_4_zcwamn.svg',
             style : {
-                background : '#f5f5f5',
+                background : 'rgb(220 106 106 / 5%)',
             }
         },
         {
@@ -17,15 +17,15 @@ const LightBox  = () => {
             description : 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt ad corrupti odio dolor. Nihil itaque, nulla facere neque cum quos quisquam doloremque similique voluptate vel harum sequi dignissimos beatae minima?',
             icon : 'https://res.cloudinary.com/dhkccnvyn/image/upload/v1657319726/secuWallet/Group_28_zlvsir.svg',
             style : {
-                background : '#f5f5f5',
+                background : 'rgb(88 24 255 / 3%)',
             }
         },
         {
-            title : 'Create Microblog',
+            title : 'Place All Your Links in One Place',
             description : 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt ad corrupti odio dolor. Nihil itaque, nulla facere neque cum quos quisquam doloremque similique voluptate vel harum sequi dignissimos beatae minima?',
-            icon : 'https://res.cloudinary.com/dhkccnvyn/image/upload/v1657319726/secuWallet/Group_28_zlvsir.svg',
+            icon : 'https://res.cloudinary.com/dhkccnvyn/image/upload/v1659286304/secuWallet/Rectangle_3_hvg6vj.svg',
             style : {
-                background : '#f5f5f5',
+                background : '#fffceb',
             }
         }
     ]
