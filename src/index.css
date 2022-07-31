@@ -12,6 +12,12 @@
 }
 
 
+html , body {
+
+  scroll-behavior: smooth;
+  
+}
+
 /* loading screen */
 
 .loader {
@@ -44,6 +50,8 @@
     transform: rotate(360deg);
   }
 } 
+
+
 
 
 /* for mobile screen */
