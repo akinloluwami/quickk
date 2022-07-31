@@ -82,7 +82,17 @@ const Hero = () => {
               </Text>
             </Box>
             <Link to="/signup">
-              <Buttons value={"Get Started"} bg={"black"} />
+                  
+                <Button
+                  bg={'#191919'}
+                  color={'#fff'}
+                  px={'4em'}
+                  py={'1.6em'}
+                  _hover = {{ 
+                    backdround: ' #191919'
+                  }}
+
+                   > Get Started </Button>
               
             </Link>
           </Flex>
