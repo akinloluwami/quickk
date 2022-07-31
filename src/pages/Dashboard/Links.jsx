@@ -1,7 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import DashboardLayout from "../../Layouts/Dashboard/DashboardLayout";
 // import { Helmet } from "react-helmet";
-import { Text, Box, Button, Input, Flex, Switch } from "@chakra-ui/react";
+import {
+  Text,
+  Box,
+  Button,
+  Input,
+  Flex,
+  Switch,
+  Center,
+} from "@chakra-ui/react";
 import { fetchData, postData, deleteData } from "../../utils/Request";
 import { toast, ToastContainer } from "react-toastify";
 import { TbTrash } from "react-icons/tb";
@@ -10,20 +18,16 @@ import { BiPencil } from "react-icons/bi";
 const Links = () => {
   const [linkInputs, setlinkInputs] = useState([]);
   const [userLinks, setUserLinks] = useState([]);
-  const [reversedUserLinks, setReversedUserLinks] = useState([]);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(true);
   const [deleting, setDeleting] = useState(0);
+  const [updating, setUpdating] = useState(0);
 
   //initilize Ref
 
   const editTitle = useRef(null);
   const editUrl = useRef(null);
-
-  useEffect(() => {
-    setReversedUserLinks(userLinks.reverse());
-  }, [userLinks]);
 
   const linkRegex =
     /^(http:\/\/www.|https:\/\/www.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
@@ -97,11 +101,22 @@ const Links = () => {
       title,
       url,
     };
-    postData(`/dashboard/links/update/${id}`, data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    if (validURL(url) && title.length > 0) {
+      setUpdating(id);
+      const res = postData(`/dashboard/links/update/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      res.then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setUpdating(0);
+        }
+      });
+    }
+
+    console.log(id, title, url);
   };
 
   useEffect(() => {
@@ -124,7 +139,19 @@ const Links = () => {
           borderRadius={"3em"}
         >
           <Box>
-            <Button onClick={handleAddLink}>Add New Link</Button>
+            <Center>
+              <Button
+                onClick={handleAddLink}
+                backgroundColor="#0031af"
+                color="#fff"
+                width={"90%"}
+                borderRadius={"3em"}
+                maxWidth={"400px"}
+                _hover={{ backgroundColor: "#0031af" }}
+              >
+                Add New Link
+              </Button>
+            </Center>
             <Box>
               {linkInputs.map((link) => (
                 <Box
@@ -213,18 +240,25 @@ const Links = () => {
             </Box>
             <Box>
               {userLinks.length < 1 ? (
-                <Text>No Links</Text>
+                <Text
+                  fontSize={"2em"}
+                  fontWeight={"bold"}
+                  textAlign={"center"}
+                  my={"1em"}
+                >
+                  No Links
+                </Text>
               ) : (
-                reversedUserLinks.map((link) => (
-                  <>
+                userLinks.map((link) => (
+                  <Fragment key={link.id}>
                     <Box
-                      key={link.id}
                       my={4}
                       bg={"#fff"}
                       width={"100%"}
                       p={["1em", "2em"]}
                       borderRadius={"1.5em"}
                     >
+                      {updating === link.id && <Text>Updating...</Text>}
                       <Box
                         display={"flex"}
                         gap={"2em"}
@@ -234,56 +268,40 @@ const Links = () => {
                         <Input
                           my={"0.5em"}
                           value={link.title}
-                          width={["fit-content"]}
-                          fontWeight={"bold"}
-                          border="none"
+                          width={"100%"}
+                          fontWeight={"500"}
+                          border={"1px solid #ccc"}
                           ref={editTitle}
                           onChange={(e) => {
-                            /***It is rendering as read-only, please fix it*/
-                            userLinks[userLinks.indexOf(link)].title =
+                            const newUserLinks = [...userLinks];
+                            newUserLinks[userLinks.indexOf(link)].title =
                               e.target.value;
-                            // updateLink(link.id, link.title, link.url);
+                            setUserLinks(newUserLinks);
+                          }}
+                          onBlur={(e) => {
+                            updateLink(link.id, e.target.value, link.url);
                           }}
                         />
-
-                        <Text
-                          cursor={"pointer"}
-                          onClick={() => {
-                            //edit ref
-                            editTitle.current.focus();
-                          }}
-                        >
-                          <BiPencil />
-                        </Text>
                       </Box>
 
                       <Flex alignItems={"center"}>
                         <Input
                           my={"0.5em"}
                           value={link.url}
-                          border={"none"}
-                          outline={"none"}
-                          fontWeight={"bold"}
-                          isDisabled={disable}
+                          border={"1px solid #ccc"}
+                          fontWeight={"500"}
                           ref={editUrl}
-                          width={["fit-content"]}
+                          width={"100%"}
                           onChange={(e) => {
-                            /***It is rendering as read-only, please fix it*/
-                            userLinks[userLinks.indexOf(link)].url =
+                            const newUserLinks = [...userLinks];
+                            newUserLinks[userLinks.indexOf(link)].url =
                               e.target.value;
-
-                            // updateLink(link.id, link.title, link.url);
+                            setUserLinks(newUserLinks);
+                          }}
+                          onBlur={(e) => {
+                            updateLink(link.id, link.title, e.target.value);
                           }}
                         />
-                        <Text
-                          cursor={"pointer"}
-                          onClick={() => {
-                            setDisable(false);
-                            editUrl.current.focus();
-                          }}
-                        >
-                          <BiPencil />
-                        </Text>
                       </Flex>
 
                       <Button
@@ -291,13 +309,14 @@ const Links = () => {
                           setDeleting(link.id);
                           handleDeleteLink(link.id);
                         }}
+                        bg={"red.500"}
                       >
                         <Text my={"0.5em"} fontSize={"1.2em"}>
                           {deleting === link.id ? "Deleting..." : <TbTrash />}
                         </Text>
                       </Button>
                     </Box>
-                  </>
+                  </Fragment>
                 ))
               )}
             </Box>
