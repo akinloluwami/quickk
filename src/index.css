@@ -12,6 +12,31 @@
 }
 
 
+html , body {
+
+  scroll-behavior: smooth;
+  
+}
+
+.dangle {
+  animation: 1s dangle infinite;
+}
+
+
+@keyframes dangle {
+
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+  
+}
+
 /* loading screen */
 
 .loader {
@@ -44,6 +69,8 @@
     transform: rotate(360deg);
   }
 } 
+
+
 
 
 /* for mobile screen */
