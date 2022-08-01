@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Text, Center } from "@chakra-ui/react";
 import DonationBox from "../Profile/Components/DonationBox";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { fetchData, postData } from "../../utils/Request";
 import RequestPayout from "./RequestPayout";
 // import { Helmet } from "react-helmet";
@@ -10,6 +10,14 @@ const Donate = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [reversed, setReversed] = useState();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = useCallback(() => {
+    setIsOpen(true);
+  }, [setIsOpen]);
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+  }, [setIsOpen]);
 
   useEffect(() => {
     const response = fetchData("/payment/get-donations", {
@@ -48,9 +56,16 @@ const Donate = () => {
           <Text>Loading...</Text>
         ) : donations.length > 0 ? (
           <Box position={"relative"}>
-            <RequestPayout isOpen={isOpen} />
+            <RequestPayout isOpen={isOpen} handleClose={handleClose} />
+
             <Center my={"2em"}>
-              <Button onClick={() => setIsOpen(true)}>Request Payout</Button>
+              <Button
+                onClick={() => {
+                  handleOpen();
+                }}
+              >
+                Request Payout
+              </Button>
             </Center>
             <Flex flexWrap={"wrap"} justifyContent={"space-evenly"}>
               {reversed?.map((donation) => (

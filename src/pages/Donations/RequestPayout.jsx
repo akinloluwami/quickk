@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Center, Button, Input, Text, Box, Flex, Link } from "@chakra-ui/react";
 import { postData, fetchData } from "../../utils/Request";
 
-function RequestPayout({ isOpen }) {
+function RequestPayout({ handleClose, isOpen }) {
   const [amount, setAmount] = useState(0);
   const boxRef = useRef();
   const [accountBalance, setAccountBalance] = useState(0);
@@ -79,7 +79,14 @@ function RequestPayout({ isOpen }) {
       display={isOpen ? "block" : "none"}
       ref={boxRef}
     >
-      <Button right={"0"} position={"absolute"} top={"0"} onClick={() => {}}>
+      <Button
+        right={"0"}
+        position={"absolute"}
+        top={"0"}
+        onClick={() => {
+          handleClose();
+        }}
+      >
         <Text fontSize={"1.5em"}>x</Text>
       </Button>
 
